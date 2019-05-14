@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(password))
+        else if (TextUtils.isEmpty(password))
         {
             Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
         }
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                             {
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                
+
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account Created Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
