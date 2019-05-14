@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         {
             mAuth.signOut();
             SendUserToLoginActivity();
+            finish();
         }
 
         if(item.getItemId() == R.id.main_setting_option)
