@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
+        currentUser = mAuth.getCurrentUser();
         InitializeFields();
 
         NeedNewAccountLink.setOnClickListener(new View.OnClickListener() {
