@@ -66,16 +66,16 @@ public class LoginActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email))
         {
-            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "請輸入信箱...", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "請輸入密碼...", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            loadingBar.setTitle("Sign In");
-            loadingBar.setMessage("Please wait....");
+            loadingBar.setTitle("登入中");
+            loadingBar.setMessage("請稍後~~");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
@@ -87,14 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful())
                             {
                                 SendUserToMainActivity();
-                                Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "登入成功!!", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                                                 }
 
                             else
                             {
                                 String message = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }

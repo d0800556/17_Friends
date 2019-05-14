@@ -60,16 +60,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email))
         {
-            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "請輸入信箱...", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "請輸入密碼...", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            loadingBar.setTitle("Creating New Account");
-            loadingBar.setMessage("Please wait, while we wre creating new account for you...");
+            loadingBar.setTitle("註冊帳號中");
+            loadingBar.setMessage("註冊帳號中，請稍後~~");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
@@ -84,13 +84,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
 
                                 SendUserToMainActivity();
-                                Toast.makeText(RegisterActivity.this, "Account Created Successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "註冊成功!!", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                             else
                             {
                                 String message = task.getException().toString();
-                                Toast.makeText(RegisterActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
