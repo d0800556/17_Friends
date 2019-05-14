@@ -30,14 +30,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button LoginButton, PhoneLoginButton;
     private EditText UserEmail, UserPassword;
     private TextView NeedNewAccountLink, ForgetPasswordLink;
-    private DatabaseReference UsersRef;
+    private DatabaseReference RootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        RootRef = FirebaseDatabase.getInstance().getReference();
         currentUser = mAuth.getCurrentUser();
         InitializeFields();
 
@@ -86,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             if (task.isSuccessful())
                             {
+                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                RootRef.child("Users").child(currentUserID).setValue("");
+
                                 SendUserToMainActivity();
                                 Toast.makeText(LoginActivity.this, "登入成功!!", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
