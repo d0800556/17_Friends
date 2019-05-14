@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        super.onContextItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
 
         if(item.getItemId() == R.id.main_logout_option)
         {
