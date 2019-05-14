@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mAuth = FirebaseAuth.getInstance();
 
         InitializeFields();
 
@@ -57,34 +58,43 @@ public class RegisterActivity extends AppCompatActivity {
         String email = UserEmail.getText().toString();
         String password = UserPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "請輸入email...", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(email))
+        {
+            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "請輸入密碼...", Toast.LENGTH_SHORT).show();
-        } else {
-            loadingBar.setTitle("創立新帳號中");
-            loadingBar.setMessage("帳號創立中請稍後");
+        if (TextUtils.isEmpty(password))
+        {
+            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            loadingBar.setTitle("Creating New Account");
+            loadingBar.setMessage("Please wait, while we wre creating new account for you...");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                        public void onComplete(@NonNull Task<AuthResult> task)
+                        {
+                            if (task.isSuccessful())
+                            {
 
+                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                
                                 SendUserToMainActivity();
-                                Toast.makeText(RegisterActivity.this, "帳戶註冊成功...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Account Created Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
-                            } else {
+                            }
+                            else
+                            {
                                 String message = task.getException().toString();
-                                Toast.makeText(RegisterActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
                     });
-
         }
     }
 
