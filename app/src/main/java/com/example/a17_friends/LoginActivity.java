@@ -1,10 +1,14 @@
 package com.example.a17_friends;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
 
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     protected  void onStart()
     {
         super.onStart();
-       /* if (currentUser = null)
+        if (currentUser != null)
         {
             SendUserToMainActivity();
         }
@@ -24,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void SendUserToMainActivity() {
 
-        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.this)
-                startActivity(loginIntent)
+        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(loginIntent);
     }
 }
