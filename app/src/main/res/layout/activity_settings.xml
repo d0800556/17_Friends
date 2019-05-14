@@ -25,6 +25,23 @@
         android:inputType="textMultiLine"
         android:hint="使用者名稱"
         android:textAlignment="center"
+        android:drawableStart="@drawable/edit_profile"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:background="@drawable/inputs"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:padding="6dp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/set_profile_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_user_name"
+        android:inputType="textMultiLine"
+        android:hint="使用者狀態"
+        android:textAlignment="center"
         android:drawableStart="@drawable/edit_status"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
@@ -33,5 +50,23 @@
         android:layout_marginEnd="15dp"
         android:padding="6dp"
         android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/update_settings_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_profile_status"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/colorPrimary"
+        android:inputType="textMultiLine"
+        android:padding="6dp"
+        android:text="更新"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

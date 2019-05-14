@@ -1,6 +1,7 @@
 package com.example.a17_friends;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +9,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private  TabsAccessorAdapter myTabsAccessorAdapter;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private DatabaseReference RootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        RootRef = FirebaseDatabase.getInstance().getReference();
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("17-Friends");
@@ -47,12 +56,37 @@ public class MainActivity extends AppCompatActivity {
         {
             SendUserToLoginActivity();
         }
+
+        else
+        {
+            VerifyUserExistance();
+        }
     }
 
-    private void SendUserToLoginActivity() {
+    private void VerifyUserExistance()
+    {
+        String currentUserID=mAuth.getCurrentUser().getUid();
+        RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.child("name").exists())
+                {
+                    Toast.makeText(MainActivity.this,"歡迎",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    SendUserToSettingActivity();
+                }
 
-        Intent loginIntent = new Intent (MainActivity.this, LoginActivity.class);
-        startActivity(loginIntent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -75,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.main_setting_option)
         {
-
+            SendUserToSettingActivity();
         }
 
         if(item.getItemId() == R.id.main_find_friends_option)
@@ -84,5 +118,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void SendUserToLoginActivity() {
+
+        Intent loginIntent = new Intent (MainActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
+    }
+
+    private void SendUserToSettingActivity() {
+
+        Intent SettingIntent = new Intent (MainActivity.this, SettingsActivity.class);
+        SettingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(SettingIntent);
+        finish();
     }
 }
