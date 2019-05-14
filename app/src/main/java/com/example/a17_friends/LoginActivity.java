@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     protected  void onStart()
     {
         super.onStart();
-        if (currentUser = null)
+       /* if (currentUser = null)
         {
             SendUserToMainActivity();
         }
