@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -33,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
-
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        
         InitializeFields();
 
         AlreadyHaveAccountLink.setOnClickListener(new View.OnClickListener()
@@ -82,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                             {
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
+                                RootRef.child("Users").child(currentUserID).setValue("");
 
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "註冊成功!!", Toast.LENGTH_SHORT).show();

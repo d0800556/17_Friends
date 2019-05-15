@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful())
                             {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                RootRef.child("Users").child(currentUserID).setValue("");
 
                                 SendUserToMainActivity();
                                 Toast.makeText(LoginActivity.this, "登入成功!!", Toast.LENGTH_SHORT).show();
