@@ -43,13 +43,13 @@ public class TabsAccessorAdapter   extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                return "Chats";
+                return "聊天";
 
             case 1:
-                return "Groups";
+                return "群組";
 
             case 2:
-                return "Contacts";
+                return "通訊錄";
 
             default:
                 return null;
