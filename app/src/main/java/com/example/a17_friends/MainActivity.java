@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(MainActivity.this, groupname + "群組創建成功!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, groupname + " 群組創建成功!!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
