@@ -10,6 +10,13 @@
     </item>
 
     <item
+        android:title="設立群組"
+        android:id="@+id/main_create_group"
+        app:showAsAction="never"
+        >
+    </item>
+
+    <item
         android:title="設定"
         android:id="@+id/main_setting_option"
         app:showAsAction="never"
