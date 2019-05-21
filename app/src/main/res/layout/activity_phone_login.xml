@@ -16,7 +16,7 @@
         android:layout_marginTop="180dp"
         android:background="@drawable/inputs"
         android:padding="8dp"
-        android:hint="輸入手機號碼..."
+        android:hint="輸入手機號碼(僅限台灣地區)..."
         android:textAllCaps="false"
         android:textSize="15sp"
         android:drawableStart="@drawable/phone"
