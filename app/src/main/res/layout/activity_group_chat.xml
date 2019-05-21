@@ -53,16 +53,18 @@
 
         <EditText
             android:id="@+id/input_group_message"
-            android:layout_width="330dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="16"
             android:hint="請輸入訊息.."
-            android:padding="17dp"/>
+            android:padding="17dp" />
 
         <ImageButton
             android:id="@+id/send_message_button"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/send_message"/>
+            android:layout_weight="1"
+            android:src="@drawable/send_message" />
 
     </LinearLayout>
 
