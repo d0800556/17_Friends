@@ -58,17 +58,17 @@ public class PhoneLoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(phoneNumber))
                 {
-                    Toast.makeText(PhoneLoginActivity.this, "Please enter your phone number first...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLoginActivity.this, "請先輸入電話號碼...", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    loadingBar.setTitle("Phone Verification");
-                    loadingBar.setMessage("please wait, while we are authenticating your phone...");
+                    loadingBar.setTitle("手機號碼驗證");
+                    loadingBar.setMessage("正在驗證手機號碼...");
                     loadingBar.setCanceledOnTouchOutside(false);
                     loadingBar.show();
 
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            phoneNumber,        // Phone number to verify
+                            "+886"+phoneNumber,        // Phone number to verify
                             60,                 // Timeout duration
                             TimeUnit.SECONDS,   // Unit of timeout
                             PhoneLoginActivity.this,               // Activity (for callback binding)
@@ -87,12 +87,12 @@ public class PhoneLoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(verificationCode))
                 {
-                    Toast.makeText(PhoneLoginActivity.this, "請先寫下驗證碼...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLoginActivity.this, "請先輸入驗證碼...", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    loadingBar.setTitle("Verification Code");
-                    loadingBar.setMessage("please wait, while we are verifying verification code...");
+                    loadingBar.setTitle("驗證碼驗證");
+                    loadingBar.setMessage("正在確認驗證碼...");
                     loadingBar.setCanceledOnTouchOutside(false);
                     loadingBar.show();
 
@@ -131,7 +131,7 @@ public class PhoneLoginActivity extends AppCompatActivity {
                 mResendToken = token;
 
                 loadingBar.dismiss();
-                Toast.makeText(PhoneLoginActivity.this, "Code has been sent, please check and verify...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "驗證碼已送出，請確認簡訊...", Toast.LENGTH_SHORT).show();
 
                 SendVerificationCodeButton.setVisibility(View.INVISIBLE);
                 InputPhoneNumber.setVisibility(View.INVISIBLE);
@@ -150,13 +150,13 @@ public class PhoneLoginActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             loadingBar.dismiss();
-                            Toast.makeText(PhoneLoginActivity.this, "Congratulations, you're logged in successfully...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLoginActivity.this, "恭喜，註冊成功!!", Toast.LENGTH_SHORT).show();
                             SendUserToMainActivity();
                         }
                         else
                         {
                             String message = task.getException().toString();
-                            Toast.makeText(PhoneLoginActivity.this, "Error : "  +  message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLoginActivity.this, "錯誤 : "  +  message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
