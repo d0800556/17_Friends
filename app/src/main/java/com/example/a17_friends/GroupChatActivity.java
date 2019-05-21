@@ -1,5 +1,6 @@
 package com.example.a17_friends;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -189,7 +190,16 @@ public class GroupChatActivity extends AppCompatActivity {
             String chatTime = (String) ((DataSnapshot)iterator.next()).getValue();
 
             displayTextMessage.append(chatName+":\n"+chatMessage+"\n"+chatTime+"    "+chatDate+"\n\n\n");
-            mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+
+            //這是另一種拉畫面的，不要誤刪
+            Handler ScrollViewHandler = new Handler();
+            ScrollViewHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+
+            });
         }
     }
 }
