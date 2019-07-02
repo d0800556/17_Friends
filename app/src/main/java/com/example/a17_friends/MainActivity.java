@@ -196,13 +196,11 @@ public class MainActivity extends AppCompatActivity {
         Intent SettingIntent = new Intent (MainActivity.this, SettingsActivity.class);
         SettingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(SettingIntent);
-        finish();
     }
 
     private void SendUserToFindFriendsActivity() {
 
         Intent FindFriendsIntent = new Intent (MainActivity.this, FindFriendsActivity.class);
         startActivity(FindFriendsIntent);
-        finish();
     }
 }
