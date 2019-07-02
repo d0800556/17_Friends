@@ -1,5 +1,6 @@
 package com.example.a17_friends;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private static  final int GalleryPick = 1;
     private StorageReference UserProfileImagesRef;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -120,6 +122,29 @@ public class SettingsActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(SettingsActivity.this, "圖片上傳成功...", Toast.LENGTH_SHORT).show();
+
+
+
+                            final String downloaedUrl = task.getResult().getDownloadUrl().toString();
+                            RootRef.child("Users").child(currentUserID).child("image")
+                                    .setValue(downloaedUrl)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if (task.isSuccessful())
+                                            {
+                                                Toast.makeText(SettingsActivity.this, "圖片上傳成功...", Toast.LENGTH_SHORT).show();
+                                                loadingBar.dismiss();
+                                            }
+                                            else
+                                            {
+                                                String message = task.getException().toString();
+                                                Toast.makeText(SettingsActivity.this, "錯誤: " + message, Toast.LENGTH_SHORT).show();
+                                                loadingBar.dismiss();
+                                            }
+                                        }
+                                    });
                         }
                         else
                         {
@@ -216,4 +241,5 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(mainIntent);
         finish();
     }
+
 }
