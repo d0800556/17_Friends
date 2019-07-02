@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -119,43 +120,48 @@ public class SettingsActivity extends AppCompatActivity {
                 loadingBar.setMessage("正在上傳圖片請稍後...");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
-                Uri resultUri= result.getUri();
-                StorageReference filePath = UserProfileImagesRef.child(currentUserID + ".jpg");
+                Uri resultUri=result.getUri();//This contains the cropped image
 
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                final StorageReference filePath=UserProfileImagesRef.child(currentUserID+".jpg");//This way we link the userId with image. This is the file name of the image stored in firebase database.
+
+                UploadTask uploadTask=filePath.putFile(resultUri);
+                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(SettingsActivity.this, "圖片上傳成功...", Toast.LENGTH_SHORT).show();
-
-
-                            final String downloaedUrl = task.getResult (). getMetadata (). getReference (). getDownloadUrl (). toString ();
-
-                            RootRef.child("Users").child(currentUserID).child("image")
-                                    .setValue(downloaedUrl)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task)
-                                        {
-                                            if (task.isSuccessful())
-                                            {
-                                                Toast.makeText(SettingsActivity.this, "圖片上傳成功...", Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }
-                                            else
-                                            {
-                                                String message = task.getException().toString();
-                                                Toast.makeText(SettingsActivity.this, "錯誤: " + message, Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }
-                                        }
-                                    });
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
                         }
-                        else
-                        {
-                            String message = task.getException().toString();
-                            Toast.makeText(SettingsActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+
+                        // Continue with the task to get the download URL
+                        return filePath.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            Toast.makeText(SettingsActivity.this, "上傳成功", Toast.LENGTH_SHORT).show();
+                            if (downloadUri != null) {
+
+                                String downloadUrl = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                                RootRef.child("Users").child(currentUserID).child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        loadingBar.dismiss();
+                                        if(!task.isSuccessful()){
+                                            String error=task.getException().toString();
+                                            Toast.makeText(SettingsActivity.this,"錯誤 : "+error,Toast.LENGTH_LONG).show();
+                                        }else{
+
+                                        }
+                                    }
+                                });
+                            }
+
+                        } else {
+                            // Handle failures
+                            // ...
+                            Toast.makeText(SettingsActivity.this,"錯誤 :",Toast.LENGTH_LONG).show();
                             loadingBar.dismiss();
                         }
                     }
