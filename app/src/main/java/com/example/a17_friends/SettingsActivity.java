@@ -97,7 +97,8 @@ public class SettingsActivity extends AppCompatActivity {
             {
             Uri ImageUri = data.getData();
 
-            CropImage.activity()
+
+            CropImage.activity(ImageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1, 1)
                     .start(this);
