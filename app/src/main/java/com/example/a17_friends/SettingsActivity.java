@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -38,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
     private DatabaseReference RootRef;
 
     private static  final int GalleryPick = 1;
+    private StorageReference UserProfileImagesRef;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+        UserProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
         InitializeFields();
 
@@ -102,6 +107,26 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK)
+            {
+                Uri resultUri= result.getUri();
+                StorageReference filePath = UserProfileImagesRef.child(currentUserID + ".jpg");
+
+                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(SettingsActivity.this, "圖片上傳成功...", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(SettingsActivity.this, "圖片上傳失敗，請重新再試一次...", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         }
     }
 
