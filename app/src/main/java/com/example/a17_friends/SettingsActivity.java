@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -54,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
         UserProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
+        loadingBar = new ProgressDialog(this);
 
         InitializeFields();
 
@@ -113,6 +115,10 @@ public class SettingsActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK)
             {
+                loadingBar.setTitle("設定個人圖片");
+                loadingBar.setMessage("正在上傳圖片請稍後...");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
                 Uri resultUri= result.getUri();
                 StorageReference filePath = UserProfileImagesRef.child(currentUserID + ".jpg");
 
@@ -126,6 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
                             final String downloaedUrl = task.getResult().getDownloadUrl().toString();
+
                             RootRef.child("Users").child(currentUserID).child("image")
                                     .setValue(downloaedUrl)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -150,6 +157,7 @@ public class SettingsActivity extends AppCompatActivity {
                         {
                             String message = task.getException().toString();
                             Toast.makeText(SettingsActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
                         }
                     }
                 });
@@ -210,6 +218,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
                         else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {
