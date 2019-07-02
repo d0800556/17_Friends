@@ -23,7 +23,7 @@ public class FindFriendsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Find Friends");
+        getSupportActionBar().setTitle("找朋友");
 
 
     }
