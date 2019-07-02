@@ -123,7 +123,8 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(SettingsActivity.this, "圖片上傳失敗，請重新再試一次...", Toast.LENGTH_SHORT).show();
+                            String message = task.getException().toString();
+                            Toast.makeText(SettingsActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
