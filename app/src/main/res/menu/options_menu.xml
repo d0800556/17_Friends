@@ -17,7 +17,7 @@
     </item>
 
     <item
-        android:title="設定"
+        android:title="帳戶設定"
         android:id="@+id/main_setting_option"
         app:showAsAction="never"
         >
