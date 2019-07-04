@@ -104,12 +104,12 @@ public class ProfileActivity extends AppCompatActivity {
                             if (request_type.equals("sent"))
                             {
                                 Current_State = "request_sent";
-                                SendMessageRequestButton.setText("取消聊天請求");
+                                SendMessageRequestButton.setText("取消好友邀請");
                             }
                             else if (request_type.equals("received"))
                             {
                                 Current_State = "request_received";
-                                SendMessageRequestButton.setText("同意聊天請求");
+                                SendMessageRequestButton.setText("同意好友邀請");
 
                                 DeclineMessageRequestButton.setVisibility(View.VISIBLE);
                                 DeclineMessageRequestButton.setEnabled(true);
@@ -316,7 +316,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                             SendMessageRequestButton.setEnabled(true);
                                             Current_State = "request_sent";
-                                            SendMessageRequestButton.setText("取消聊天請求");
+                                            SendMessageRequestButton.setText("取消好友邀請");
                                         }
                                     }
                                 });

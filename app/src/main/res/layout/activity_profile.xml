@@ -74,7 +74,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginRight="65dp"
         android:background="@color/colorPrimary"
-        android:text="取消聊天請求"
+        android:text="取消好友邀請"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
