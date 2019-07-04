@@ -49,7 +49,7 @@ public class TabsAccessorAdapter   extends FragmentPagerAdapter
                 return "群組";
 
             case 2:
-                return "通訊錄";
+                return "好友";
 
             default:
                 return null;
