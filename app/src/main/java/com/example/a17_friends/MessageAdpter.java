@@ -20,7 +20,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>
+class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>
 {
     private List<Messages> userMessagesList;
     private FirebaseAuth mAuth;
@@ -102,9 +102,11 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHold
         {
             messageViewHolder.receiverProfileImage.setVisibility(View.INVISIBLE);
             messageViewHolder.receiverMessageText.setVisibility(View.INVISIBLE);
+            messageViewHolder.senderMessageText.setVisibility(View.INVISIBLE);
+
             if (fromUserID.equals(messageSenderId))
             {
-                //messageViewHolder.senderMessageText.setVisibility(View.VISIBLE);
+                messageViewHolder.senderMessageText.setVisibility(View.VISIBLE);
 
                 messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.BLACK);
@@ -112,7 +114,6 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHold
             }
             else
             {
-                messageViewHolder.senderMessageText.setVisibility(View.INVISIBLE);
 
                 messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
                 messageViewHolder.receiverMessageText.setVisibility(View.VISIBLE);
