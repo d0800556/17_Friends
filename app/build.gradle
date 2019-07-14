@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:4.3.2'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
     testImplementation 'junit:junit:4.12'
     implementation 'com.squareup.picasso:picasso:2.71828'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
