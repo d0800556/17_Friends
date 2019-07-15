@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         else
         {
-            updateUserStatus("線上");
+            updateUserStatus("online");
             VerifyUserExistance();
         }
     }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser != null)
         {
-            updateUserStatus("離線");
+            updateUserStatus("offline");
         }
     }
 
