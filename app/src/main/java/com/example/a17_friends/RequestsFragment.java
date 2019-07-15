@@ -109,7 +109,7 @@ public class RequestsFragment extends Fragment {
                                                 final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
 
                                                 holder.userName.setText(requestUserName);
-                                                holder.userStatus.setText(requestUserStatus);
+                                                holder.userStatus.setText(requestUserName  + " 想跟你做好友");
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                     @Override
@@ -206,6 +206,87 @@ public class RequestsFragment extends Fragment {
 
                                            @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }
+                                    else if (type.equals("sent"))
+                                    {
+                                        Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
+                                        request_sent_btn.setText("發送請求");
+
+                                        holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
+
+                                        UsersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot)
+                                            {
+                                                if (dataSnapshot.hasChild("image"))
+                                                {
+                                                    final String requestProfileImage = dataSnapshot.child("image").getValue().toString();
+
+                                                    Picasso.get().load(requestProfileImage).into(holder.profileImage);
+                                                }
+
+                                                final String requestUserName = dataSnapshot.child("name").getValue().toString();
+                                                final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
+
+                                                holder.userName.setText(requestUserName);
+                                                holder.userStatus.setText("你已傳送邀請給 " + requestUserName);
+
+
+                                                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view)
+                                                    {
+                                                        CharSequence options[] = new CharSequence[]
+                                                                {
+                                                                        "取消好友邀請"
+                                                                };
+
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                                        builder.setTitle("已經傳送邀請");
+
+                                                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i)
+                                                            {
+                                                                if (i == 0)
+                                                                {
+                                                                    ChatRequestsRef.child(currentUserID).child(list_user_id)
+                                                                            .removeValue()
+                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task)
+                                                                                {
+                                                                                    if (task.isSuccessful())
+                                                                                    {
+                                                                                        ChatRequestsRef.child(list_user_id).child(currentUserID)
+                                                                                                .removeValue()
+                                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                    @Override
+                                                                                                    public void onComplete(@NonNull Task<Void> task)
+                                                                                                    {
+                                                                                                        if (task.isSuccessful())
+                                                                                                        {
+                                                                                                            Toast.makeText(getContext(), "you have cancelled the chat request.", Toast.LENGTH_SHORT).show();
+                                                                                                        }
+                                                                                                    }
+                                                                                                });
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                        });
+                                                        builder.show();
+                                                    }
+                                                });
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
                                             }
                                         });
