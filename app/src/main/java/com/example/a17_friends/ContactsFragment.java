@@ -82,6 +82,26 @@ public class ContactsFragment extends Fragment {
                     {
                         if (dataSnapshot.exists())
                         {
+                            if (dataSnapshot.child("userState").hasChild("state"))
+                            {
+                                String state = dataSnapshot.child("userState").child("state").getValue().toString();
+                                String date = dataSnapshot.child("userState").child("date").getValue().toString();
+                                String time = dataSnapshot.child("userState").child("time").getValue().toString();
+
+                                if (state.equals("online"))
+                                {
+                                    holder.onlineIcon.setVisibility(View.VISIBLE);
+                                }
+                                else if (state.equals("offline"))
+                                {
+                                    holder.onlineIcon.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                            else
+                            {
+                                holder.onlineIcon.setVisibility(View.INVISIBLE);
+                            }
+
                             if (dataSnapshot.hasChild("image"))
                             {
                                 String userImage = dataSnapshot.child("image").getValue().toString();
