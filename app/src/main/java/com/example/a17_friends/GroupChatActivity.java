@@ -71,18 +71,13 @@ public class GroupChatActivity extends AppCompatActivity {
                 mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         GroupNameRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists())
                 {
-                     DisplayMessages(dataSnapshot);
+                    DisplayMessages(dataSnapshot);
                 }
             }
 
@@ -106,6 +101,13 @@ public class GroupChatActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
     }
 
 
