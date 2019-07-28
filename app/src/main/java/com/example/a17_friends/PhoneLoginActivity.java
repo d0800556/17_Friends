@@ -121,7 +121,7 @@ public class PhoneLoginActivity extends AppCompatActivity {
             {
 
                 loadingBar.dismiss();
-                Toast.makeText(PhoneLoginActivity.this, "電話號碼無效，請使用台灣地區輸入正確的電話號碼...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "電話號碼無效，請使用正確的電話號碼...", Toast.LENGTH_SHORT).show();
 
                 SendVerificationCodeButton.setVisibility(View.VISIBLE);
                 InputPhoneNumber.setVisibility(View.VISIBLE);
