@@ -74,7 +74,7 @@ public class PhoneLoginActivity extends AppCompatActivity {
                     loadingBar.show();
 
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            "+886"+phoneNumber,        // Phone number to verify
+                            phoneNumber,        // Phone number to verify
                             60,                 // Timeout duration
                             TimeUnit.SECONDS,   // Unit of timeout
                             PhoneLoginActivity.this,               // Activity (for callback binding)
