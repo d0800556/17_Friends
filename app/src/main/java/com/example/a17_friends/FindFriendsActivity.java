@@ -1,9 +1,9 @@
 package com.example.a17_friends;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,14 +14,14 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuthRegistrar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FindFriendsActivity extends AppCompatActivity {
+public class FindFriendsActivity extends Fragment {
+    private View FriendsView;
 
     private Toolbar mToolbar;
     private RecyclerView FindFriendsRecyclerList;
@@ -29,25 +29,21 @@ public class FindFriendsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_friends);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        FriendsView = inflater.inflate(R.layout.activity_find_friends, container, false);
 
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        FindFriendsRecyclerList = (RecyclerView) findViewById(R.id.find_friends_recycler_list);
-        FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(this));
-
-        mToolbar = (Toolbar) findViewById(R.id.find_friends_toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("找朋友");
+        FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
+        FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
+        return  FriendsView;
 
     }
 
     @Override
-    protected void onStart()
+    public void onStart()
     {
         super.onStart();
 
@@ -71,7 +67,7 @@ public class FindFriendsActivity extends AppCompatActivity {
                             {
                                 String visit_user_id = getRef(position).getKey();
 
-                                Intent profileIntent = new Intent(FindFriendsActivity.this, ProfileActivity.class);
+                                Intent profileIntent =new Intent(getContext(),ProfileActivity.class);
                                 profileIntent.putExtra("visit_user_id", visit_user_id);
                                 startActivity(profileIntent);
                             }

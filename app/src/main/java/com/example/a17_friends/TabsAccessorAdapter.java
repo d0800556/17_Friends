@@ -16,13 +16,12 @@ public class TabsAccessorAdapter   extends FragmentPagerAdapter
         switch (i)
         {
             case 0:
-                ChatsFragment chatsFragment = new ChatsFragment();
-                return  chatsFragment;
+                FindFriendsActivity findFriendsActivity = new FindFriendsActivity();
+                return  findFriendsActivity;
 
             case 1:
-                GroupsFragment groupsFragment = new GroupsFragment();
-                return  groupsFragment;
-
+                ChatsFragment chatsFragment = new ChatsFragment();
+                return  chatsFragment;
             case 2:
                 ContactsFragment contactsFragment = new ContactsFragment();
                 return  contactsFragment;
@@ -47,10 +46,10 @@ public class TabsAccessorAdapter   extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                return "聊天";
+                return "主頁";
 
             case 1:
-                return "群組";
+                return "聊天";
 
             case 2:
                 return "好友";
