@@ -129,9 +129,9 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             CharSequence GameOptions[] = new CharSequence[]
                                     {
-                                            "你畫我猜",
-                                            "真心話大冒險",
                                             "猜拳",
+                                            "真心話大冒險",
+                                            "你畫我猜",
                                             "夫妻臉"
                                     };
 
@@ -143,7 +143,43 @@ public class ChatActivity extends AppCompatActivity {
                                 {
                                     if(i == 0)
                                     {
+                                        CharSequence MoraOptions[] = new CharSequence[]
+                                                {
+                                                        "剪刀",
+                                                        "石頭",
+                                                        "布",
+                                                        "取消猜拳要求",
+                                                };
 
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                                        builder.setItems(MoraOptions, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int i)
+                                            {
+                                                if(i == 0)
+                                                {
+                                                    MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                                                    SendMessage();
+                                                }
+                                                if(i == 1 )
+                                                {
+                                                    MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                                                    SendMessage();
+                                                }
+                                                if(i == 2)
+                                                {
+                                                    MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                                                    SendMessage();
+                                                }
+                                                if(i == 3)
+                                                {
+                                                    MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已取消");
+                                                    SendMessage();
+                                                }
+                                            }
+                                        });
+                                        builder.show();
                                     }
                                     if(i == 1 )
                                     {
@@ -164,7 +200,7 @@ public class ChatActivity extends AppCompatActivity {
                                                     Random x=new Random();
                                                     int y=x.nextInt(23);
                                                     String truth[]=getResources().getStringArray(R.array.truth);
-                                                    MessageInputText.setText("真心話:"+"\n"+truth[y]);
+                                                    MessageInputText.setText("小遊戲(真心話):"+"\n"+truth[y]);
                                                     SendMessage();
                                                 }
                                                 if(i == 1 )
@@ -172,7 +208,7 @@ public class ChatActivity extends AppCompatActivity {
                                                     Random x=new Random();
                                                     int y=x.nextInt(4);
                                                     String adventure[]=getResources().getStringArray(R.array.adventure);
-                                                    MessageInputText.setText("大冒險:"+"\n"+adventure[y]);
+                                                    MessageInputText.setText("小遊戲(大冒險):"+"\n"+adventure[y]);
                                                     SendMessage();
                                                 }
                                             }
