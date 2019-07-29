@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -126,7 +127,7 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         if(i == 1 )
                         {
-                            CharSequence Gameoptions[] = new CharSequence[]
+                            CharSequence GameOptions[] = new CharSequence[]
                                     {
                                             "你畫我猜",
                                             "真心話大冒險",
@@ -136,7 +137,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
-                            builder.setItems(Gameoptions, new DialogInterface.OnClickListener() {
+                            builder.setItems(GameOptions, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int i)
                                 {
@@ -146,7 +147,37 @@ public class ChatActivity extends AppCompatActivity {
                                     }
                                     if(i == 1 )
                                     {
+                                        CharSequence TruthOptions[] = new CharSequence[]
+                                                {
+                                                        "真心話",
+                                                        "大冒險",
+                                                };
 
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                                        builder.setItems(TruthOptions, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int i)
+                                            {
+                                                if(i == 0)
+                                                {
+                                                    Random x=new Random();
+                                                    int y=x.nextInt(23);
+                                                    String truth[]=getResources().getStringArray(R.array.truth);
+                                                    MessageInputText.setText("真心話:"+"\n"+truth[y]);
+                                                    SendMessage();
+                                                }
+                                                if(i == 1 )
+                                                {
+                                                    Random x=new Random();
+                                                    int y=x.nextInt(4);
+                                                    String adventure[]=getResources().getStringArray(R.array.adventure);
+                                                    MessageInputText.setText("大冒險:"+"\n"+adventure[y]);
+                                                    SendMessage();
+                                                }
+                                            }
+                                        });
+                                        builder.show();
                                     }
 
                                     if(i == 2)

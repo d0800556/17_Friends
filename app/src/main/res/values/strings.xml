@@ -3,4 +3,38 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="truth">
+        <item>曾經有過最被感動的事是什麼？</item>
+        <item>如果給你一個機會去世界上任何一個地方旅行你會去那裡？</item>
+        <item>如果時間能倒流你希望回到哪一時間？</item>
+        <item>最想實現的三個願望是什麼？</item>
+        <item>如果讓你擁有一種超能力，你願意擁有什麼呢？</item>
+        <item>如果有來生，你選擇當？ </item>
+        <item>如果有一天，你生命中最重要的東西離你而去了，你會怎麼辦？ </item>
+        <item>如果讓你選擇做一個電影中的角色，你會選誰呢？ </item>
+        <item>在你心中誰最可信？ </item>
+        <item>你會選擇你愛的人還是愛你的人？ </item>
+        <item>如果有一天自己覺得自己的某一次選擇是錯的，可是現在已經再也無法重新來，那該怎麼辦？</item>
+        <item>世上真的有真愛嗎？你眼中的真愛是什麼樣的？</item>
+        <item>哭得最傷心的是哪一次？爲什麼？</item>
+        <item>在愛情和麵包中，你會選擇哪個？爲什麼？</item>
+        <item>你覺得最美的畫面是什麼？</item>
+        <item>到目前爲止你做過最瘋狂的事情？</item>
+        <item>如果母親跟愛人都掉進水里了，你會先救誰？</item>
+        <item>最想感謝的人是誰？</item>
+        <item>你最不開心的時候會有什麼表現？</item>
+        <item>這輩子做過最尷尬的事？</item>
+        <item>你最想要的5樣東西</item>
+        <item>你心目中理想的愛人是什麼樣子呢？</item>
+        <item>你在乎别人看你的眼光嗎？會爲了眾人的反對放棄自己想要的東西或人嗎？</item>
+        <item>如果從天而降99枚金幣，你的第一反應是什麼？</item>
+    </string-array>
+    <string-array name="adventure">
+        <item>學大象鼻子</item>
+        <item>隨便點一首國語歌但要用台語唱出來</item>
+        <item>做出猙獰的表情，說:”我要吃了你！”</item>
+        <item>講一個笑話或鬼故事</item>
+        <item>學狗或學貓叫</item>
+    </string-array>
 </resources>
