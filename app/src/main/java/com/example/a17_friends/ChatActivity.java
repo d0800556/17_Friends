@@ -128,7 +128,7 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             CharSequence Gameoptions[] = new CharSequence[]
                                     {
-                                            "你話我猜",
+                                            "你畫我猜",
                                             "真心話大冒險",
                                             "猜拳",
                                             "夫妻臉"
