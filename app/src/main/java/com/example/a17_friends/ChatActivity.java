@@ -105,12 +105,12 @@ public class ChatActivity extends AppCompatActivity {
             {
                 CharSequence options[] = new CharSequence[]
                         {
-                          "Image",
-                          "PDF Files",
-                          "Ms Word Files"
+                          "上傳圖片",
+                          "小遊戲",
+                          "視訊",
+                          "通話"
                         };
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
-                builder.setTitle("選擇檔案");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i)
@@ -126,11 +126,16 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         if(i == 1 )
                         {
-                            checker = "pdf";
+
                         }
+
                         if(i == 2)
                         {
-                            checker = "docx";
+
+                        }
+                        if(i == 3)
+                        {
+
                         }
 
                     }
