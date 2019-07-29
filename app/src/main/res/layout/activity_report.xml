@@ -4,12 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EBEBEC"
     tools:context=".ReportActivity">
 
     <include
-        layout="@layout/app_bar_layout"
         android:id="@+id/report_toolbar"
-        >
-    </include>
+        layout="@layout/app_bar_layout"></include>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/report_toolbar"
+        android:layout_marginTop="50dp"
+        android:text="  標題"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:background="#FDFDFE"
+        android:gravity="top"
+        android:hint="輸入文字在此..."
+        android:layout_marginTop="5dp"
+        android:padding="15dp"
+        android:textColorHint="#888888" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et1"
+        android:layout_marginTop="50dp"
+        android:text="  內容(文字)"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/ett2"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_below="@id/textView2"
+        android:background="#FDFDFE"
+        android:layout_marginTop="5dp"
+        android:gravity="top"
+        android:hint="輸入文字在此..."
+        android:padding="15dp"
+        android:textColorHint="#888888" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ett2"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="上傳圖片" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="送出" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </RelativeLayout>
