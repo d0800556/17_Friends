@@ -75,15 +75,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop()
+    protected void onPause()
     {
-        super.onStop();
+        super.onPause();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null)
+        if (currentUser == null)
         {
             updateUserStatus("offline");
         }
+
+
     }
 
     @Override
