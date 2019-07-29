@@ -126,7 +126,41 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         if(i == 1 )
                         {
+                            CharSequence Gameoptions[] = new CharSequence[]
+                                    {
+                                            "你話我猜",
+                                            "真心話大冒險",
+                                            "猜拳",
+                                            "夫妻臉"
+                                    };
 
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                            builder.setItems(Gameoptions, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i)
+                                {
+                                    if(i == 0)
+                                    {
+
+                                    }
+                                    if(i == 1 )
+                                    {
+
+                                    }
+
+                                    if(i == 2)
+                                    {
+
+                                    }
+                                    if(i == 3)
+                                    {
+
+                                    }
+
+                                }
+                            });
+                            builder.show();
                         }
 
                         if(i == 2)
