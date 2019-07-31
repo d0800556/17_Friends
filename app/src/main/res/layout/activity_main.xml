@@ -20,13 +20,6 @@
             >
         </include>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/main_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        </android.support.design.widget.TabLayout>
-
     </android.support.design.widget.AppBarLayout>
 
 
@@ -34,7 +27,21 @@
         android:id="@+id/main_tabs_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout"
-        >
-    </android.support.v4.view.ViewPager>
+        android:layout_above="@id/main_tabs1"
+        android:layout_below="@+id/appBarLayout"></android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/main_tabs1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#006157"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.design.widget.TabLayout>
+    </LinearLayout>
 </RelativeLayout>
