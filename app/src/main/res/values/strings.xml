@@ -37,4 +37,58 @@
         <item>講一個笑話或鬼故事</item>
         <item>學狗或學貓叫</item>
     </string-array>
+    <string-array name="drawguess">
+        <item>鐮刀</item>
+        <item>雞毛撣子</item>
+        <item>水錶</item>
+        <item>扳手</item>
+        <item>螺絲刀</item>
+        <item>指甲鉗</item>
+        <item>梳子</item>
+        <item>電鑽</item>
+        <item>錘子</item>
+        <item>公雞</item>
+        <item>豬</item>
+        <item>犀牛</item>
+        <item>兔子</item>
+        <item>長頸鹿</item>
+        <item>眼鏡蛇</item>
+        <item>獅子</item>
+        <item>鱷魚</item>
+        <item>恐龍</item>
+        <item>書</item>
+        <item>鋼管舞</item>
+        <item>皮影</item>
+        <item>詩</item>
+        <item>電影</item>
+        <item>畫</item>
+        <item>印刷</item>
+        <item>.雙截棍</item>
+        <item>匕首</item>
+        <item>青龍偃月刀</item>
+        <item>航空母艦</item>
+        <item>坦克</item>
+        <item>手槍</item>
+        <item>弓箭</item>
+        <item>金箍棒</item>
+        <item>刀</item>
+        <item>金字塔</item>
+        <item>橋</item>
+        <item>房子</item>
+        <item>雷峰塔</item>
+        <item>黑夜</item>
+        <item>烏雲</item>
+        <item>下雨</item>
+        <item>雷</item>
+        <item>極晝</item>
+        <item>風</item>
+        <item>亭</item>
+        <item>紅綠燈</item>
+        <item>自行車</item>
+        <item>輪船</item>
+        <item>路燈</item>
+        <item>直升機</item>
+        <item>火車</item>
+    </string-array>
+
 </resources>
