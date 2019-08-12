@@ -218,7 +218,9 @@ public class ChatActivity extends AppCompatActivity {
 
                                     if(i == 2)
                                     {
-
+                                        Intent drawIntent = new Intent (ChatActivity.this, DrawActivity.class);
+                                        drawIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(drawIntent);
                                     }
                                     if(i == 3)
                                     {
