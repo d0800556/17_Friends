@@ -2,6 +2,8 @@ package com.example.a17_friends;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Random;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,10 +20,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DrawActivity extends Activity {
     private Button btn_save, btn_resume;
+    private TextView TV1;
     private ImageView iv_canvas;
     private Bitmap baseBitmap;
     private Canvas canvas;
@@ -37,6 +41,7 @@ public class DrawActivity extends Activity {
         paint.setStrokeWidth(5);
         paint.setColor(Color.RED);
 
+        TV1 = (TextView)findViewById(R.id.TV1);
         iv_canvas = (ImageView) findViewById(R.id.iv_canvas);
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_resume = (Button) findViewById(R.id.btn_resume);
@@ -44,6 +49,11 @@ public class DrawActivity extends Activity {
         btn_save.setOnClickListener(click);
         btn_resume.setOnClickListener(click);
         iv_canvas.setOnTouchListener(touch);
+
+        Random x=new Random();
+        int y=x.nextInt(50);
+        String drawguess[]=getResources().getStringArray(R.array.drawguess);
+        TV1.setText(drawguess[y]);
     }
 
     private View.OnTouchListener touch = new OnTouchListener() {
