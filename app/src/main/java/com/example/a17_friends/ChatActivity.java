@@ -218,7 +218,8 @@ public class ChatActivity extends AppCompatActivity {
 
                                     if(i == 2)
                                     {
-
+                                        Intent loginIntent = new Intent (ChatActivity.this, DrawActivity.class);
+                                        startActivity(loginIntent);
                                     }
                                     if(i == 3)
                                     {
