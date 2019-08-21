@@ -137,6 +137,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                            builder.setTitle("遊戲大廳");
                             builder.setItems(GameOptions, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int i)
@@ -153,6 +154,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                                        builder.setTitle("猜拳");
                                         builder.setItems(MoraOptions, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int i)
@@ -191,6 +193,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                                        builder.setTitle("真心話大冒險");
                                         builder.setItems(TruthOptions, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int i)

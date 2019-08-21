@@ -1,5 +1,7 @@
 package com.example.a17_friends;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -73,10 +78,10 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
 
     @Override
-    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, int i)
+    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, final int position)
     {
         String messageSenderId = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessagesList.get(i);
+        Messages messages = userMessagesList.get(position);
 
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();
@@ -147,9 +152,167 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                 Picasso.get().load(messages.getMessage()).into(messageViewHolder.messageReceiverPicture);
             }
         }
+
+        if(fromUserID.equals(messageSenderId))
+        {
+            messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(userMessagesList.get(position).getType().equals("text"))
+                    {
+                        CharSequence Options[] = new CharSequence[]
+                                {
+                                        "刪除自己記錄(本機)",
+                                        "取消",
+                                        "刪除雙方紀錄(伺服器)",
+                                };
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
+                        builder.setTitle("刪除訊息");
+                        builder.setItems(Options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i)
+                            {
+                                if(i == 0)
+                                {
+
+                                }
+                                if(i == 1 )
+                                {
+
+                                }
+                                if(i == 2 )
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                    else if(userMessagesList.get(position).getType().equals("image"))
+                    {
+                        CharSequence Options[] = new CharSequence[]
+                                {
+                                        "刪除自己記錄(本機)",
+                                        "查看圖片",
+                                        "取消",
+                                        "刪除雙方紀錄(伺服器)",
+                                };
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
+                        builder.setTitle("刪除訊息");
+                        builder.setItems(Options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i)
+                            {
+                                if(i == 0)
+                                {
+
+                                }
+                                if(i == 1 )
+                                {
+
+                                }
+                                if(i == 2 )
+                                {
+
+                                }
+                                if(i == 3 )
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                }
+            });
+        }
+        else
+        {
+            messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(userMessagesList.get(position).getType().equals("text"))
+                    {
+                        CharSequence Options[] = new CharSequence[]
+                                {
+                                        "刪除自己記錄(本機)",
+                                        "取消",
+                                };
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
+                        builder.setTitle("刪除訊息");
+                        builder.setItems(Options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i)
+                            {
+                                if(i == 0)
+                                {
+
+                                }
+                                if(i == 1 )
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                    else if(userMessagesList.get(position).getType().equals("image"))
+                    {
+                        CharSequence Options[] = new CharSequence[]
+                                {
+                                        "刪除自己記錄(本機)",
+                                        "查看圖片",
+                                        "取消",
+                                };
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
+                        builder.setTitle("刪除訊息");
+                        builder.setItems(Options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i)
+                            {
+                                if(i == 0)
+                                {
+
+                                }
+                                if(i == 1 )
+                                {
+
+                                }
+                                if(i == 2 )
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                }
+            });
+        }
     }
 
+    private void deleteSentMessage(final int position, final MessageViewHolder holder)
+    {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Messages")
+                .child(userMessagesList.get(position).getFrom())
+                .child(userMessagesList.get(position).getTo())
+                .child(userMessagesList.get(position).getMessageID())
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
 
+            }
+        });
+    }
 
 
     @Override
