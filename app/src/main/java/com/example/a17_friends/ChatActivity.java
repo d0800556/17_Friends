@@ -69,6 +69,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String saveCurrentTime, saveCurrentDate;
     private String checker = "",myUrl="";
+    private String messageSenderIDGame,messageReceiverIDGame;
     private StorageTask uploadTask;
     private Uri fileUrl;
 
@@ -163,16 +164,19 @@ public class ChatActivity extends AppCompatActivity {
                                                 {
                                                     MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
                                                     SendMessage();
+                                                    SendGameMessage("scissors");
                                                 }
                                                 if(i == 1 )
                                                 {
                                                     MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
                                                     SendMessage();
+                                                    SendGameMessage("rock");
                                                 }
                                                 if(i == 2)
                                                 {
                                                     MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
                                                     SendMessage();
+                                                    SendGameMessage("paper");
                                                 }
                                                 if(i == 3)
                                                 {
@@ -284,9 +288,202 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
+        RootRef.child("Game").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                if (getwhere !=null && getwhere.equals(messageSenderID)){
+                    messageSenderIDGame = dataSnapshot.child("Game").getValue(String.class);
+                    if(messageReceiverIDGame== null){}
+                    else{
+                        GameMission();
+
+                    }
+                } else if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
+                    messageReceiverIDGame = dataSnapshot.child("Game").getValue(String.class);
+                    if(messageSenderIDGame == null){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this)
+                                .setTitle("對方出拳了 換你出拳")
+                                .setMessage("對方可能是剪刀");
+                        dialog.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // TODO Auto-generated method stub
+                                Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.show();
+                    }
+                    else{
+                        GameMission();
+                        }
+
+                }
+                else{
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
+    private void GameMission(){
+        if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("scissors")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("平手")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("rock")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你輸了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("paper")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你贏了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("scissors")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你贏了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("rock")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("平手")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("paper")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你輸了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("scissors")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你輸了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("rock")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("你贏了")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+        if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("paper")){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
+                    .setTitle("平手")
+                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+            dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog1.show();
+        }
+    }
+
+    private  void SendGameMessage(String v)
+    {
+        {
+            String messageSenderRef = "Game/" + messageSenderID + "/" + messageReceiverID;
+            String messageReceiverRef = "Game/" + messageReceiverID + "/" + messageSenderID;
+
+            Map messageTextBody = new HashMap();
+            messageTextBody.put("Game", v);
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", messageSenderID);
+            messageTextBody.put("to", messageReceiverID);
+            Map messageBodyDetails = new HashMap();
+            messageBodyDetails.put(messageSenderRef + "/"  , messageTextBody);
+            messageBodyDetails.put( messageReceiverRef + "/"  , messageTextBody);
+            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful())
+                    {
+                        Toast.makeText(ChatActivity.this, "傳送成功...", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(ChatActivity.this, "錯誤", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
     private void SendMessage()
     {
         String messageText = MessageInputText.getText().toString();
