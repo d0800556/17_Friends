@@ -13,10 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Random;
 
 public class DrawActivity extends AppCompatActivity {
     private Button btn_save, btn_resume;
@@ -24,6 +26,7 @@ public class DrawActivity extends AppCompatActivity {
     private Bitmap baseBitmap;
     private Canvas canvas;
     private Paint paint;
+    private TextView TV1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class DrawActivity extends AppCompatActivity {
         paint.setStrokeWidth(5);
         paint.setColor(Color.RED);
 
+        TV1 = (TextView)findViewById(R.id.TV1);
         iv_canvas = (ImageView) findViewById(R.id.iv_canvas);
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_resume = (Button) findViewById(R.id.btn_resume);
@@ -41,6 +45,11 @@ public class DrawActivity extends AppCompatActivity {
         btn_save.setOnClickListener(click);
         btn_resume.setOnClickListener(click);
         iv_canvas.setOnTouchListener(touch);
+
+        Random x=new Random();
+        int y=x.nextInt(50);
+        String drawguess[]=getResources().getStringArray(R.array.drawguess);
+        TV1.setText(drawguess[y]);
     }
 
     private View.OnTouchListener touch = new View.OnTouchListener() {
