@@ -2,6 +2,7 @@ package com.example.a17_friends;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -176,7 +178,9 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             {
                                 if(i == 0)
                                 {
-
+                                    deleteSentMessage(position,messageViewHolder);
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 1 )
                                 {
@@ -184,7 +188,9 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 }
                                 if(i == 2 )
                                 {
-
+                                    deleteMessageForEveryOne(position,messageViewHolder);
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
@@ -209,11 +215,16 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             {
                                 if(i == 0)
                                 {
+                                    deleteReceiveMessage(position,messageViewHolder);
 
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 1 )
                                 {
-
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 2 )
                                 {
@@ -221,7 +232,10 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 }
                                 if(i == 3 )
                                 {
+                                    deleteMessageForEveryOne(position,messageViewHolder);
 
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
@@ -252,7 +266,10 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             {
                                 if(i == 0)
                                 {
+                                    deleteSentMessage(position,messageViewHolder);
 
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 1 )
                                 {
@@ -280,11 +297,15 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             {
                                 if(i == 0)
                                 {
-
+                                    deleteReceiveMessage(position,messageViewHolder);
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 1 )
                                 {
-
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 2 )
                                 {
@@ -308,7 +329,78 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                 .child(userMessagesList.get(position).getMessageID())
                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(holder.itemView.getContext(), "發生錯誤", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void deleteReceiveMessage(final int position, final MessageViewHolder holder)
+    {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Messages")
+                .child(userMessagesList.get(position).getTo())
+                .child(userMessagesList.get(position).getFrom())
+                .child(userMessagesList.get(position).getMessageID())
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(holder.itemView.getContext(), "發生錯誤", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void deleteMessageForEveryOne(final int position, final MessageViewHolder holder)
+    {
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Messages")
+                .child(userMessagesList.get(position).getTo())
+                .child(userMessagesList.get(position).getFrom())
+                .child(userMessagesList.get(position).getMessageID())
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    rootRef.child("Messages")
+                            .child(userMessagesList.get(position).getFrom())
+                            .child(userMessagesList.get(position).getTo())
+                            .child(userMessagesList.get(position).getMessageID())
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+                else
+                {
+                    Toast.makeText(holder.itemView.getContext(), "發生錯誤", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
