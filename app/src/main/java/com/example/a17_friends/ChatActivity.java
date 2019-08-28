@@ -348,6 +348,8 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
+
         }
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -361,6 +363,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -374,6 +377,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -387,6 +391,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -400,6 +405,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -413,6 +419,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -426,6 +433,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -439,6 +447,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -452,6 +461,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
             dialog1.show();
+            DeleteGameMessage();
         }
     }
 
@@ -483,6 +493,35 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private  void DeleteGameMessage()
+    {
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Game")
+                .child(messageSenderID).child(messageReceiverID)
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    rootRef.child("Game")
+                            .child(messageReceiverID).child(messageSenderID)
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            messageReceiverIDGame =null;
+                            messageSenderIDGame  =null;
+                        }
+                    });
+
+                }
+
+
+            }
+});
     }
     private void SendMessage()
     {
