@@ -123,7 +123,7 @@ public class DrawActivity extends AppCompatActivity {
     protected void saveBitmap() {
         try {
             // 保存图片到SD卡上
-            File file = new File(Environment.getExternalStorageDirectory(),
+            File file = new File(Environment.getExternalStorageDirectory()+"/Download/"+
                     System.currentTimeMillis() + ".png");
             FileOutputStream stream = new FileOutputStream(file);
             baseBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -134,12 +134,12 @@ public class DrawActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Intent mediaScanIntent = new Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                mediaScanIntent.setData(Uri.parse("file://" +Environment.getExternalStorageDirectory()));
+                mediaScanIntent.setData(Uri.parse("file://" +Environment.getExternalStorageDirectory()+"/Download/"));
                 sendBroadcast(mediaScanIntent);
             } else {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_MEDIA_MOUNTED);
-                intent.setData(Uri.parse("file://" + Environment.getExternalStorageDirectory()));
+                intent.setData(Uri.parse("file://" + Environment.getExternalStorageDirectory()+"/Download/"));
                 sendBroadcast(intent);
             }
         } catch (Exception e) {
