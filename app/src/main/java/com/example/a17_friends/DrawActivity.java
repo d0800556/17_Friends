@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -120,7 +121,7 @@ public class DrawActivity extends AppCompatActivity {
      * 保存图片到SD卡上
      */
     protected void saveBitmap() {
-        /*try {
+        try {
             // 保存图片到SD卡上
             File file = new File(Environment.getExternalStorageDirectory(),
                     System.currentTimeMillis() + ".png");
@@ -130,15 +131,21 @@ public class DrawActivity extends AppCompatActivity {
 
             // Android设备Gallery应用只会在启动的时候扫描系统文件夹
             // 这里模拟一个媒体装载的广播，用于使保存的图片可以在Gallery中查看
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_MEDIA_MOUNTED);
-            intent.setData(Uri.fromFile(Environment
-                    .getExternalStorageDirectory()));
-            sendBroadcast(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Intent mediaScanIntent = new Intent(
+                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(Uri.parse("file://" +Environment.getExternalStorageDirectory()));
+                sendBroadcast(mediaScanIntent);
+            } else {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MEDIA_MOUNTED);
+                intent.setData(Uri.parse("file://" + Environment.getExternalStorageDirectory()));
+                sendBroadcast(intent);
+            }
         } catch (Exception e) {
             Toast.makeText(DrawActivity.this, "保存图片失败", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-        }*/
+        }
     }
 
     /**
