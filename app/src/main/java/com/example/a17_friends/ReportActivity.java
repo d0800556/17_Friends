@@ -61,7 +61,7 @@ public class ReportActivity extends AppCompatActivity {
                     currentDate = currentDateFormat.format(calForDate.getTime());
 
                     Calendar calForTime = Calendar.getInstance();
-                    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
+                    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm:ss a");
                     currentTime = currentTimeFormat.format(calForTime.getTime());
 
                     HashMap<String,Object> messageInfoMap = new HashMap<>();
