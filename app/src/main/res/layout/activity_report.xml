@@ -21,7 +21,7 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/et1"
+        android:id="@+id/ReportTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
@@ -36,13 +36,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et1"
+        android:layout_below="@id/ReportTitle"
         android:layout_marginTop="50dp"
         android:text="  內容(文字)"
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/ett2"
+        android:id="@+id/ReportMessage"
         android:layout_width="match_parent"
         android:layout_height="176dp"
         android:layout_below="@id/textView2"
@@ -56,7 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ett2"
+        android:layout_below="@id/ReportMessage"
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
@@ -78,7 +78,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/SendReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
