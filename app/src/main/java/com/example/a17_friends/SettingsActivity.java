@@ -192,6 +192,10 @@ public class SettingsActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "請輸入使用者狀態...", Toast.LENGTH_SHORT).show();
         }
+        else if (TextUtils.isEmpty(setSelf_introduction))
+        {
+            Toast.makeText(this, "請輸入自我介紹...", Toast.LENGTH_SHORT).show();
+        }
         else
         {
             HashMap<String,Object> profileMap = new HashMap<>();
@@ -225,7 +229,7 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                     {
-                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
+                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")) && (dataSnapshot.hasChild("Self_introduction")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
@@ -235,6 +239,18 @@ public class SettingsActivity extends AppCompatActivity {
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
                             Self_introduction.setText(retrieveSelf_introduction);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                        }
+                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            //String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+
+                            userName.setText(retrieveUserName);
+                            userStatus.setText(retrieveStatus);
+                            //Self_introduction.setText(retrieveSelf_introduction);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
                         else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
