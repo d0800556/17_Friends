@@ -70,7 +70,7 @@ public class ReportActivity extends AppCompatActivity {
                     messageInfoMap.put("Message",GetReportMessage);
                     messageInfoMap.put("date",currentDate);
                     messageInfoMap.put("time",currentTime);
-                    RootRef.child("Report").child(currentDate+"/"+currentTime).updateChildren(messageInfoMap)
+                    RootRef.child("Report").child(currentDate+","+currentTime).updateChildren(messageInfoMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
