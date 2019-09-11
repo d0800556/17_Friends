@@ -37,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingsActivity extends AppCompatActivity {
 
     private Button UpdateAccountSettings;
-    private EditText userName,userStatus;
+    private EditText userName,userStatus,Self_introduction;
     private CircleImageView userProfileImage;
 
     private  String currentUserID;
@@ -90,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
         UpdateAccountSettings = (Button) findViewById(R.id.update_settings_button);
         userName = (EditText) findViewById(R.id.set_user_name);
         userStatus = (EditText) findViewById(R.id.set_profile_status);
+        Self_introduction = (EditText) findViewById(R.id.Self_introduction);
         userProfileImage = (CircleImageView) findViewById(R.id.set_profile_image);
 
         SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
@@ -181,6 +182,7 @@ public class SettingsActivity extends AppCompatActivity {
     {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();
+        String setSelf_introduction = Self_introduction.getText().toString();
 
         if (TextUtils.isEmpty(setUserName))
         {
@@ -196,6 +198,7 @@ public class SettingsActivity extends AppCompatActivity {
                 profileMap.put("uid",currentUserID);
                 profileMap.put("name",setUserName);
                 profileMap.put("status",setStatus);
+                profileMap.put("Self_introduction",setSelf_introduction);
              RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                      .addOnCompleteListener(new OnCompleteListener<Void>() {
                          @Override
@@ -226,19 +229,23 @@ public class SettingsActivity extends AppCompatActivity {
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
+                            Self_introduction.setText(retrieveSelf_introduction);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
                         else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
+                            Self_introduction.setText(retrieveSelf_introduction);
                         }
                         else
                         {
