@@ -23,90 +23,147 @@
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="5dp" />
 
-    <EditText
-        android:id="@+id/set_user_name"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/set_profile_image"
-        android:inputType="textMultiLine"
-        android:hint="使用者名稱"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/edit_profile"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/set_profile_image">
 
-    <EditText
-        android:id="@+id/set_profile_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/set_user_name"
-        android:inputType="textMultiLine"
-        android:hint="使用者狀態"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/edit_status"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginTop="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/Self_introduction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/set_profile_status"
-        android:inputType="textMultiLine"
-        android:hint="自我介紹"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/me"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/set_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/edit_profile"
+                android:hint="使用者名稱"
+                android:inputType="textMultiLine"
+                android:padding="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/interest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Self_introduction"
-        android:inputType="textMultiLine"
-        android:hint="興趣"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/love"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/set_profile_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/edit_status"
+                android:hint="使用者狀態"
+                android:inputType="textMultiLine"
+                android:padding="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/update_settings_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/interest"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/colorPrimary"
-        android:inputType="textMultiLine"
-        android:padding="6dp"
-        android:text="更新"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/Self_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/me"
+                android:hint="自我介紹"
+                android:inputType="textMultiLine"
+                android:padding="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/love" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/interest1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:entries="@array/interest" />
+
+                        <Spinner
+                            android:id="@+id/interest2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:entries="@array/interest" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/interest3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:entries="@array/interest" />
+
+                        <Spinner
+                            android:id="@+id/interest4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:entries="@array/interest" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/update_settings_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/colorPrimary"
+                android:inputType="textMultiLine"
+                android:padding="6dp"
+                android:text="更新"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

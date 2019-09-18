@@ -4,6 +4,27 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="interest">
+        <item>請選擇</item>
+        <item>極限運動</item>
+        <item>游泳</item>
+        <item>浮潛</item>
+        <item>健身</item>
+        <item>打球</item>
+        <item>唱歌</item>
+        <item>跳舞</item>
+        <item>繪畫</item>
+        <item>創作</item>
+        <item>攝影</item>
+        <item>看電影</item>
+        <item>電玩</item>
+        <item>桌遊</item>
+        <item>烹飪</item>
+        <item>做模型</item>
+        <item>收集古董</item>
+        <item>養寵物</item>
+    </string-array>
+
     <string-array name="truth">
         <item>曾經有過最被感動的事是什麼？</item>
         <item>如果給你一個機會去世界上任何一個地方旅行你會去那裡？</item>
