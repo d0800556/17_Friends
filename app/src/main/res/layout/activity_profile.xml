@@ -48,12 +48,42 @@
         android:textStyle="bold"
         />
 
+    <TextView
+        android:id="@+id/Self_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="YOYO"
+        android:layout_below="@+id/visit_profile_status"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/interest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="YOYO"
+        android:layout_below="@+id/Self_introduction"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
 
     <Button
         android:id="@+id/send_message_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/visit_profile_status"
+        android:layout_below="@+id/interest"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="65dp"
