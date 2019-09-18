@@ -26,7 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String receiverUserID, senderUserID, Current_State;
 
     private CircleImageView userProfileImage;
-    private TextView userProfileName, userProfileStatus;
+    private TextView userProfileName, userProfileStatus,Self_introduction,interest;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
 
     private DatabaseReference UserRef,ChatRequestRef,ContactsRef,NotificationRef;
@@ -50,6 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
         userProfileImage = (CircleImageView) findViewById(R.id.visit_profile_image);
         userProfileName = (TextView) findViewById(R.id.visit_user_name);
         userProfileStatus = (TextView) findViewById(R.id.visit_profile_status);
+        Self_introduction = (TextView) findViewById(R.id.Self_introduction);
+        interest = (TextView) findViewById(R.id.interest);
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
         Current_State = "new";
@@ -67,10 +69,14 @@ public class ProfileActivity extends AppCompatActivity {
                     String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userstatus = dataSnapshot.child("status").getValue().toString();
+                    String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
+                    String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
                     userProfileName.setText(userName);
                     userProfileStatus.setText(userstatus);
+                    Self_introduction.setText(userSelf_introduction);
+                    interest.setText(userinterest);
 
                     ManageChatRequests();
                 }
@@ -78,9 +84,13 @@ public class ProfileActivity extends AppCompatActivity {
                 {
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userstatus = dataSnapshot.child("status").getValue().toString();
+                    String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
+                    String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
 
                     userProfileName.setText(userName);
                     userProfileStatus.setText(userstatus);
+                    Self_introduction.setText(userSelf_introduction);
+                    interest.setText(userinterest);
 
                     ManageChatRequests();
                 }
