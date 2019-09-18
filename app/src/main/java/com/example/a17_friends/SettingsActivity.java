@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -39,8 +40,9 @@ public class SettingsActivity extends AppCompatActivity {
     private Button UpdateAccountSettings;
     private EditText userName,userStatus,Self_introduction;
     private CircleImageView userProfileImage;
+    private Spinner interest1,interest2,interest3,interest4;
 
-    private  String currentUserID;
+    private  String currentUserID,StrInterest;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
 
@@ -92,6 +94,11 @@ public class SettingsActivity extends AppCompatActivity {
         userStatus = (EditText) findViewById(R.id.set_profile_status);
         Self_introduction = (EditText) findViewById(R.id.Self_introduction);
         userProfileImage = (CircleImageView) findViewById(R.id.set_profile_image);
+        interest1 = (Spinner) findViewById(R.id.interest1);
+        interest2 = (Spinner) findViewById(R.id.interest2);
+        interest3 = (Spinner) findViewById(R.id.interest3);
+        interest4 = (Spinner) findViewById(R.id.interest4);
+        StrInterest = interest1.getSelectedItem().toString();
 
         SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(SettingsToolBar);
@@ -183,8 +190,20 @@ public class SettingsActivity extends AppCompatActivity {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();
         String setSelf_introduction = Self_introduction.getText().toString();
+        String StrInterest1 = interest1.getSelectedItem().toString();
+        String StrInterest2 = interest2.getSelectedItem().toString();
+        String StrInterest3 = interest3.getSelectedItem().toString();
+        String StrInterest4 = interest4.getSelectedItem().toString();
 
-        if (TextUtils.isEmpty(setUserName))
+        if (StrInterest1==StrInterest || StrInterest2==StrInterest || StrInterest3==StrInterest || StrInterest4==StrInterest)
+        {
+            Toast.makeText(this, "請選擇興趣...", Toast.LENGTH_SHORT).show();
+        }
+        else  if ( StrInterest1 == StrInterest2 || StrInterest1 == StrInterest3 ||  StrInterest1 == StrInterest4 || StrInterest2 == StrInterest3 || StrInterest2 == StrInterest4 || StrInterest3 == StrInterest4)
+        {
+            Toast.makeText(this, "興趣重複...", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(setUserName))
         {
             Toast.makeText(this, "請輸入使用者名稱...", Toast.LENGTH_SHORT).show();
         }
@@ -203,6 +222,10 @@ public class SettingsActivity extends AppCompatActivity {
                 profileMap.put("name",setUserName);
                 profileMap.put("status",setStatus);
                 profileMap.put("Self_introduction",setSelf_introduction);
+                profileMap.put("interest1",StrInterest1);
+                profileMap.put("interest2",StrInterest2);
+                profileMap.put("interest3",StrInterest3);
+                profileMap.put("interest4",StrInterest4);
              RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                      .addOnCompleteListener(new OnCompleteListener<Void>() {
                          @Override
