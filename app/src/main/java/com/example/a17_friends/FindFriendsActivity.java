@@ -3,13 +3,16 @@ package com.example.a17_friends;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,6 +29,8 @@ public class FindFriendsActivity extends Fragment {
     private Toolbar mToolbar;
     private RecyclerView FindFriendsRecyclerList;
     private DatabaseReference UsersRef;
+    private FloatingActionButton  SearchFloatingButton;
+    private LinearLayout SearchLayout;
 
 
     @Override
@@ -36,10 +41,26 @@ public class FindFriendsActivity extends Fragment {
 
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        SearchLayout = (LinearLayout) FriendsView.findViewById(R.id.SearchLayout);
+        SearchFloatingButton = (FloatingActionButton) FriendsView.findViewById(R.id.SearchFloatingButton);
         FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
         FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        return  FriendsView;
 
+        SearchFloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(SearchLayout.getVisibility()==View.INVISIBLE)
+                    SearchLayout.setVisibility(View.VISIBLE);
+                else
+                    SearchLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+
+
+        return  FriendsView;
     }
 
     @Override
