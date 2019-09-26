@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -79,7 +79,7 @@ public class FindFriendsActivity extends Fragment {
             @Override
             public void onClick(View view)
             {
-                test();
+
             }
         });
 
@@ -89,52 +89,6 @@ public class FindFriendsActivity extends Fragment {
         return  FriendsView;
     }
 
-
-    public void test(){
-
-        Query query = FirebaseDatabase.getInstance().getReference().child("Users")
-                .orderByChild("interest1")
-                .equalTo("繪畫");
-        FirebaseRecyclerOptions<Contacts> options =
-                new FirebaseRecyclerOptions.Builder<Contacts>()
-                        .setQuery(query, Contacts.class)
-                        .build();
-
-        FirebaseRecyclerAdapter<Contacts,FindFriendViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model)
-                    {
-                        holder.userName.setText(model.getName());
-                        holder.userStatus.setText(model.getStatus());
-                        Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
-
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                String visit_user_id = getRef(position).getKey();
-
-                                Intent profileIntent =new Intent(getContext(),ProfileActivity.class);
-                                profileIntent.putExtra("visit_user_id", visit_user_id);
-                                startActivity(profileIntent);
-                            }
-                        });
-                    }
-
-                    @NonNull
-                    @Override
-                    public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-                    {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_display_layout,viewGroup,false);
-                        FindFriendViewHolder viewHolder = new FindFriendViewHolder(view);
-                        return  viewHolder;
-                    }
-                };
-        FindFriendsRecyclerList.setAdapter(adapter);
-
-        adapter.startListening();
-    }
     @Override
     public void onStart()
     {
@@ -181,8 +135,6 @@ public class FindFriendsActivity extends Fragment {
         adapter.startListening();
 
     }
-
-
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
     {
