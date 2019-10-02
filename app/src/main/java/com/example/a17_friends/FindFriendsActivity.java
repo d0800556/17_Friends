@@ -33,7 +33,6 @@ public class FindFriendsActivity extends Fragment {
     private DatabaseReference UsersRef;
     private FloatingActionButton  SearchFloatingButton;
     private Button SearchButton,CancelButton;
-    private Spinner interest1,interest2,interest3,interest4;
     private LinearLayout SearchLayout;
 
 
@@ -49,10 +48,6 @@ public class FindFriendsActivity extends Fragment {
         SearchFloatingButton = (FloatingActionButton) FriendsView.findViewById(R.id.SearchFloatingButton);
         CancelButton = (Button)  FriendsView.findViewById(R.id.CancelButton);
         SearchButton = (Button)  FriendsView.findViewById(R.id.SearchButton);
-        interest1 = (Spinner)  FriendsView.findViewById(R.id.interest1);
-        interest2 = (Spinner)  FriendsView.findViewById(R.id.interest2);
-        interest3 = (Spinner)  FriendsView.findViewById(R.id.interest3);
-        interest4 = (Spinner)  FriendsView.findViewById(R.id.interest4);
         FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
         FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
 

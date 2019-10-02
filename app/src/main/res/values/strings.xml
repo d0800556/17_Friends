@@ -4,6 +4,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="gander">
+        <item>不限</item>
+        <item>男性</item>
+        <item>女性</item>
+    </string-array>
+
     <string-array name="interest">
         <item>請選擇</item>
         <item>極限運動</item>
