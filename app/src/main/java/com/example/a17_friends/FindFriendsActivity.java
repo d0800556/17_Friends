@@ -33,6 +33,7 @@ public class FindFriendsActivity extends Fragment {
     private DatabaseReference UsersRef;
     private FloatingActionButton  SearchFloatingButton;
     private Button SearchButton,CancelButton;
+    private Spinner interest;
     private LinearLayout SearchLayout;
 
 
@@ -48,6 +49,7 @@ public class FindFriendsActivity extends Fragment {
         SearchFloatingButton = (FloatingActionButton) FriendsView.findViewById(R.id.SearchFloatingButton);
         CancelButton = (Button)  FriendsView.findViewById(R.id.CancelButton);
         SearchButton = (Button)  FriendsView.findViewById(R.id.SearchButton);
+        interest = (Spinner)  FriendsView.findViewById(R.id.interest);
         FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
         FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -88,9 +90,11 @@ public class FindFriendsActivity extends Fragment {
 
     public void test(){
 
+        String StrInterest = interest.getSelectedItem().toString();
+
         Query query = FirebaseDatabase.getInstance().getReference().child("Users")
                 .orderByChild("interest1")
-                .equalTo("繪畫");
+                .equalTo(StrInterest);
         FirebaseRecyclerOptions<Contacts> options =
                 new FirebaseRecyclerOptions.Builder<Contacts>()
                         .setQuery(query, Contacts.class)
