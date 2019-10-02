@@ -206,7 +206,11 @@ public class SettingsActivity extends AppCompatActivity {
         String StrInterest3 = interest3.getSelectedItem().toString();
         String StrInterest4 = interest4.getSelectedItem().toString();
 
-        if (StrInterest1==StrInterest || StrInterest2==StrInterest || StrInterest3==StrInterest || StrInterest4==StrInterest)
+        if (StrGender==StrInterest)
+        {
+            Toast.makeText(this, "請選擇性別...", Toast.LENGTH_SHORT).show();
+        }
+        else if (StrInterest1==StrInterest || StrInterest2==StrInterest || StrInterest3==StrInterest || StrInterest4==StrInterest)
         {
             Toast.makeText(this, "請選擇興趣...", Toast.LENGTH_SHORT).show();
         }
