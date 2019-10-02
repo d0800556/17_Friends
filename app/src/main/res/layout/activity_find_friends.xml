@@ -78,13 +78,6 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:entries="@array/gander"
-                        android:textColor="#000000" />
-
                     <TextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
@@ -92,6 +85,13 @@
                         android:text="性別"
                         android:textAlignment="textEnd"
                         android:textSize="24sp" />
+
+                    <Spinner
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:entries="@array/gander"
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 
@@ -102,6 +102,14 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="年齡:"
+                        android:textAlignment="textEnd"
+                        android:textSize="24sp" />
+
                     <EditText
                         android:id="@+id/age1"
                         android:layout_width="wrap_content"
@@ -109,15 +117,6 @@
                         android:ems="3"
                         android:inputType="textShortMessage|number|phone"
                         android:text="0"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/age2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="3"
-                        android:inputType="textShortMessage|number|phone"
-                        android:text="100"
                         android:textAlignment="center" />
 
                     <TextView
@@ -128,13 +127,14 @@
                         android:textAlignment="center"
                         android:textSize="24sp" />
 
-                    <TextView
-                        android:id="@+id/textView4"
+                    <EditText
+                        android:id="@+id/age2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="年齡:"
-                        android:textAlignment="textEnd"
-                        android:textSize="24sp" />
+                        android:ems="3"
+                        android:inputType="textShortMessage|number|phone"
+                        android:text="100"
+                        android:textAlignment="center" />
 
                 </LinearLayout>
 
@@ -145,14 +145,6 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/interest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:entries="@array/interest"
-                        android:textColor="#000000" />
-
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
@@ -160,6 +152,14 @@
                         android:layout_weight="1"
                         android:text="興趣"
                         android:textSize="24sp" />
+
+                    <Spinner
+                        android:id="@+id/interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/interest"
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 
