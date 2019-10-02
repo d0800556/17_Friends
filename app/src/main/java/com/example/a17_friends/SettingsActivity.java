@@ -1,6 +1,7 @@
 package com.example.a17_friends;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -8,10 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,9 +42,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingsActivity extends AppCompatActivity {
 
     private Button UpdateAccountSettings;
-    private EditText userName,userStatus,Self_introduction;
+    private EditText userName,userStatus,Self_introduction,age;
     private CircleImageView userProfileImage;
-    private Spinner interest1,interest2,interest3,interest4;
+    private Spinner interest1,interest2,interest3,interest4,gender;
+    private LinearLayout genderlayout;
 
     private  String currentUserID,StrInterest;
     private FirebaseAuth mAuth;
@@ -92,13 +97,17 @@ public class SettingsActivity extends AppCompatActivity {
         UpdateAccountSettings = (Button) findViewById(R.id.update_settings_button);
         userName = (EditText) findViewById(R.id.set_user_name);
         userStatus = (EditText) findViewById(R.id.set_profile_status);
+        age = (EditText) findViewById(R.id.set_age_status);
         Self_introduction = (EditText) findViewById(R.id.Self_introduction);
         userProfileImage = (CircleImageView) findViewById(R.id.set_profile_image);
         interest1 = (Spinner) findViewById(R.id.interest1);
         interest2 = (Spinner) findViewById(R.id.interest2);
         interest3 = (Spinner) findViewById(R.id.interest3);
         interest4 = (Spinner) findViewById(R.id.interest4);
+        gender = (Spinner) findViewById(R.id.genderSpinner);
+        genderlayout= (LinearLayout) findViewById(R.id.genderlayout);
         StrInterest = interest1.getSelectedItem().toString();
+
 
         SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(SettingsToolBar);
@@ -189,7 +198,9 @@ public class SettingsActivity extends AppCompatActivity {
     {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();
+        String setAge = age.getText().toString();
         String setSelf_introduction = Self_introduction.getText().toString();
+        String StrGender = gender.getSelectedItem().toString();
         String StrInterest1 = interest1.getSelectedItem().toString();
         String StrInterest2 = interest2.getSelectedItem().toString();
         String StrInterest3 = interest3.getSelectedItem().toString();
@@ -215,11 +226,17 @@ public class SettingsActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "請輸入自我介紹...", Toast.LENGTH_SHORT).show();
         }
+        else if (TextUtils.isEmpty(setAge))
+        {
+            Toast.makeText(this, "請輸入年齡...", Toast.LENGTH_SHORT).show();
+        }
         else
         {
             HashMap<String,Object> profileMap = new HashMap<>();
                 profileMap.put("uid",currentUserID);
                 profileMap.put("name",setUserName);
+                profileMap.put("age",setAge);
+                profileMap.put("gender",StrGender);
                 profileMap.put("status",setStatus);
                 profileMap.put("Self_introduction",setSelf_introduction);
                 profileMap.put("interest1",StrInterest1);
@@ -252,29 +269,52 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                     {
-                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")) && (dataSnapshot.hasChild("Self_introduction")))
+                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("gender")))
+                        {
+                            genderlayout.setVisibility(View.INVISIBLE);
+                        }
+
+                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image"))&& (dataSnapshot.hasChild("age")))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            String retrieveAge = dataSnapshot.child("age").getValue().toString();
+                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+
+
+                            age.setFocusable(false);
+                            age.setText(retrieveAge);
+                            userName.setText(retrieveUserName);
+                            userStatus.setText(retrieveStatus);
+                            Self_introduction.setText(retrieveSelf_introduction);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                        }
+                        else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
                             String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
+
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
                             Self_introduction.setText(retrieveSelf_introduction);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
-                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
+                        else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))&& (dataSnapshot.hasChild("age")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
-                            //String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
-                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            String retrieveAge = dataSnapshot.child("age").getValue().toString();
+                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
 
+                            age.setFocusable(false);
+                            age.setText(retrieveAge);
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
-                            //Self_introduction.setText(retrieveSelf_introduction);
-                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                            Self_introduction.setText(retrieveSelf_introduction);
                         }
                         else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {

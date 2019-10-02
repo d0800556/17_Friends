@@ -10,6 +10,12 @@
         <item>女性</item>
     </string-array>
 
+    <string-array name="ganderSetting">
+        <item>請選擇</item>
+        <item>男性</item>
+        <item>女性</item>
+    </string-array>
+
     <string-array name="interest">
         <item>請選擇</item>
         <item>極限運動</item>
