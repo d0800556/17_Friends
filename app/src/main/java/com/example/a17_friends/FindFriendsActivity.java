@@ -90,7 +90,7 @@ public class FindFriendsActivity extends Fragment {
 
     public void test(){
 
-        String StrInterest = interest.getSelectedItem().toString();
+        Integer StrInterest  = interest.getSelectedItemPosition();
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Users")
                 .orderByChild("interest1")

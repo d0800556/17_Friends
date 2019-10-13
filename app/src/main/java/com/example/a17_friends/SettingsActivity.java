@@ -44,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button UpdateAccountSettings;
     private EditText userName,userStatus,Self_introduction,age;
     private CircleImageView userProfileImage;
-    private Spinner interest1,interest2,interest3,interest4,gender;
+    private Spinner interest1,interest2,interest3,interest4,gender,local;
     private LinearLayout genderlayout;
 
     private  String currentUserID,StrInterest;
@@ -105,8 +105,9 @@ public class SettingsActivity extends AppCompatActivity {
         interest3 = (Spinner) findViewById(R.id.interest3);
         interest4 = (Spinner) findViewById(R.id.interest4);
         gender = (Spinner) findViewById(R.id.genderSpinner);
+        local= (Spinner) findViewById(R.id.local);
         genderlayout= (LinearLayout) findViewById(R.id.genderlayout);
-        StrInterest = interest1.getSelectedItem().toString();
+
 
 
         SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
@@ -200,17 +201,22 @@ public class SettingsActivity extends AppCompatActivity {
         String setStatus = userStatus.getText().toString();
         String setAge = age.getText().toString();
         String setSelf_introduction = Self_introduction.getText().toString();
-        String StrGender = gender.getSelectedItem().toString();
-        String StrInterest1 = interest1.getSelectedItem().toString();
-        String StrInterest2 = interest2.getSelectedItem().toString();
-        String StrInterest3 = interest3.getSelectedItem().toString();
-        String StrInterest4 = interest4.getSelectedItem().toString();
+        Integer Strlocal  = local.getSelectedItemPosition();
+        Integer StrInterest1  = interest1.getSelectedItemPosition();
+        Integer StrInterest2  = interest2.getSelectedItemPosition();
+        Integer StrInterest3  = interest3.getSelectedItemPosition();
+        Integer StrInterest4  = interest4.getSelectedItemPosition();
+        Integer StrGender  = gender.getSelectedItemPosition();
 
-        if (StrGender==StrInterest)
+        if (StrGender== 0)
         {
             Toast.makeText(this, "請選擇性別...", Toast.LENGTH_SHORT).show();
         }
-        else if (StrInterest1==StrInterest || StrInterest2==StrInterest || StrInterest3==StrInterest || StrInterest4==StrInterest)
+        else if (Strlocal == 0)
+        {
+            Toast.makeText(this, "請選擇居住地...", Toast.LENGTH_SHORT).show();
+        }
+        else if (StrInterest1==0 || StrInterest2==0 || StrInterest3==0 || StrInterest4==0)
         {
             Toast.makeText(this, "請選擇興趣...", Toast.LENGTH_SHORT).show();
         }
@@ -241,6 +247,7 @@ public class SettingsActivity extends AppCompatActivity {
                 profileMap.put("name",setUserName);
                 profileMap.put("age",setAge);
                 profileMap.put("gender",StrGender);
+                profileMap.put("local",Strlocal);
                 profileMap.put("status",setStatus);
                 profileMap.put("Self_introduction",setSelf_introduction);
                 profileMap.put("interest1",StrInterest1);
@@ -278,54 +285,55 @@ public class SettingsActivity extends AppCompatActivity {
                             genderlayout.setVisibility(View.INVISIBLE);
                         }
 
-                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image"))&& (dataSnapshot.hasChild("age")))
+                        if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
                             String retrieveAge = dataSnapshot.child("age").getValue().toString();
                             String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            Integer retrieveInterest1 = Integer.valueOf(dataSnapshot.child("interest1").getValue().toString());
+                            Integer retrieveInterest2 = Integer.valueOf(dataSnapshot.child("interest2").getValue().toString());
+                            Integer retrieveInterest3 = Integer.valueOf(dataSnapshot.child("interest3").getValue().toString());
+                            Integer retrieveInterest4 = Integer.valueOf(dataSnapshot.child("interest4").getValue().toString());
+                            Integer retrieveLocal = Integer.valueOf(dataSnapshot.child("local").getValue().toString());
+                            Integer retrieveGender = Integer.valueOf(dataSnapshot.child("gender").getValue().toString());
 
 
+                            gender.setSelection(retrieveGender);
+                            local.setSelection(retrieveLocal);
+                            interest1.setSelection(retrieveInterest1);
+                            interest2.setSelection(retrieveInterest2);
+                            interest3.setSelection(retrieveInterest3);
+                            interest4.setSelection(retrieveInterest4);
                             age.setFocusable(false);
                             age.setText(retrieveAge);
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
                             Self_introduction.setText(retrieveSelf_introduction);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
-                        }
-                        else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
-                        {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
-                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
-                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
-
-
-                            userName.setText(retrieveUserName);
-                            userStatus.setText(retrieveStatus);
-                            Self_introduction.setText(retrieveSelf_introduction);
-                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
-                        }
-                        else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))&& (dataSnapshot.hasChild("age")))
-                        {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
-                            String retrieveAge = dataSnapshot.child("age").getValue().toString();
-                            String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
-
-                            age.setFocusable(false);
-                            age.setText(retrieveAge);
-                            userName.setText(retrieveUserName);
-                            userStatus.setText(retrieveStatus);
-                            Self_introduction.setText(retrieveSelf_introduction);
                         }
                         else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            String retrieveAge = dataSnapshot.child("age").getValue().toString();
                             String retrieveSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
+                            Integer retrieveInterest1 = Integer.valueOf(dataSnapshot.child("interest1").getValue().toString());
+                            Integer retrieveInterest2 = Integer.valueOf(dataSnapshot.child("interest2").getValue().toString());
+                            Integer retrieveInterest3 = Integer.valueOf(dataSnapshot.child("interest3").getValue().toString());
+                            Integer retrieveInterest4 = Integer.valueOf(dataSnapshot.child("interest4").getValue().toString());
+                            Integer retrieveLocal = Integer.valueOf(dataSnapshot.child("local").getValue().toString());
+                            Integer retrieveGender = Integer.valueOf(dataSnapshot.child("gender").getValue().toString());
 
+                            gender.setSelection(retrieveGender);
+                            local.setSelection(retrieveLocal);
+                            interest1.setSelection(retrieveInterest1);
+                            interest2.setSelection(retrieveInterest2);
+                            interest3.setSelection(retrieveInterest3);
+                            interest4.setSelection(retrieveInterest4);
+                            age.setFocusable(false);
+                            age.setText(retrieveAge);
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
                             Self_introduction.setText(retrieveSelf_introduction);

@@ -165,27 +165,49 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/genderlayout"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/genderSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:entries="@array/ganderSetting" />
-
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="性別:"
+                    android:text="居住地:"
                     android:textAlignment="viewStart"
-                    android:textSize="30sp" />
+                    android:textSize="25sp" />
 
+                <Spinner
+                    android:id="@+id/local"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/local" />
+
+                <LinearLayout
+                    android:id="@+id/genderlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="性別:"
+                        android:textAlignment="viewStart"
+                        android:textSize="25sp" />
+
+                    <Spinner
+                        android:id="@+id/genderSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/ganderSetting" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <Button
