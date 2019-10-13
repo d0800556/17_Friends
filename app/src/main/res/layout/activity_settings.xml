@@ -51,6 +51,22 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/set_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/edit_profile"
+                android:hint="使用者名稱"
+                android:inputType="textMultiLine"
+                android:padding="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <EditText
                 android:id="@+id/set_profile_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,22 +92,6 @@
                 android:background="@drawable/inputs"
                 android:drawableStart="@drawable/me"
                 android:hint="自我介紹"
-                android:inputType="textMultiLine"
-                android:padding="6dp"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/set_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/inputs"
-                android:drawableStart="@drawable/edit_profile"
-                android:hint="使用者名稱"
                 android:inputType="textMultiLine"
                 android:padding="6dp"
                 android:textAlignment="center"
@@ -167,16 +167,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="居住地:"
                     android:textAlignment="viewStart"
-                    android:textSize="25sp" />
+                    android:textSize="14sp" />
 
                 <Spinner
                     android:id="@+id/local"
@@ -194,11 +195,11 @@
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="性別:"
                         android:textAlignment="viewStart"
-                        android:textSize="25sp" />
+                        android:textSize="14sp" />
 
                     <Spinner
                         android:id="@+id/genderSpinner"

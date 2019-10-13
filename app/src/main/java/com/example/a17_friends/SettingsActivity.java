@@ -284,7 +284,6 @@ public class SettingsActivity extends AppCompatActivity {
                         {
                             genderlayout.setVisibility(View.INVISIBLE);
                         }
-
                         if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
@@ -298,7 +297,6 @@ public class SettingsActivity extends AppCompatActivity {
                             Integer retrieveInterest4 = Integer.valueOf(dataSnapshot.child("interest4").getValue().toString());
                             Integer retrieveLocal = Integer.valueOf(dataSnapshot.child("local").getValue().toString());
                             Integer retrieveGender = Integer.valueOf(dataSnapshot.child("gender").getValue().toString());
-
 
                             gender.setSelection(retrieveGender);
                             local.setSelection(retrieveLocal);
