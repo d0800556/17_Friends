@@ -145,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        if(item.getItemId() == R.id.main_MoreSetting_option)
+        {
+            SendUserToMoreSettingActivity();
+        }
+
         if(item.getItemId() == R.id.main_setting_option)
         {
             SendUserToSettingActivity();
@@ -225,6 +230,12 @@ public class MainActivity extends AppCompatActivity {
         Intent SettingIntent = new Intent (MainActivity.this, SettingsActivity.class);
         startActivity(SettingIntent);
     }
+
+    private void SendUserToMoreSettingActivity() {
+        Intent SettingIntent = new Intent (MainActivity.this, MoreSettingsActivity.class);
+        startActivity(SettingIntent);
+    }
+
 
     private void SendUserToReportActivity() {
 
