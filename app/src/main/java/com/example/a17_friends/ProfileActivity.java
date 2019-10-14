@@ -26,7 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String receiverUserID, senderUserID, Current_State;
 
     private CircleImageView userProfileImage;
-    private TextView userProfileName, userProfileStatus,Self_introduction,interest;
+    private TextView userProfileName, userProfileStatus,Self_introduction,interest,local,age;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
 
     private DatabaseReference UserRef,ChatRequestRef,ContactsRef,NotificationRef;
@@ -52,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         userProfileStatus = (TextView) findViewById(R.id.visit_profile_status);
         Self_introduction = (TextView) findViewById(R.id.Self_introduction);
         interest = (TextView) findViewById(R.id.interest);
+        local = (TextView) findViewById(R.id.local);
+        age = (TextView) findViewById(R.id.age);
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
         Current_State = "new";
@@ -71,12 +73,16 @@ public class ProfileActivity extends AppCompatActivity {
                     String userstatus = dataSnapshot.child("status").getValue().toString();
                     String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
                     String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
+                    String userlocal = dataSnapshot.child("local").getValue().toString();
+                    String userage = dataSnapshot.child("age").getValue().toString();
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
                     userProfileName.setText(userName);
                     userProfileStatus.setText(userstatus);
                     Self_introduction.setText(userSelf_introduction);
                     interest.setText(userinterest);
+                    local.setText(userlocal);
+                    age.setText(userage);
 
                     ManageChatRequests();
                 }
@@ -86,11 +92,15 @@ public class ProfileActivity extends AppCompatActivity {
                     String userstatus = dataSnapshot.child("status").getValue().toString();
                     String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
                     String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
+                    String userlocal = dataSnapshot.child("local").getValue().toString();
+                    String userage = dataSnapshot.child("age").getValue().toString();
 
                     userProfileName.setText(userName);
                     userProfileStatus.setText(userstatus);
                     Self_introduction.setText(userSelf_introduction);
                     interest.setText(userinterest);
+                    local.setText(userlocal);
+                    age.setText(userage);
 
                     ManageChatRequests();
                 }
