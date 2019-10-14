@@ -56,7 +56,7 @@
         android:layout_below="@+id/visit_profile_status"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="25sp"
@@ -85,7 +85,7 @@
         android:layout_below="@+id/Self_introduction"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="25sp"
@@ -106,12 +106,71 @@
         android:textStyle="bold"
         />
 
+    <TextView
+        android:id="@+id/live111"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="城市"
+        android:layout_below="@+id/interest"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="250dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/old111"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="年齡"
+        android:layout_below="@+id/interest"
+        android:layout_marginLeft="250dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/live"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="YO"
+        android:layout_below="@+id/live111"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="250dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/old"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/live111"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="50dp"
+        android:text="YO"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
 
     <Button
         android:id="@+id/send_message_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/interest"
+        android:layout_below="@+id/live"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="65dp"
@@ -127,9 +186,9 @@
         android:id="@+id/decline_message_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/send_message_request_button"
+        android:layout_below="@+id/live"
         android:layout_marginLeft="65dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="65dp"
         android:background="@color/colorPrimary"
         android:text="取消好友邀請"
