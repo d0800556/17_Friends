@@ -137,7 +137,7 @@
         />
 
     <TextView
-        android:id="@+id/live"
+        android:id="@+id/local"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="YO"
@@ -152,7 +152,7 @@
         />
 
     <TextView
-        android:id="@+id/old"
+        android:id="@+id/age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/live111"
@@ -170,7 +170,7 @@
         android:id="@+id/send_message_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/live"
+        android:layout_below="@+id/age"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="65dp"
@@ -186,7 +186,7 @@
         android:id="@+id/decline_message_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/live"
+        android:layout_below="@+id/age"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="65dp"
