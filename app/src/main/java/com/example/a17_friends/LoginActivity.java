@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         progressDialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "密碼重設已寄出l",
+                                        Toast.makeText(getApplicationContext(), "密碼重設已寄出",
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
                                         progressDialog.dismiss();
