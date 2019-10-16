@@ -12,5 +12,49 @@
         >
     </include>
 
+    <TextView
+        android:id="@+id/AAA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="帳號"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="100dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/change_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/AAA"
+        android:hint="Email..."
+        android:inputType="textEmailAddress"
+        android:background="@drawable/inputs"
+        android:padding="4dp"
+        android:drawableStart="@drawable/email"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        />
+    <Button
+        android:id="@+id/change_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_mail"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="65dp"
+        android:background="@color/colorPrimary"
+        android:text="確認修改"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>
