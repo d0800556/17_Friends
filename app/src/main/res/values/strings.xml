@@ -13,6 +13,7 @@
         <item>36~40</item>
         <item>41~45</item>
         <item>46~50</item>
+        <item>大於50</item>
     </string-array>
 
     <integer-array name="agee">

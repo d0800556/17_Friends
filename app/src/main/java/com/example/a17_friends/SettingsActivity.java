@@ -200,6 +200,8 @@ public class SettingsActivity extends AppCompatActivity {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();
         String setAge = age.getText().toString();
+        Integer IntSetAge = Integer.parseInt(setAge);
+        String setAgeRange="";
         String setSelf_introduction = Self_introduction.getText().toString();
         Integer Strlocal  = local.getSelectedItemPosition();
         int carArr3[] = getResources().getIntArray(R.array.locall);//位置
@@ -223,10 +225,41 @@ public class SettingsActivity extends AppCompatActivity {
         Integer pointE = carArr2[StrGender];//抓數字(質數)
 
 
-
-
-
         int point = pointA * pointB * pointC * pointD * pointE * pointF;
+
+        if(IntSetAge>=15 && IntSetAge<=20)
+        {
+            setAgeRange="15~20";
+        }
+        else if(IntSetAge>20 && IntSetAge<=25)
+        {
+            setAgeRange="21~25";
+        }
+        else if(IntSetAge>25 && IntSetAge<=30)
+        {
+            setAgeRange="26~30";
+        }
+        else if(IntSetAge>30 && IntSetAge<=35)
+        {
+            setAgeRange="31~35";
+        }
+        else if(IntSetAge>35 && IntSetAge<=40)
+        {
+            setAgeRange="36~40";
+        }
+        else if(IntSetAge>40 && IntSetAge<=45)
+        {
+            setAgeRange="41~45";
+        }
+        else if(IntSetAge>45 && IntSetAge<=50)
+        {
+            setAgeRange="45~50";
+        }
+        else if(IntSetAge>50)
+        {
+            setAgeRange="大於50";
+        }
+
 
         if (StrGender== 0)
         {
@@ -265,7 +298,8 @@ public class SettingsActivity extends AppCompatActivity {
             HashMap<String,Object> profileMap = new HashMap<>();
                 profileMap.put("uid",currentUserID);
                 profileMap.put("name",setUserName);
-                profileMap.put("age",setAge);
+                profileMap.put("age",IntSetAge);
+                profileMap.put("age_range",setAgeRange);
                 profileMap.put("gender",StrGender);
                 profileMap.put("local",Strlocal);
                 profileMap.put("status",setStatus);
