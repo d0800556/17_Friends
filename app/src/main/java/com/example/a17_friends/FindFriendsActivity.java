@@ -33,9 +33,9 @@ public class FindFriendsActivity extends Fragment {
     private DatabaseReference UsersRef;
     private FloatingActionButton  SearchFloatingButton;
     private Button SearchButton,CancelButton;
-    private Spinner interest,gender,local;
+    private Spinner interest,gender,local,age;
     private LinearLayout SearchLayout;
-    private Integer StrInterest1,StrGender1,Strlocal1;
+    private Integer StrInterest1,StrGender1,Strlocal1,StrAge1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +52,7 @@ public class FindFriendsActivity extends Fragment {
         interest = (Spinner)  FriendsView.findViewById(R.id.interest);
         gender = (Spinner) FriendsView.findViewById(R.id.gender);
         local= (Spinner) FriendsView.findViewById(R.id.local);
+        age= (Spinner) FriendsView.findViewById(R.id.age);
         FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
         FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -103,6 +104,10 @@ public class FindFriendsActivity extends Fragment {
         Integer Strlocal  = local.getSelectedItemPosition();
         Strlocal1 = carArr3[Strlocal];//抓性別質數
 
+        int carArr4[] = getResources().getIntArray(R.array.agee);
+        Integer StrAge  = age.getSelectedItemPosition();
+        StrAge1 = carArr4[StrAge];//抓年齡質數
+
         Query query = FirebaseDatabase.getInstance().getReference().child("Users");
         FirebaseRecyclerOptions<Contacts> options =
                 new FirebaseRecyclerOptions.Builder<Contacts>()
@@ -117,7 +122,7 @@ public class FindFriendsActivity extends Fragment {
                     {
 
 
-                        if(model.getPoint() % (StrInterest1 * StrGender1 * Strlocal1) == 0)
+                        if(model.getPoint() % (StrInterest1 * StrGender1 * Strlocal1 * StrAge1) == 0)
                         {
                             holder.userName.setText(model.getName());
                             holder.userStatus.setText(model.getStatus());

@@ -224,42 +224,51 @@ public class SettingsActivity extends AppCompatActivity {
         int carArr2[] = getResources().getIntArray(R.array.ganderr);//性別
         Integer pointE = carArr2[StrGender];//抓數字(質數)
 
+        int pointG=1;
 
-        int point = pointA * pointB * pointC * pointD * pointE * pointF;
 
         if(IntSetAge>=15 && IntSetAge<=20)
         {
             setAgeRange="15~20";
+            //pointG=29;
         }
         else if(IntSetAge>20 && IntSetAge<=25)
         {
             setAgeRange="21~25";
+            //pointG=31;
         }
         else if(IntSetAge>25 && IntSetAge<=30)
         {
             setAgeRange="26~30";
+            //pointG=37;
         }
         else if(IntSetAge>30 && IntSetAge<=35)
         {
             setAgeRange="31~35";
+            //pointG=41;
         }
         else if(IntSetAge>35 && IntSetAge<=40)
         {
             setAgeRange="36~40";
+            //pointG=43;
         }
         else if(IntSetAge>40 && IntSetAge<=45)
         {
             setAgeRange="41~45";
+            //pointG=47;
         }
         else if(IntSetAge>45 && IntSetAge<=50)
         {
             setAgeRange="45~50";
+            //pointG=53;
         }
         else if(IntSetAge>50)
         {
             setAgeRange="大於50";
+            //pointG=139;
         }
 
+        long point = pointA * pointB * pointC * pointD * pointE * pointF * pointG ;//總和
 
         if (StrGender== 0)
         {
