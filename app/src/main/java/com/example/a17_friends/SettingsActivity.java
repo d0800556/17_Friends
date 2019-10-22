@@ -202,11 +202,31 @@ public class SettingsActivity extends AppCompatActivity {
         String setAge = age.getText().toString();
         String setSelf_introduction = Self_introduction.getText().toString();
         Integer Strlocal  = local.getSelectedItemPosition();
+        int carArr3[] = getResources().getIntArray(R.array.locall);//位置
+        Integer pointF = carArr3[Strlocal];//抓數字(質數)
+
         Integer StrInterest1  = interest1.getSelectedItemPosition();
+        int carArr[] = getResources().getIntArray(R.array.interestt);
+        Integer pointA = carArr[StrInterest1];//抓數字(質數)
+
         Integer StrInterest2  = interest2.getSelectedItemPosition();
+        Integer pointB = carArr[StrInterest2];//抓數字(質數)
+
         Integer StrInterest3  = interest3.getSelectedItemPosition();
+        Integer pointC = carArr[StrInterest3];//抓數字(質數)
+
         Integer StrInterest4  = interest4.getSelectedItemPosition();
+        Integer pointD = carArr[StrInterest4];//抓數字(質數)
+
         Integer StrGender  = gender.getSelectedItemPosition();
+        int carArr2[] = getResources().getIntArray(R.array.ganderr);//性別
+        Integer pointE = carArr2[StrGender];//抓數字(質數)
+
+
+
+
+
+        int point = pointA * pointB * pointC * pointD * pointE * pointF;
 
         if (StrGender== 0)
         {
@@ -254,6 +274,7 @@ public class SettingsActivity extends AppCompatActivity {
                 profileMap.put("interest2",StrInterest2);
                 profileMap.put("interest3",StrInterest3);
                 profileMap.put("interest4",StrInterest4);
+                profileMap.put("point",point);
              RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                      .addOnCompleteListener(new OnCompleteListener<Void>() {
                          @Override

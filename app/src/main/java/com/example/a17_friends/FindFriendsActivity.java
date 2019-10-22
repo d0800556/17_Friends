@@ -33,9 +33,9 @@ public class FindFriendsActivity extends Fragment {
     private DatabaseReference UsersRef;
     private FloatingActionButton  SearchFloatingButton;
     private Button SearchButton,CancelButton;
-    private Spinner interest;
+    private Spinner interest,gender,local;
     private LinearLayout SearchLayout;
-
+    private Integer StrInterest1,StrGender1,Strlocal1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +50,8 @@ public class FindFriendsActivity extends Fragment {
         CancelButton = (Button)  FriendsView.findViewById(R.id.CancelButton);
         SearchButton = (Button)  FriendsView.findViewById(R.id.SearchButton);
         interest = (Spinner)  FriendsView.findViewById(R.id.interest);
+        gender = (Spinner) FriendsView.findViewById(R.id.gender);
+        local= (Spinner) FriendsView.findViewById(R.id.local);
         FindFriendsRecyclerList = (RecyclerView) FriendsView.findViewById(R.id.find_friends_recycler_list);
         FindFriendsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -89,37 +91,55 @@ public class FindFriendsActivity extends Fragment {
     }
 
     public void test(){
-
+        int carArr[] = getResources().getIntArray(R.array.interestt);
         Integer StrInterest  = interest.getSelectedItemPosition();
+        StrInterest1 = carArr[StrInterest];//抓興趣質數
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Users")
-                .orderByChild("interest1")
-                .equalTo(StrInterest);
+        int carArr2[] = getResources().getIntArray(R.array.ganderr);
+        Integer StrGender  = gender.getSelectedItemPosition();
+        StrGender1 = carArr2[StrGender];//抓性別質數
+
+        int carArr3[] = getResources().getIntArray(R.array.locall);
+        Integer Strlocal  = local.getSelectedItemPosition();
+        Strlocal1 = carArr3[Strlocal];//抓性別質數
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users");
         FirebaseRecyclerOptions<Contacts> options =
                 new FirebaseRecyclerOptions.Builder<Contacts>()
                         .setQuery(query, Contacts.class)
                         .build();
+
 
         FirebaseRecyclerAdapter<Contacts,FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model)
                     {
-                        holder.userName.setText(model.getName());
-                        holder.userStatus.setText(model.getStatus());
-                        Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
 
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                String visit_user_id = getRef(position).getKey();
 
-                                Intent profileIntent =new Intent(getContext(),ProfileActivity.class);
-                                profileIntent.putExtra("visit_user_id", visit_user_id);
-                                startActivity(profileIntent);
-                            }
-                        });
+                        if(model.getPoint() % (StrInterest1 * StrGender1 * Strlocal1) == 0)
+                        {
+                            holder.userName.setText(model.getName());
+                            holder.userStatus.setText(model.getStatus());
+                            Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
+
+                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    String visit_user_id = getRef(position).getKey();
+
+                                    Intent profileIntent =new Intent(getContext(),ProfileActivity.class);
+                                    profileIntent.putExtra("visit_user_id", visit_user_id);
+                                    startActivity(profileIntent);
+
+
+
+                                }
+                            });
+                        }
+
+
                     }
 
                     @NonNull

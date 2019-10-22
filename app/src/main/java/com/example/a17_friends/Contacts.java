@@ -3,6 +3,7 @@ package com.example.a17_friends;
 public class Contacts
 {
     public String name, status , image;
+    public  int point;
 
     public Contacts()
     {
@@ -13,6 +14,7 @@ public class Contacts
         this.name = name;
         this.status = status;
         this.image = image;
+        this.point= point;
     }
 
     public String getName() {
@@ -37,5 +39,13 @@ public class Contacts
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

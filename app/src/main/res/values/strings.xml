@@ -10,6 +10,12 @@
         <item>女性</item>
     </string-array>
 
+    <integer-array name="ganderr">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+
     <string-array name="local">
         <item>請選擇</item>
         <item>台北</item>
@@ -19,6 +25,16 @@
         <item>台南</item>
         <item>高雄</item>
     </string-array>
+
+    <integer-array name="locall">
+        <item>1</item>
+        <item>5</item>
+        <item>7</item>
+        <item>11</item>
+        <item>13</item>
+        <item>17</item>
+        <item>19</item>
+    </integer-array>
 
     <string-array name="ganderSetting">
         <item>請選擇</item>
@@ -46,6 +62,27 @@
         <item>收集古董</item>
         <item>養寵物</item>
     </string-array>
+
+    <integer-array name="interestt">
+        <item>1</item>
+        <item>59</item>
+        <item>61</item>
+        <item>67</item>
+        <item>71</item>
+        <item>73</item>
+        <item>79</item>
+        <item>83</item>
+        <item>89</item>
+        <item>97</item>
+        <item>101</item>
+        <item>103</item>
+        <item>107</item>
+        <item>109</item>
+        <item>113</item>
+        <item>127</item>
+        <item>131</item>
+        <item>137</item>
+    </integer-array>
 
     <string-array name="truth">
         <item>曾經有過最被感動的事是什麼？</item>
