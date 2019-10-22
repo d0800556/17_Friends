@@ -4,6 +4,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="age">
+        <item>不限</item>
+        <item>15~20</item>
+        <item>21~25</item>
+        <item>26~30</item>
+        <item>31~35</item>
+        <item>36~40</item>
+        <item>41~45</item>
+        <item>46~50</item>
+    </string-array>
+
     <string-array name="gander">
         <item>不限</item>
         <item>男性</item>
