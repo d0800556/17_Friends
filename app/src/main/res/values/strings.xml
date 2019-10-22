@@ -15,6 +15,17 @@
         <item>46~50</item>
     </string-array>
 
+    <integer-array name="agee">
+        <item>1</item>
+        <item>29</item>
+        <item>31</item>
+        <item>37</item>
+        <item>41</item>
+        <item>43</item>
+        <item>47</item>
+        <item>53</item>
+    </integer-array>
+
     <string-array name="gander">
         <item>不限</item>
         <item>男性</item>
