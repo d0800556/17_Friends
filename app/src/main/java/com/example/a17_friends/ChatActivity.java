@@ -56,7 +56,7 @@ public class ChatActivity extends AppCompatActivity {
     
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef,NotificationRef;
 
     private ImageButton SendMessageButton, SendFilesButton;
     private EditText MessageInputText;
@@ -525,7 +525,7 @@ public class ChatActivity extends AppCompatActivity {
     }
     private void SendMessage()
     {
-        String messageText = MessageInputText.getText().toString();
+        final String messageText = MessageInputText.getText().toString();
 
         if (TextUtils.isEmpty(messageText))
         {
@@ -560,6 +560,15 @@ public class ChatActivity extends AppCompatActivity {
                     if (task.isSuccessful())
                     {
                         Toast.makeText(ChatActivity.this, "傳送成功...", Toast.LENGTH_SHORT).show();
+
+                        NotificationRef = FirebaseDatabase.getInstance().getReference().child("NotificationsChat");
+
+                        HashMap<String, String> chatNotificationMap = new HashMap<>();
+                        chatNotificationMap.put("from", messageSenderID);
+                        chatNotificationMap.put("message", messageText);
+
+                        NotificationRef.child(messageReceiverID).push()
+                                .setValue(chatNotificationMap);
                     }
                     else
                     {
