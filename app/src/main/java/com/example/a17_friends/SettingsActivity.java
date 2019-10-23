@@ -200,75 +200,77 @@ public class SettingsActivity extends AppCompatActivity {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();
         String setAge = age.getText().toString();
-        Integer IntSetAge = Integer.parseInt(setAge);
+        Integer IntSetAge = Integer.parseInt(setAge);//抓年齡
         String setAgeRange="";
         String setSelf_introduction = Self_introduction.getText().toString();
-        Integer Strlocal  = local.getSelectedItemPosition();
-        int carArr3[] = getResources().getIntArray(R.array.locall);//位置
-        Integer pointF = carArr3[Strlocal];//抓數字(質數)
-
+        //開始抓質數
         Integer StrInterest1  = interest1.getSelectedItemPosition();
-        int carArr[] = getResources().getIntArray(R.array.interestt);
-        Integer pointA = carArr[StrInterest1];//抓數字(質數)
+        int carArr[] = getResources().getIntArray(R.array.interestt);//選取位置=陣列位置
+        Integer pointA = carArr[StrInterest1];//抓數字(質數)//興趣
 
-        Integer StrInterest2  = interest2.getSelectedItemPosition();
-        Integer pointB = carArr[StrInterest2];//抓數字(質數)
+        Integer StrInterest2  = interest2.getSelectedItemPosition();//選取位置=陣列位置
+        Integer pointB = carArr[StrInterest2];//抓數字(質數)//興趣
 
-        Integer StrInterest3  = interest3.getSelectedItemPosition();
-        Integer pointC = carArr[StrInterest3];//抓數字(質數)
+        Integer StrInterest3  = interest3.getSelectedItemPosition();//選取位置=陣列位置
+        Integer pointC = carArr[StrInterest3];//抓數字(質數)//興趣
 
-        Integer StrInterest4  = interest4.getSelectedItemPosition();
-        Integer pointD = carArr[StrInterest4];//抓數字(質數)
+        Integer StrInterest4  = interest4.getSelectedItemPosition();//選取位置=陣列位置
+        Integer pointD = carArr[StrInterest4];//抓數字(質數)//興趣
 
         Integer StrGender  = gender.getSelectedItemPosition();
-        int carArr2[] = getResources().getIntArray(R.array.ganderr);//性別
-        Integer pointE = carArr2[StrGender];//抓數字(質數)
+        int carArr2[] = getResources().getIntArray(R.array.ganderr);//選取位置=陣列位置
+        Integer pointE = carArr2[StrGender];//抓數字(質數)//性別
 
-        int pointG=1;
+        Integer Strlocal  = local.getSelectedItemPosition();
+        int carArr3[] = getResources().getIntArray(R.array.locall);//選取位置=陣列位置
+        Integer pointF = carArr3[Strlocal];//抓數字(質數)//地區
+
+        int pointG=1;//
 
 
         if(IntSetAge>=15 && IntSetAge<=20)
         {
             setAgeRange="15~20";
-            //pointG=29;
+            pointG=29;
         }
         else if(IntSetAge>20 && IntSetAge<=25)
         {
             setAgeRange="21~25";
-            //pointG=31;
+            pointG=31;
         }
         else if(IntSetAge>25 && IntSetAge<=30)
         {
             setAgeRange="26~30";
-            //pointG=37;
+            pointG=37;
         }
         else if(IntSetAge>30 && IntSetAge<=35)
         {
             setAgeRange="31~35";
-            //pointG=41;
+            pointG=41;
         }
         else if(IntSetAge>35 && IntSetAge<=40)
         {
             setAgeRange="36~40";
-            //pointG=43;
+            pointG=43;
         }
         else if(IntSetAge>40 && IntSetAge<=45)
         {
             setAgeRange="41~45";
-            //pointG=47;
+            pointG=47;
         }
         else if(IntSetAge>45 && IntSetAge<=50)
         {
             setAgeRange="45~50";
-            //pointG=53;
+            pointG=53;
         }
         else if(IntSetAge>50)
         {
             setAgeRange="大於50";
-            //pointG=139;
+            pointG=139;
         }
 
-        long point = pointA * pointB * pointC * pointD * pointE * pointF * pointG ;//總和
+        long point = pointA * pointB * pointC * pointD    ;//興趣總和
+        int pointt = pointE * pointF * pointG;//其他總和
 
         if (StrGender== 0)
         {
@@ -318,6 +320,7 @@ public class SettingsActivity extends AppCompatActivity {
                 profileMap.put("interest3",StrInterest3);
                 profileMap.put("interest4",StrInterest4);
                 profileMap.put("point",point);
+                profileMap.put("pointt",pointt);
              RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                      .addOnCompleteListener(new OnCompleteListener<Void>() {
                          @Override

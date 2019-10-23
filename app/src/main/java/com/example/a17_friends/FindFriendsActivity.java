@@ -122,7 +122,7 @@ public class FindFriendsActivity extends Fragment {
                     {
 
 
-                        if(model.getPoint() % (StrInterest1 * StrGender1 * Strlocal1 * StrAge1) == 0)
+                        if(model.getPoint() % (StrInterest1) == 0 && model.getPointt() %(StrGender1 * Strlocal1 * StrAge1)==0)
                         {
                             holder.userName.setText(model.getName());
                             holder.userStatus.setText(model.getStatus());
