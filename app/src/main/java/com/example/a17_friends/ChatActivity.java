@@ -50,7 +50,7 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
-    private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
+    private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID,CallID;
 
     private TextView userName, userLastSeen;
     private CircleImageView userImage;
@@ -241,8 +241,7 @@ public class ChatActivity extends AppCompatActivity {
 
                         if(i == 2)
                         {
-                            MessageInputText.setText("邀請與對方視訊通話");
-                            SendMessage();
+
                             CheckCall();
                         }
                         if(i == 3)
@@ -351,7 +350,11 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         });
                         dialog.show();
-                    }
+                    CallID=messageReceiverID;
+                }
+                if(getwhere == null){
+                    CallID=null;
+                }
 
             }
             @Override
@@ -524,26 +527,22 @@ public class ChatActivity extends AppCompatActivity {
 
     private  void CheckCall()
     {
-        Query query = FirebaseDatabase.getInstance().getReference().child(messageSenderID).child(messageReceiverID);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String getwhere = dataSnapshot.child("from").getValue(String.class);
-                if (getwhere !=null && getwhere.equals(messageReceiverID)) {
-                    //join channel with getwhere
-                }
-                else {
-                    SendCallMessage();
-                    //and start call
-                }
 
-            }
+        if(CallID==null){
+            Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
+            intent1.putExtra("key", messageSenderID);
+            startActivity(intent1);
+            SendCallMessage();
+            MessageInputText.setText("邀請與對方視訊通話");
+            SendMessage();
+        }else if(CallID==messageReceiverID){
+        Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
+        intent1.putExtra("key", CallID);
+        startActivity(intent1);
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+
 
     }
 
@@ -874,6 +873,7 @@ public class ChatActivity extends AppCompatActivity {
                 String getwhere = dataSnapshot.child("from").getValue(String.class);
                 if (getwhere !=null && getwhere.equals(messageSenderID)){
                     DeleteCallMessage();
+                    CallID=null;
                 }
             }
 
