@@ -32,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -56,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef,NotificationRef;
+    private DatabaseReference RootRef,NotificationRef,CallRef;
 
     private ImageButton SendMessageButton, SendFilesButton;
     private EditText MessageInputText;
@@ -81,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
-
+        CallRef = FirebaseDatabase.getInstance().getReference();
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
         messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
@@ -240,7 +241,9 @@ public class ChatActivity extends AppCompatActivity {
 
                         if(i == 2)
                         {
-
+                            MessageInputText.setText("邀請與對方視訊通話");
+                            SendMessage();
+                            CheckCall();
                         }
                         if(i == 3)
                         {
@@ -305,7 +308,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(messageSenderIDGame == null){
                         AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this)
                                 .setTitle("對方出拳了 換你出拳")
-                                .setMessage("對方可能是剪刀");
+                                .setMessage("對方可能是出變化拳");
                         dialog.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
@@ -332,6 +335,30 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this)
+                                .setTitle("視訊通知")
+                                .setMessage("對方邀請視訊聊天");
+                        dialog.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // TODO Auto-generated method stub
+                                Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.show();
+                    }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -339,7 +366,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("平手")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("剪刀對剪刀");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -354,7 +381,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你輸了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("剪刀對石頭");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -368,7 +395,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你贏了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("剪刀對布");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -382,7 +409,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你贏了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("石頭對剪刀");
             dialog1.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -396,7 +423,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("平手")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("石頭對石頭");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -410,7 +437,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你輸了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("石頭對布");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -424,7 +451,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你輸了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("布對剪刀");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -438,7 +465,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("你贏了")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("布對石頭");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -452,7 +479,7 @@ public class ChatActivity extends AppCompatActivity {
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("平手")
-                    .setMessage(messageSenderIDGame+"和"+messageReceiverIDGame);
+                    .setMessage("布對布");
             dialog1.setNegativeButton("結束", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -495,6 +522,62 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    private  void CheckCall()
+    {
+        Query query = FirebaseDatabase.getInstance().getReference().child(messageSenderID).child(messageReceiverID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                if (getwhere !=null && getwhere.equals(messageReceiverID)) {
+                    //join channel with getwhere
+                }
+                else {
+                    SendCallMessage();
+                    //and start call
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    private  void SendCallMessage()
+    {
+        {
+            String messageSenderRef = "Call/" + messageSenderID + "/" + messageReceiverID;
+            String messageReceiverRef = "Call/" + messageReceiverID + "/" + messageSenderID;
+
+            Map messageTextBody = new HashMap();
+            messageTextBody.put("Call", "VideoCall");
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", messageSenderID);
+            messageTextBody.put("to", messageReceiverID);
+            Map messageBodyDetails = new HashMap();
+            messageBodyDetails.put(messageSenderRef + "/"  , messageTextBody);
+            messageBodyDetails.put( messageReceiverRef + "/"  , messageTextBody);
+            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful())
+                    {
+                        Toast.makeText(ChatActivity.this, "傳送成功...", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(ChatActivity.this, "錯誤", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
     private  void DeleteGameMessage()
     {
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -514,6 +597,8 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             messageReceiverIDGame =null;
                             messageSenderIDGame  =null;
+                            MessageInputText.setText("猜拳結束");
+                            SendMessage();
                         }
                     });
 
@@ -522,6 +607,34 @@ public class ChatActivity extends AppCompatActivity {
 
             }
 });
+    }
+    private void DeleteCallMessage()
+    {
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Call")
+                .child(messageSenderID).child(messageReceiverID)
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    rootRef.child("Call")
+                            .child(messageReceiverID).child(messageSenderID)
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            MessageInputText.setText("視訊已結束");
+                            SendMessage();
+                        }
+                    });
+
+                }
+
+
+            }
+        });
     }
     private void SendMessage()
     {
@@ -753,6 +866,22 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
+
+        RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addListenerForSingleValueEvent(new ValueEventListener() {  //進入此畫面就確認數據避免錯誤無法通話
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                if (getwhere !=null && getwhere.equals(messageSenderID)){
+                    DeleteCallMessage();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         super.onStart();
 
     }
