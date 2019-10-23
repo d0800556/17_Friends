@@ -41,7 +41,7 @@
     </integer-array>
 
     <string-array name="local">
-        <item>請選擇</item>
+        <item>不限</item>
         <item>台北</item>
         <item>新北</item>
         <item>桃園</item>
