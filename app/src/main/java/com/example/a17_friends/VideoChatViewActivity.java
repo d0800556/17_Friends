@@ -274,23 +274,13 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     public void onCallClicked(View view) {
-        if (mCallEnd) {
-            startCall();
-            mCallEnd = false;
-            mCallBtn.setImageResource(R.drawable.btn_endcall);
-        } else {
+        {
             endCall();
-            mCallEnd = true;
-            mCallBtn.setImageResource(R.drawable.btn_startcall);
+            finish();
         }
 
-        showButtons(!mCallEnd);
     }
 
-    private void startCall() {
-        setupLocalVideo();
-        joinChannel();
-    }
 
     private void endCall() {
         removeLocalVideo();
