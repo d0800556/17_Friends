@@ -115,13 +115,11 @@ public class FindFriendsActivity extends Fragment {
                         .build();
 
 
-        FirebaseRecyclerAdapter<Contacts,FindFriendViewHolder> adapter =
+        final FirebaseRecyclerAdapter<Contacts,FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model)
                     {
-
-
                         if(model.getPoint() % (StrInterest1) == 0 && model.getPointt() %(StrGender1 * Strlocal1 * StrAge1)==0)
                         {
                             holder.userName.setText(model.getName());
@@ -138,10 +136,15 @@ public class FindFriendsActivity extends Fragment {
                                     profileIntent.putExtra("visit_user_id", visit_user_id);
                                     startActivity(profileIntent);
 
-
-
                                 }
                             });
+                        }
+                        else {
+                            holder.profileImage.setVisibility(ViewGroup.GONE);
+                            holder.itemView.setVisibility(ViewGroup.GONE);
+                            holder.userStatus.setVisibility(ViewGroup.GONE);
+                            holder.userName.setVisibility(ViewGroup.GONE);
+
                         }
 
 
@@ -151,9 +154,13 @@ public class FindFriendsActivity extends Fragment {
                     @Override
                     public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
                     {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_display_layout,viewGroup,false);
+
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_display_layout, viewGroup, false);
                         FindFriendViewHolder viewHolder = new FindFriendViewHolder(view);
-                        return  viewHolder;
+                        return viewHolder;
+
+
+
                     }
                 };
         FindFriendsRecyclerList.setAdapter(adapter);
