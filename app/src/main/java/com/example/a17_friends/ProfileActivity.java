@@ -1,10 +1,14 @@
 package com.example.a17_friends;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -322,42 +326,75 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void SendChatRequest() {
 
-        ChatRequestRef.child(senderUserID).child(receiverUserID)
-                .child("request_type").setValue("sent")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        ChatRequestRef.child(receiverUserID).child(senderUserID)
-                                .child("request_type").setValue("received")
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task)
-                                    {
-                                        if (task.isSuccessful())
-                                        {
-                                            HashMap<String, String> chatNotificationMap = new HashMap<>();
-                                            chatNotificationMap.put("from", senderUserID);
-                                            chatNotificationMap.put("type", "request");
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this,R.style.AlertDialog);
+        builder.setTitle("打聲招呼吧:");
 
-                                            NotificationRef.child(receiverUserID).push()
-                                                    .setValue(chatNotificationMap)
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task)
-                                                        {
-                                                            if (task.isSuccessful())
-                                                            {
-                                                                SendMessageRequestButton.setEnabled(true);
-                                                                Current_State = "request_sent";
-                                                                SendMessageRequestButton.setText("取消好友邀請");
-                                                            }
-                                                        }
-                                                    });
-                                        }
-                                    }
-                                });
-                    }
-                });
+        final EditText SendChatField = new EditText(ProfileActivity.this);
+        SendChatField.setHint("可以跟你做個朋友嗎?");
+        builder.setView(SendChatField);
+
+        builder.setPositiveButton("送出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String SendChat = SendChatField.getText().toString();
+
+                if (TextUtils.isEmpty(SendChat))
+                {
+                    SendChat = "可以跟你做個朋友嗎?";
+                }
+
+                final String finalSendChat = SendChat;
+                ChatRequestRef.child(senderUserID).child(receiverUserID)
+                        .child("request_type").setValue("sent")
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task)
+                            {
+                                ChatRequestRef.child(receiverUserID).child(senderUserID)
+                                        .child("text").setValue(finalSendChat);
+                                ChatRequestRef.child(receiverUserID).child(senderUserID)
+                                        .child("request_type").setValue("received")
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task)
+                                            {
+                                                if (task.isSuccessful())
+                                                {
+                                                    HashMap<String, String> chatNotificationMap = new HashMap<>();
+                                                    chatNotificationMap.put("from", senderUserID);
+                                                    chatNotificationMap.put("type", "request");
+                                                    NotificationRef.child(receiverUserID).push()
+                                                            .setValue(chatNotificationMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task)
+                                                                {
+                                                                    if (task.isSuccessful())
+                                                                    {
+                                                                        SendMessageRequestButton.setEnabled(true);
+                                                                        Current_State = "request_sent";
+                                                                        SendMessageRequestButton.setText("取消好友邀請");
+                                                                    }
+                                                                }
+                                                            });
+                                                    Toast.makeText(ProfileActivity.this, " 邀請寄送成功!!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                }
+                            });
+                }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
     }
 }

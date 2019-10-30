@@ -83,7 +83,7 @@ public class RequestsFragment extends Fragment {
                         holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
 
                         final String list_user_id = getRef(position).getKey();
-                        DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
+                        final DatabaseReference getTypeRef = getRef(position).getRef();
 
                         getTypeRef.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -91,7 +91,8 @@ public class RequestsFragment extends Fragment {
 
                                 if (dataSnapshot.exists())
                                 {
-                                    String type = dataSnapshot.getValue().toString();
+                                    String type = dataSnapshot.child("request_type").getValue().toString();
+                                    final String text = dataSnapshot.child("text").getValue().toString();
 
                                     if (type.equals("received"))
                                     {
@@ -109,7 +110,7 @@ public class RequestsFragment extends Fragment {
                                                 final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
 
                                                 holder.userName.setText(requestUserName);
-                                                holder.userStatus.setText(requestUserName  + " 想跟你做好友");
+                                                holder.userStatus.setText(text);
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                                                     @Override
@@ -120,7 +121,7 @@ public class RequestsFragment extends Fragment {
                                                                         "拒絕"
                                                                 };
                                                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                        builder.setTitle(requestUserName  + " 想跟你做好友");
+                                                        builder.setTitle(text);
 
                                                         builder.setItems(options, new DialogInterface.OnClickListener() {
                                                             @Override

@@ -17,185 +17,205 @@
         android:src="@drawable/profile_image"
         />
 
-    <TextView
-        android:id="@+id/visit_user_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="user name"
-        android:layout_below="@+id/visit_profile_image"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        />
+        android:layout_height="match_parent"
+        android:layout_below="@id/visit_profile_image"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/visit_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:text="user name"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/visit_profile_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hey i'm using Coding Cafe chat App."
-        android:layout_below="@+id/visit_user_name"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="25dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/visit_profile_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            android:text="hey i'm using Coding Cafe chat App."
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/Self_introduction111"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自我介紹"
-        android:layout_below="@+id/visit_profile_status"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/Self_introduction111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:text="自我介紹"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/Self_introduction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="YOYO"
-        android:layout_below="@+id/Self_introduction111"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/Self_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="YOYO"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/interest111"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="興趣"
-        android:layout_below="@+id/Self_introduction"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/interest111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:text="興趣"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/interest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="YOYO"
-        android:layout_below="@+id/interest111"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/interest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="YOYO"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/live111"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="城市"
-        android:layout_below="@+id/interest"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="250dp"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/old111"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="年齡"
-        android:layout_below="@+id/interest"
-        android:layout_marginLeft="250dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/local"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="YO"
-        android:layout_below="@+id/live111"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="250dp"
-        android:layout_marginTop="15dp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
+            <TextView
+                android:id="@+id/live111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="城市"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/live111"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="50dp"
-        android:text="YO"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
+            <TextView
+                android:id="@+id/old111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="年齡"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/send_message_request_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/age"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="65dp"
-        android:background="@color/colorPrimary"
-        android:text="傳送邀請"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/decline_message_request_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/age"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="65dp"
-        android:background="@color/colorPrimary"
-        android:text="取消好友邀請"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="invisible" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="YO"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="YO"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/send_message_request_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="65dp"
+            android:background="@color/colorPrimary"
+            android:text="傳送邀請"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/decline_message_request_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="65dp"
+            android:background="@color/colorPrimary"
+            android:text="取消好友邀請"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+    </LinearLayout>
+
 
 </RelativeLayout>
