@@ -43,4 +43,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
     implementation 'io.agora.rtc:full-sdk:2.9.2'
+    implementation project(path: ':screensharemodule')
+
 }

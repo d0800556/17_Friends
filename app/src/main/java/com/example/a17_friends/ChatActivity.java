@@ -73,6 +73,7 @@ public class ChatActivity extends AppCompatActivity {
     private String messageSenderIDGame,messageReceiverIDGame;
     private StorageTask uploadTask;
     private Uri fileUrl;
+    private String Call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,12 +242,13 @@ public class ChatActivity extends AppCompatActivity {
 
                         if(i == 2)
                         {
-
+                            Call = "Call";
                             CheckCall();
                         }
                         if(i == 3)
                         {
-
+                            Call = "share";
+                            CheckCall();
                         }
 
                     }
@@ -527,19 +529,36 @@ public class ChatActivity extends AppCompatActivity {
 
     private  void CheckCall()
     {
-
-        if(CallID==null){
-            Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
-            intent1.putExtra("key", messageSenderID);
-            startActivity(intent1);
-            SendCallMessage();
-            MessageInputText.setText("邀請與對方視訊通話");
-            SendMessage();
-        }else if(CallID==messageReceiverID){
-        Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
-        intent1.putExtra("key", CallID);
-        startActivity(intent1);
+        if(Call=="Call"){
+            if(CallID==null){
+                Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
+                intent1.putExtra("key", messageSenderID);
+                startActivity(intent1);
+                SendCallMessage();
+                MessageInputText.setText("邀請與對方視訊通話");
+                SendMessage();
+            }else if(CallID==messageReceiverID){
+                Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
+                intent1.putExtra("key", CallID);
+                startActivity(intent1);
+            }
         }
+        if(Call=="share"){
+            if(CallID==null){
+                Intent intent1 = new Intent(ChatActivity.this,BroadcasterActivity.class);
+                intent1.putExtra("key", messageSenderID);
+                startActivity(intent1);
+                SendCallMessage();
+                MessageInputText.setText("邀請與對方螢幕共享");
+                SendMessage();
+            }else if(CallID==messageReceiverID){
+                Intent intent1 = new Intent(ChatActivity.this,AudienceActivity.class);
+                intent1.putExtra("key", CallID);
+                startActivity(intent1);
+            }
+
+        }
+
 
 
 

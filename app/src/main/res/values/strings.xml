@@ -195,4 +195,7 @@
         <item>火車</item>
     </string-array>
     <string name="agora_app_id">d3c8d9a10a964eea99821d879e8dfd4b</string>
+    <string name="label_start_sharing_your_screen">開始螢幕共享</string>
+    <string name="label_stop_sharing_your_screen">停止螢幕共享</string>
+
 </resources>
