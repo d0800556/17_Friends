@@ -1,7 +1,9 @@
 package com.example.a17_friends;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,13 +12,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -145,9 +150,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        if(item.getItemId() == R.id.main_MoreSetting_option)
+        if(item.getItemId() == R.id.main_changepassword_option)
         {
-            SendUserToMoreSettingActivity();
+            changepassword();
         }
 
         if(item.getItemId() == R.id.main_setting_option)
@@ -231,9 +236,70 @@ public class MainActivity extends AppCompatActivity {
         startActivity(SettingIntent);
     }
 
-    private void SendUserToMoreSettingActivity() {
-        Intent SettingIntent = new Intent (MainActivity.this, MoreSettingsActivity.class);
-        startActivity(SettingIntent);
+    private void changepassword() {  //修改密碼區
+        android.app.AlertDialog dialog =null;
+        final android.app.AlertDialog.Builder builder= new android.app.AlertDialog.Builder(this);
+        builder.setTitle("修改密碼");
+        LinearLayout linearLayout = new LinearLayout(this);
+        final EditText emailEt= new EditText(this);
+        emailEt.setHint("輸入Email");
+        emailEt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailEt.setMinEms(20);
+
+        linearLayout.addView(emailEt);
+        linearLayout.setPadding(20,20,20,20);
+        builder.setView(linearLayout);
+        builder.setPositiveButton("送出", new DialogInterface.OnClickListener() {  //設定送出按鈕
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = emailEt.getText().toString().trim();
+
+                if (email.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Email錯誤或不存在", Toast.LENGTH_SHORT).show();
+                } else{
+
+
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("驗證中..");
+                    progressDialog.show();
+
+                    mAuth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), "密碼重設已寄出",
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Email 不存在", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  //設定取消按鈕
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog =builder.create();
+        dialog.show();
+        dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+        dialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
     }
 
 

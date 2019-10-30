@@ -17,8 +17,8 @@
     </item>
 
     <item
-        android:title="更多設定"
-        android:id="@+id/main_MoreSetting_option"
+        android:title="修改密碼"
+        android:id="@+id/main_changepassword_option"
         app:showAsAction="never"
         >
     </item>

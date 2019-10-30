@@ -83,7 +83,7 @@ public class RequestsFragment extends Fragment {
                         holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
 
                         final String list_user_id = getRef(position).getKey();
-                        final DatabaseReference getTypeRef = getRef(position).getRef();
+                        DatabaseReference getTypeRef = getRef(position).getRef();
 
                         getTypeRef.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -92,10 +92,10 @@ public class RequestsFragment extends Fragment {
                                 if (dataSnapshot.exists())
                                 {
                                     String type = dataSnapshot.child("request_type").getValue().toString();
-                                    final String text = dataSnapshot.child("text").getValue().toString();
 
                                     if (type.equals("received"))
                                     {
+                                        final String text = dataSnapshot.child("text").getValue().toString();
                                         UsersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

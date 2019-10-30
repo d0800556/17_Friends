@@ -1,6 +1,7 @@
 package com.example.a17_friends;
 
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -72,39 +73,69 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.exists())  &&  (dataSnapshot.hasChild("image")))
                 {
+                    String userGender = dataSnapshot.child("gender").getValue().toString();
                     String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userstatus = dataSnapshot.child("status").getValue().toString();
+                    String userStatus = dataSnapshot.child("status").getValue().toString();
                     String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
-                    String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
-                    String userlocal = dataSnapshot.child("local").getValue().toString();
-                    String userage = dataSnapshot.child("age").getValue().toString();
+                    String userInterest1 = dataSnapshot.child("interest1").getValue().toString();
+                    String userInterest2 = dataSnapshot.child("interest2").getValue().toString();
+                    String userInterest3 = dataSnapshot.child("interest3").getValue().toString();
+                    String userInterest4 = dataSnapshot.child("interest4").getValue().toString();
+                    String userLocal = dataSnapshot.child("local").getValue().toString();
+                    String useRage = dataSnapshot.child("age").getValue().toString();
+
+                    Resources res = getResources();
+                    String[] GenderPlanets = res.getStringArray(R.array.gander);
+                    String UserRealGender = GenderPlanets[Integer.parseInt(userGender)];
+                    String[] LocalPlanets = res.getStringArray(R.array.local);
+                    String UserRealLocal = LocalPlanets[Integer.parseInt(userLocal)];
+                    String[] InterestPlanets = res.getStringArray(R.array.interest);
+                    String UserRealInterest1 = InterestPlanets[Integer.parseInt(userInterest1)];
+                    String UserRealInterest2 = InterestPlanets[Integer.parseInt(userInterest2)];
+                    String UserRealInterest3 = InterestPlanets[Integer.parseInt(userInterest3)];
+                    String UserRealInterest4 = InterestPlanets[Integer.parseInt(userInterest4)];
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
-                    userProfileName.setText(userName);
-                    userProfileStatus.setText(userstatus);
+                    userProfileName.setText(userName+"("+UserRealGender+")");
+                    userProfileStatus.setText(userStatus);
                     Self_introduction.setText(userSelf_introduction);
-                    interest.setText(userinterest);
-                    local.setText(userlocal);
-                    age.setText(userage);
+                    interest.setText(UserRealInterest1+","+UserRealInterest2+","+UserRealInterest3+","+UserRealInterest4);
+                    local.setText(UserRealLocal);
+                    age.setText(useRage);
 
                     ManageChatRequests();
                 }
                 else
                 {
+                    String userGender = dataSnapshot.child("gender").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userstatus = dataSnapshot.child("status").getValue().toString();
+                    String userStatus = dataSnapshot.child("status").getValue().toString();
                     String userSelf_introduction = dataSnapshot.child("Self_introduction").getValue().toString();
-                    String userinterest = dataSnapshot.child("interest1").getValue().toString()+","+dataSnapshot.child("interest2").getValue().toString()+","+dataSnapshot.child("interest3").getValue().toString()+","+dataSnapshot.child("interest4").getValue().toString();
-                    String userlocal = dataSnapshot.child("local").getValue().toString();
-                    String userage = dataSnapshot.child("age").getValue().toString();
+                    String userInterest1 = dataSnapshot.child("interest1").getValue().toString();
+                    String userInterest2 = dataSnapshot.child("interest2").getValue().toString();
+                    String userInterest3 = dataSnapshot.child("interest3").getValue().toString();
+                    String userInterest4 = dataSnapshot.child("interest4").getValue().toString();
+                    String userLocal = dataSnapshot.child("local").getValue().toString();
+                    String useRage = dataSnapshot.child("age").getValue().toString();
 
-                    userProfileName.setText(userName);
-                    userProfileStatus.setText(userstatus);
+                    Resources res = getResources();
+                    String[] GenderPlanets = res.getStringArray(R.array.gander);
+                    String UserRealGender = GenderPlanets[Integer.parseInt(userGender)];
+                    String[] LocalPlanets = res.getStringArray(R.array.local);
+                    String UserRealLocal = LocalPlanets[Integer.parseInt(userLocal)];
+                    String[] InterestPlanets = res.getStringArray(R.array.interest);
+                    String UserRealInterest1 = InterestPlanets[Integer.parseInt(userInterest1)];
+                    String UserRealInterest2 = InterestPlanets[Integer.parseInt(userInterest2)];
+                    String UserRealInterest3 = InterestPlanets[Integer.parseInt(userInterest3)];
+                    String UserRealInterest4 = InterestPlanets[Integer.parseInt(userInterest4)];
+
+                    userProfileName.setText(userName+"("+UserRealGender+")");
+                    userProfileStatus.setText(userStatus);
                     Self_introduction.setText(userSelf_introduction);
-                    interest.setText(userinterest);
-                    local.setText(userlocal);
-                    age.setText(userage);
+                    interest.setText(UserRealInterest1+","+UserRealInterest2+","+UserRealInterest3+","+UserRealInterest4);
+                    local.setText(UserRealLocal);
+                    age.setText(useRage);
 
                     ManageChatRequests();
                 }
