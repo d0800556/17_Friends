@@ -141,7 +141,7 @@ public class FindFriendsActivity extends Fragment {
                         }
                         else {
                             ViewGroup.LayoutParams params = FriendsView.getLayoutParams();
-                            params.height = 1;
+                            params.height = 0;
                             //holder.profileImage.setVisibility(ViewGroup.GONE);
                             holder.itemView.setVisibility(ViewGroup.GONE);
                             holder.itemView.setLayoutParams(params);
