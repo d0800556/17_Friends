@@ -140,10 +140,13 @@ public class FindFriendsActivity extends Fragment {
                             });
                         }
                         else {
-                            holder.profileImage.setVisibility(ViewGroup.GONE);
+                            ViewGroup.LayoutParams params = FriendsView.getLayoutParams();
+                            params.height = 1;
+                            //holder.profileImage.setVisibility(ViewGroup.GONE);
                             holder.itemView.setVisibility(ViewGroup.GONE);
-                            holder.userStatus.setVisibility(ViewGroup.GONE);
-                            holder.userName.setVisibility(ViewGroup.GONE);
+                            holder.itemView.setLayoutParams(params);
+                            //holder.userStatus.setVisibility(ViewGroup.GONE);
+                            //holder.userName.setVisibility(ViewGroup.GONE);
 
                         }
 
