@@ -17,6 +17,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/private_messages_list_of_users"
         android:layout_width="match_parent"
+        android:background="#F5DEB3"
         android:layout_height="match_parent"
         android:layout_below="@+id/chat_toolbar"
         android:layout_above="@+id/chat_linear_layout"
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="輸入文字在此...."
+
             android:padding="15dp"
             android:maxLines="5"
             android:layout_toEndOf="@+id/send_files_btn"
@@ -79,7 +81,7 @@
             android:id="@+id/Truthlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/colorError"
+            android:background="#CD853F"
             android:orientation="vertical"
             tools:visibility="visible">
 
@@ -126,7 +128,7 @@
             android:id="@+id/moralayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/colorError"
+            android:background="#CD853F"
             android:orientation="vertical"
             tools:visibility="invisible">
 
