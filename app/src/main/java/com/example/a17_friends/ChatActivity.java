@@ -17,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +61,10 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef,NotificationRef,CallRef;
 
-    private ImageButton SendMessageButton, SendFilesButton;
+    private ImageButton SendMessageButton, SendFilesButton,scissors_bt,rock_bt,paper_bt;
+    private Button bt_cancelMora,bt_cancel1,Truth_bt,adventure_bt,bt_cancel2;
     private EditText MessageInputText;
+    private LinearLayout moralayout,Truthlayout;
 
     private final List<Messages> messagesList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
@@ -88,7 +92,6 @@ public class ChatActivity extends AppCompatActivity {
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
         messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
 
-
         IntializeControllers();
 
         userName.setText(messageReceiverName);
@@ -102,6 +105,76 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         DisplayLastSeen();
+
+        scissors_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moralayout.setVisibility(View.INVISIBLE);
+                MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                SendMessage();
+                SendGameMessage("scissors");
+            }
+        });
+        rock_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moralayout.setVisibility(View.INVISIBLE);
+                MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                SendMessage();
+                SendGameMessage("rock");
+            }
+        });
+        paper_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moralayout.setVisibility(View.INVISIBLE);
+                MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已選擇");
+                SendMessage();
+                SendGameMessage("paper");
+            }
+        });
+        bt_cancelMora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moralayout.setVisibility(View.INVISIBLE);
+                MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已取消");
+                SendMessage();
+            }
+        });
+        bt_cancel1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moralayout.setVisibility(View.INVISIBLE);
+            }
+        });
+        Truth_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Truthlayout.setVisibility(View.INVISIBLE);
+                Random x=new Random();
+                int y=x.nextInt(23);
+                String truth[]=getResources().getStringArray(R.array.truth);
+                MessageInputText.setText("小遊戲(真心話):"+"\n"+truth[y]);
+                SendMessage();
+            }
+        });
+        adventure_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Truthlayout.setVisibility(View.INVISIBLE);
+                Random x=new Random();
+                int y=x.nextInt(4);
+                String adventure[]=getResources().getStringArray(R.array.adventure);
+                MessageInputText.setText("小遊戲(大冒險):"+"\n"+adventure[y]);
+                SendMessage();
+            }
+        });
+        bt_cancel2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Truthlayout.setVisibility(View.INVISIBLE);
+            }
+        });
 
         SendFilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +220,8 @@ public class ChatActivity extends AppCompatActivity {
                                 {
                                     if(i == 0)
                                     {
-                                        CharSequence MoraOptions[] = new CharSequence[]
+                                        moralayout.setVisibility(View.VISIBLE);
+                                        /*CharSequence MoraOptions[] = new CharSequence[]
                                                 {
                                                         "剪刀",
                                                         "石頭",
@@ -187,11 +261,13 @@ public class ChatActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                        builder.show();
+                                        builder.show();*/
+
                                     }
                                     if(i == 1 )
                                     {
-                                        CharSequence TruthOptions[] = new CharSequence[]
+                                        Truthlayout.setVisibility(View.VISIBLE);
+                                       /* CharSequence TruthOptions[] = new CharSequence[]
                                                 {
                                                         "真心話",
                                                         "大冒險",
@@ -222,7 +298,7 @@ public class ChatActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                        builder.show();
+                                        builder.show();*/
                                     }
 
                                     if(i == 2)
@@ -731,7 +807,19 @@ public class ChatActivity extends AppCompatActivity {
 
         SendMessageButton = (ImageButton) findViewById(R.id.send_message_btn);
         SendFilesButton = (ImageButton) findViewById(R.id.send_files_btn);
+        scissors_bt = (ImageButton) findViewById(R.id.scissors_bt);
+        rock_bt = (ImageButton) findViewById(R.id.rock_bt);
+        paper_bt = (ImageButton) findViewById(R.id.paper_bt);
+        bt_cancelMora =  (Button) findViewById(R.id.bt_cancelMora);
+        bt_cancel1 =  (Button) findViewById(R.id.bt_cancel1);
+        bt_cancel2 =  (Button) findViewById(R.id.bt_cancel2);
+        Truth_bt =  (Button) findViewById(R.id.Truth_bt);
+        adventure_bt =  (Button) findViewById(R.id.adventure_bt);
         MessageInputText = (EditText) findViewById(R.id.input_message);
+        moralayout = (LinearLayout) findViewById(R.id.moralayout);
+        moralayout.setVisibility(View.INVISIBLE);
+        Truthlayout = (LinearLayout) findViewById(R.id.Truthlayout);
+        Truthlayout.setVisibility(View.INVISIBLE);
 
         messageAdapter = new MessageAdapter(messagesList);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
