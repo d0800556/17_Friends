@@ -138,6 +138,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 moralayout.setVisibility(View.INVISIBLE);
                 MessageInputText.setText("小遊戲(猜拳):"+"\n"+"對方已取消");
+                DeleteGameMessage();
                 SendMessage();
             }
         });
