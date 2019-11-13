@@ -11,6 +11,7 @@
         android:id="@+id/Layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#E0FFFF"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -139,10 +140,10 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorPrimary"
+                android:background="#FFFFFF"
                 android:text="傳送邀請"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
+                android:textColor="#FF0000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -152,11 +153,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
+                android:background="#FFFFFF"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorPrimary"
                 android:text="取消好友邀請"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
+                android:textColor="#FF0000"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
@@ -172,6 +173,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#E0FFFF"
             android:orientation="vertical">
 
             <TextView
@@ -181,7 +183,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorPrimary"
+                android:background="#FFA488"
                 android:text="個人簽名"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -209,7 +211,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorPrimary"
+                android:background="#FFA488"
                 android:text="自我介紹"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -237,7 +239,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorPrimary"
+                android:background="#FFA488"
                 android:text="興趣"
                 android:textAlignment="center"
                 android:textAllCaps="false"

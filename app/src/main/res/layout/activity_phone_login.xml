@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/one12"
     tools:context=".PhoneLoginActivity">
 
     <EditText
@@ -13,7 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/inputs"
         android:padding="8dp"
         android:hint="輸入手機號碼(請自行加入區碼，台灣:+886)"
@@ -54,7 +55,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="1dp"
-        android:background="@color/colorPrimary"
+        android:background="#FF7F50"
         android:textColor="@android:color/background_light"
         android:textSize="19sp"
         android:textAlignment="center"

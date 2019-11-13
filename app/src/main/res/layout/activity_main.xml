@@ -17,6 +17,7 @@
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_bar_layout"
+
             >
         </include>
 
@@ -26,6 +27,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/main_tabs_pager"
         android:layout_width="match_parent"
+        android:background="#E0FFFF"
         android:layout_height="wrap_content"
         android:layout_above="@id/main_tabs1"
         android:layout_below="@+id/appBarLayout"></android.support.v4.view.ViewPager>
@@ -42,6 +44,7 @@
             android:id="@+id/main_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFA488"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.design.widget.TabLayout>
     </LinearLayout>
 </RelativeLayout>
