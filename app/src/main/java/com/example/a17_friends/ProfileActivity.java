@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String receiverUserID, senderUserID, Current_State;
 
     private CircleImageView userProfileImage;
-    private TextView userProfileName, userProfileStatus,Self_introduction,interest,local,age;
+    private TextView userProfileName, userProfileStatus,Self_introduction,interest,local,age,gander;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
 
     private DatabaseReference UserRef,ChatRequestRef,ContactsRef,NotificationRef;
@@ -58,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         Self_introduction = (TextView) findViewById(R.id.Self_introduction);
         interest = (TextView) findViewById(R.id.interest);
         local = (TextView) findViewById(R.id.local);
+        gander = (TextView) findViewById(R.id.gander);
         age = (TextView) findViewById(R.id.age);
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
@@ -97,7 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
                     String UserRealInterest4 = InterestPlanets[Integer.parseInt(userInterest4)];
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
-                    userProfileName.setText(userName+"("+UserRealGender+")");
+                    userProfileName.setText(userName);
+                    gander.setText(UserRealGender);
                     userProfileStatus.setText(userStatus);
                     Self_introduction.setText(userSelf_introduction);
                     interest.setText(UserRealInterest1+","+UserRealInterest2+","+UserRealInterest3+","+UserRealInterest4);
@@ -130,7 +132,8 @@ public class ProfileActivity extends AppCompatActivity {
                     String UserRealInterest3 = InterestPlanets[Integer.parseInt(userInterest3)];
                     String UserRealInterest4 = InterestPlanets[Integer.parseInt(userInterest4)];
 
-                    userProfileName.setText(userName+"("+UserRealGender+")");
+                    userProfileName.setText(userName);
+                    gander.setText(UserRealGender);
                     userProfileStatus.setText(userStatus);
                     Self_introduction.setText(userSelf_introduction);
                     interest.setText(UserRealInterest1+","+UserRealInterest2+","+UserRealInterest3+","+UserRealInterest4);
