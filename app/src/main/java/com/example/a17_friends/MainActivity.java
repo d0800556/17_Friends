@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         else
         {
-            updateUserStatus("online");
             VerifyUserExistance();
+            updateUserStatus("online");
         }
     }
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null)
+        if (currentUser != null)
         {
             updateUserStatus("offline");
         }
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void VerifyUserExistance()
     {
-        String currentUserID=mAuth.getCurrentUser().getUid();
+        currentUserID=mAuth.getCurrentUser().getUid();
         RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         {
             updateUserStatus("offline");
             mAuth.signOut();
+            currentUserID=null;
             SendUserToLoginActivity();
             finish();
         }
@@ -324,11 +325,13 @@ public class MainActivity extends AppCompatActivity {
         onlineStateMap.put("time", saveCurrentTime);
         onlineStateMap.put("date", saveCurrentDate);
         onlineStateMap.put("state", state);
+        if(mAuth.getCurrentUser().getUid() !=null){
+            currentUserID = mAuth.getCurrentUser().getUid();
+            RootRef.child("Users").child(currentUserID).child("userState")
+                    .updateChildren(onlineStateMap);
 
-        currentUserID = mAuth.getCurrentUser().getUid();
+        }
 
-        RootRef.child("Users").child(currentUserID).child("userState")
-                .updateChildren(onlineStateMap);
 
 
     }
