@@ -210,7 +210,6 @@ public class ChatActivity extends AppCompatActivity {
                                             "猜拳",
                                             "真心話大冒險",
                                             "你畫我猜",
-                                            "夫妻臉"
                                     };
 
 
