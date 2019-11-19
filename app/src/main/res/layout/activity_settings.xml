@@ -49,7 +49,7 @@
                 android:inputType="number"
                 android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <EditText
@@ -65,7 +65,7 @@
                 android:inputType="textMultiLine"
                 android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <EditText
@@ -81,7 +81,7 @@
                 android:inputType="textMultiLine"
                 android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <EditText
@@ -97,7 +97,7 @@
                 android:inputType="textMultiLine"
                 android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -229,6 +229,10 @@
                 android:textColor="@android:color/background_light"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
         </LinearLayout>
     </ScrollView>
 
