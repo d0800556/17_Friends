@@ -3,10 +3,13 @@ package com.example.a17_friends;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.icu.util.Calendar;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -36,6 +40,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String PERMISSION_WRITE_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
     private Toolbar mToolbar;
     private ViewPager myViewPager;
     private TabLayout myTabLayout;
@@ -48,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (!hasPermission()) {
+            if (needCheckPermission()) {
+                //如果須要檢查權限，由於這個步驟要等待使用者確認，
+                //所以不能立即執行儲存的動作，
+                //必須在 onRequestPermissionsResult 回應中才執行
+                return;
+            }
+        }
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
@@ -334,5 +347,36 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private boolean needCheckPermission() {
+        //MarshMallow(API-23)之後要在 Runtime 詢問權限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] perms = {PERMISSION_WRITE_STORAGE};
+            int permsRequestCode = 200;
+            requestPermissions(perms, permsRequestCode);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean hasPermission(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            return(ActivityCompat.checkSelfPermission(this, PERMISSION_WRITE_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 200){
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                }
+            }
+        }
     }
 }
