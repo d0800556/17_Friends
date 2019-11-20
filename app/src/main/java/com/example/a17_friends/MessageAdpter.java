@@ -164,14 +164,14 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                     {
                         CharSequence Options[] = new CharSequence[]
                                 {
-                                        "刪除自己記錄(本機)",
+                                        "刪除訊息",
+                                        "收回訊息",
                                         "取消",
-                                        "刪除雙方紀錄(伺服器)",
                                 };
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("刪除訊息");
+                        builder.setTitle("請選擇");
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
@@ -184,13 +184,13 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 }
                                 if(i == 1 )
                                 {
-
-                                }
-                                if(i == 2 )
-                                {
                                     deleteMessageForEveryOne(position,messageViewHolder);
                                     Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
                                     messageViewHolder.itemView.getContext().startActivity(intent);
+                                }
+                                if(i == 2 )
+                                {
+
                                 }
                             }
                         });
@@ -200,42 +200,43 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                     {
                         CharSequence Options[] = new CharSequence[]
                                 {
-                                        "刪除自己記錄(本機)",
                                         "查看圖片",
+                                        "刪除訊息",
+                                        "收回訊息",
                                         "取消",
-                                        "刪除雙方紀錄(伺服器)",
                                 };
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("刪除訊息");
+                        builder.setTitle("請選擇");
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
                             {
                                 if(i == 0)
+                                {    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
+
+                                }
+                                if(i == 1 )
                                 {
                                     deleteReceiveMessage(position,messageViewHolder);
 
                                     Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
                                     messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
-                                if(i == 1 )
-                                {
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
-                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
-                                }
                                 if(i == 2 )
-                                {
-
-                                }
-                                if(i == 3 )
                                 {
                                     deleteMessageForEveryOne(position,messageViewHolder);
 
                                     Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
                                     messageViewHolder.itemView.getContext().startActivity(intent);
+                                }
+                                if(i == 3 )
+                                {
+
                                 }
                             }
                         });
@@ -253,13 +254,13 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                     {
                         CharSequence Options[] = new CharSequence[]
                                 {
-                                        "刪除自己記錄(本機)",
+                                        "刪除訊息",
                                         "取消",
                                 };
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("刪除訊息");
+                        builder.setTitle("請選擇");
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
@@ -283,28 +284,29 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                     {
                         CharSequence Options[] = new CharSequence[]
                                 {
-                                        "刪除自己記錄(本機)",
                                         "查看圖片",
+                                        "刪除訊息",
                                         "取消",
                                 };
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("刪除訊息");
+                        builder.setTitle("請選擇");
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
                             {
                                 if(i == 0)
                                 {
-                                    deleteReceiveMessage(position,messageViewHolder);
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
                                     messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 1 )
                                 {
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), ImageViewerActivity.class);
-                                    intent.putExtra("url",userMessagesList.get(position).getMessage());
+                                    deleteReceiveMessage(position,messageViewHolder);
+                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
                                     messageViewHolder.itemView.getContext().startActivity(intent);
                                 }
                                 if(i == 2 )
@@ -391,7 +393,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                         {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(holder.itemView.getContext(), "收回成功", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
