@@ -187,7 +187,8 @@ public class ChatActivity extends AppCompatActivity {
                           "上傳圖片",
                           "小遊戲",
                           "視訊",
-                          "螢幕共享"
+                          "螢幕共享",
+                          "通話",
                         };
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
                 builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -325,6 +326,11 @@ public class ChatActivity extends AppCompatActivity {
                         if(i == 3)
                         {
                             Call = "share";
+                            CheckCall();
+                        }
+                        if(i == 4)
+                        {
+                            Call = "Voice";
                             CheckCall();
                         }
 
@@ -590,6 +596,23 @@ public class ChatActivity extends AppCompatActivity {
             }
 
         }
+        if(Call=="Voice") {
+            if(CallID==null){
+                Intent intent1 = new Intent(ChatActivity.this,VoiceChatViewActivity.class);
+                intent1.putExtra("key", messageSenderID);
+                startActivity(intent1);
+                SendCallMessage();
+                MessageInputText.setText("邀請與對方語音通話");
+                SendMessage();
+            }else if(CallID==messageReceiverID){
+                Intent intent1 = new Intent(ChatActivity.this,VoiceChatViewActivity.class);
+                intent1.putExtra("key", CallID);
+                startActivity(intent1);
+            }
+
+
+        }
+
 
 
 
