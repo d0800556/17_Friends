@@ -110,6 +110,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
 
     private void onRemoteUserLeft() {
         removeRemoteVideo();
+        finish();
     }
 
     private void removeRemoteVideo() {

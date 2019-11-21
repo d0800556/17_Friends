@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,6 +80,8 @@ public class ChatActivity extends AppCompatActivity {
     private StorageTask uploadTask;
     private Uri fileUrl;
     private String Call;
+    private String currentUserID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -358,10 +361,15 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                        messageAdapter.notifyDataSetChanged();
+
+                        userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
                     }
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        messageAdapter.notifyDataSetChanged();
+                        userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
 
                     }
 
@@ -628,7 +636,7 @@ public class ChatActivity extends AppCompatActivity {
             String messageReceiverRef = "Call/" + messageReceiverID + "/" + messageSenderID;
 
             Map messageTextBody = new HashMap();
-            messageTextBody.put("Call", "VideoCall");
+            messageTextBody.put("Call", Call);
             messageTextBody.put("type", "text");
             messageTextBody.put("from", messageSenderID);
             messageTextBody.put("to", messageReceiverID);
@@ -953,7 +961,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-
+        updateUserStatus("online");
         RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addListenerForSingleValueEvent(new ValueEventListener() {  //進入此畫面就確認數據避免錯誤無法通話
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -1021,22 +1029,43 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String getwhere = dataSnapshot.child("from").getValue(String.class);
+                String getCall = dataSnapshot.child("Call").getValue(String.class);
+
                 if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
+                    CallID=messageReceiverID;
                     AlertDialog.Builder dialog2 = new AlertDialog.Builder(ChatActivity.this);
-                    dialog2.setTitle("視訊通知");
-                    dialog2.setMessage("對方邀請視訊聊天");
-                    dialog2.setNegativeButton("結束", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            // TODO Auto-generated method stub
-                            Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    if(getCall !=null && getCall.equals("Call")) {
+                        Call ="Call";
+                        dialog2.setTitle("視訊通知");
+                        dialog2.setMessage("對方邀請視訊聊天");
+                    }
+                        if(getCall !=null && getCall.equals("share")){
+                            Call ="share";
+                            dialog2.setTitle("螢幕共享通知");
+                            dialog2.setMessage("對方邀請螢幕共享");
                         }
-                    });
+                    if(getCall !=null && getCall.equals("Voice")){
+                        Call ="Voice";
+                        dialog2.setTitle("語音通話通知");
+                        dialog2.setMessage("對方邀請語音通話");
+                    }
+                        dialog2.setPositiveButton("接受", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                CheckCall();
+                            }
+                        });
+
+                    dialog2.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // TODO Auto-generated method stub
+                                Toast.makeText(ChatActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                    }
+                        });
                     if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
                     {
                         dialog2.show();
                     }
-                    CallID=messageReceiverID;
                 }
                 if(getwhere == null){
                     CallID=null;
@@ -1048,6 +1077,56 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+
+    private void updateUserStatus(String state)
+    {
+        String saveCurrentTime, saveCurrentDate;
+
+        android.icu.util.Calendar calendar = android.icu.util.Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlineStateMap = new HashMap<>();
+        onlineStateMap.put("time", saveCurrentTime);
+        onlineStateMap.put("date", saveCurrentDate);
+        onlineStateMap.put("state", state);
+        if(mAuth.getCurrentUser().getUid() !=null){
+            currentUserID = mAuth.getCurrentUser().getUid();
+            RootRef.child("Users").child(currentUserID).child("userState")
+                    .updateChildren(onlineStateMap);
+
+        }
+
+
+
+    }
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null)
+        {
+            updateUserStatus("offline");
+        }
+    }
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null)
+        {
+            updateUserStatus("offline");
+        }
+
 
     }
 }

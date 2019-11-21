@@ -1,5 +1,6 @@
 package com.example.a17_friends;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -179,14 +180,12 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 if(i == 0)
                                 {
                                     deleteSentMessage(position,messageViewHolder);
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 1 )
                                 {
                                     deleteMessageForEveryOne(position,messageViewHolder);
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 2 )
                                 {
@@ -224,15 +223,13 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 {
                                     deleteReceiveMessage(position,messageViewHolder);
 
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 2 )
                                 {
                                     deleteMessageForEveryOne(position,messageViewHolder);
 
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 3 )
                                 {
@@ -269,8 +266,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 {
                                     deleteSentMessage(position,messageViewHolder);
 
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 1 )
                                 {
@@ -306,8 +302,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                                 if(i == 1 )
                                 {
                                     deleteReceiveMessage(position,messageViewHolder);
-                                    Intent intent = new Intent(messageViewHolder.itemView.getContext(), MainActivity.class);
-                                    messageViewHolder.itemView.getContext().startActivity(intent);
+
                                 }
                                 if(i == 2 )
                                 {
@@ -333,9 +328,10 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-                if(task.isSuccessful())
-                {
+                if(task.isSuccessful()) {
                     Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                    userMessagesList.remove(position);
+                    notifyDataSetChanged();
                 }
                 else
                 {
@@ -360,6 +356,10 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                 if(task.isSuccessful())
                 {
                     Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
+                    userMessagesList.remove(position);
+                    notifyDataSetChanged();
+
+
                 }
                 else
                 {
@@ -394,6 +394,8 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             if(task.isSuccessful())
                             {
                                 Toast.makeText(holder.itemView.getContext(), "收回成功", Toast.LENGTH_SHORT).show();
+                                userMessagesList.remove(position);
+                                notifyDataSetChanged();
                             }
                         }
                     });
