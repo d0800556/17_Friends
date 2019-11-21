@@ -104,38 +104,9 @@
 
                 />
 
-            <TextView
-                android:id="@+id/login_using"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/need_new_account_link"
-                android:text="手機登入"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="23dp"
-                android:textAlignment="center"
-                android:textSize="17sp"
-                android:textStyle="bold"
 
-                />
 
-            <Button
-                android:id="@+id/phone_login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/login_using"
-                android:padding="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
-                android:text="手機"
-                android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textColor="@android:color/background_light"
-                android:background="#B088FF"
 
-                />
 
         </RelativeLayout>
     </ScrollView>
