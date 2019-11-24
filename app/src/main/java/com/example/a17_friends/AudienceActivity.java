@@ -1,12 +1,18 @@
 package com.example.a17_friends;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -16,7 +22,7 @@ import io.agora.rtc.video.VideoCanvas;
 public class AudienceActivity extends Activity {
 
     private static final String TAG = AudienceActivity.class.getSimpleName();
-
+    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
     private FrameLayout mFlSS;
     private RtcEngine mRtcEngine;
     private String ChannelKey;
@@ -24,10 +30,12 @@ public class AudienceActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audience);
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)) {
+            mFlSS = (FrameLayout) findViewById(R.id.fl_screenshare);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            initEngineAndJoin();
 
-        mFlSS = (FrameLayout) findViewById(R.id.fl_screenshare);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        initEngineAndJoin();
+        }
     }
 
     private void initEngineAndJoin() {
@@ -58,13 +66,14 @@ public class AudienceActivity extends Activity {
 
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.enableVideo();
-        mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+        mRtcEngine.enableAudio(); // 开启音频功能
+        mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
         if (getIntent().hasExtra("key")){
 
             ChannelKey = getIntent().getStringExtra("key");
         }
 
-        mRtcEngine.joinChannel(null, ChannelKey, "", Constant.AUDIENCE_UID);
+        mRtcEngine.joinChannel(null, ChannelKey, "Extra Optional Data", Constant.AUDIENCE_UID);
     }
 
     private void setupRemoteView(int uid) {
@@ -79,6 +88,47 @@ public class AudienceActivity extends Activity {
         }
 
         mRtcEngine.setupRemoteVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_FIT, uid));
+    }
+    public boolean checkSelfPermission(String permission, int requestCode) {
+        Log.i(null, "checkSelfPermission " + permission + " " + requestCode);
+        if (ContextCompat.checkSelfPermission(this,
+                permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{permission},
+                    requestCode);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+        Log.i(null, "onRequestPermissionsResult " + grantResults[0] + " " + requestCode);
+
+        switch (requestCode) {
+            case PERMISSION_REQ_ID_RECORD_AUDIO: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    initEngineAndJoin();
+                } else {
+                    showLongToast("No permission for " + Manifest.permission.RECORD_AUDIO);
+                    finish();
+                }
+                break;
+            }
+        }
+    }
+
+    public final void showLongToast(final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
