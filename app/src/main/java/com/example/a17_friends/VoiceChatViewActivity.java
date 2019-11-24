@@ -62,6 +62,8 @@ public class VoiceChatViewActivity extends AppCompatActivity {
     private void initAgoraEngineAndJoinChannel() {
         initializeAgoraEngine();     // Tutorial Step 1
         joinChannel();               // Tutorial Step 2
+        mRtcEngine.setEnableSpeakerphone(false);
+
     }
 
     public boolean checkSelfPermission(String permission, int requestCode) {
