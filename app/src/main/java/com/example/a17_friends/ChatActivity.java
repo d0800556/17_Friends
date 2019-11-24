@@ -79,7 +79,7 @@ public class ChatActivity extends AppCompatActivity {
     private String messageSenderIDGame,messageReceiverIDGame;
     private StorageTask uploadTask;
     private Uri fileUrl;
-    private String Call;
+    private String Call,getwhere;
     private String currentUserID;
 
 
@@ -95,7 +95,6 @@ public class ChatActivity extends AppCompatActivity {
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
         messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
-
         IntializeControllers();
 
         userName.setText(messageReceiverName);
@@ -541,6 +540,8 @@ public class ChatActivity extends AppCompatActivity {
             }
             DeleteGameMessage();
         }
+        MessageInputText.setText("猜拳結束");
+        SendMessage();
     }
 
     private  void SendGameMessage(String v)
@@ -678,8 +679,7 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             messageReceiverIDGame =null;
                             messageSenderIDGame  =null;
-                            MessageInputText.setText("猜拳結束");
-                            SendMessage();
+
                         }
                     });
 
@@ -1028,7 +1028,7 @@ public class ChatActivity extends AppCompatActivity {
         RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                getwhere = dataSnapshot.child("from").getValue(String.class);
                 String getCall = dataSnapshot.child("Call").getValue(String.class);
 
                 if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
@@ -1052,6 +1052,7 @@ public class ChatActivity extends AppCompatActivity {
                         dialog2.setPositiveButton("接受", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 CheckCall();
+                                getwhere=null;
                             }
                         });
 

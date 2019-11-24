@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import io.agora.rtc.Constants;
@@ -25,7 +26,7 @@ public class AudienceActivity extends Activity {
         setContentView(R.layout.activity_audience);
 
         mFlSS = (FrameLayout) findViewById(R.id.fl_screenshare);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         initEngineAndJoin();
     }
 
@@ -36,6 +37,7 @@ public class AudienceActivity extends Activity {
                 @Override
                 public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
                     Log.d(TAG, "onJoinChannelSuccess: " + (uid&0xFFFFFFL));
+
                 }
 
                 @Override
@@ -84,7 +86,7 @@ public class AudienceActivity extends Activity {
         super.onDestroy();
 
         mRtcEngine.leaveChannel();
-
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         RtcEngine.destroy();
         mRtcEngine = null;
     }
