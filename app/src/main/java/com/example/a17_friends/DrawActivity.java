@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -17,23 +19,53 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 public class DrawActivity extends AppCompatActivity {
     private Button btn_save, btn_resume;
     private ImageView iv_canvas;
-    private Bitmap baseBitmap;
+    private Bitmap baseBitmap,firebasebitmap;
     private Canvas canvas;
     private Paint paint;
     private TextView TV1;
+    private FirebaseAuth mAuth;
+    private DatabaseReference RootRef;
+    private StorageTask uploadTask;
+    private String checker = "",myUrl="";
+    private String saveCurrentTime, saveCurrentDate;
+    private Uri fileUrl;
+
+    private String messageReceiverID,messageSenderID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
         // 初始化一个画笔，笔触宽度为5，颜色为红色
+        mAuth = FirebaseAuth.getInstance();
+        messageSenderID = mAuth.getCurrentUser().getUid();
+        if (getIntent().hasExtra("visit_user_id")) {
+            messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
+        }
+        RootRef = FirebaseDatabase.getInstance().getReference();
         paint = new Paint();
         paint.setStrokeWidth(5);
         paint.setColor(Color.RED);
@@ -51,6 +83,13 @@ public class DrawActivity extends AppCompatActivity {
         int y=x.nextInt(50);
         String drawguess[]=getResources().getStringArray(R.array.drawguess);
         TV1.setText(drawguess[y]);
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
     }
 
     private View.OnTouchListener touch = new View.OnTouchListener() {
@@ -124,9 +163,9 @@ public class DrawActivity extends AppCompatActivity {
         try {
             // 保存图片到SD卡上
             File file = new File(Environment.getExternalStorageDirectory()+"/Download/"+
-                    System.currentTimeMillis() + ".png");
+                    System.currentTimeMillis() + ".JPG");
             FileOutputStream stream = new FileOutputStream(file);
-            baseBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            baseBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             Toast.makeText(DrawActivity.this, "保存图片成功", Toast.LENGTH_SHORT).show();
 
             // Android设备Gallery应用只会在启动的时候扫描系统文件夹
@@ -142,10 +181,12 @@ public class DrawActivity extends AppCompatActivity {
                 intent.setData(Uri.parse("file://" + Environment.getExternalStorageDirectory()+"/Download/"));
                 sendBroadcast(intent);
             }
+            uploadFile();
         } catch (Exception e) {
             Toast.makeText(DrawActivity.this, "保存图片失败", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -162,4 +203,77 @@ public class DrawActivity extends AppCompatActivity {
             Toast.makeText(DrawActivity.this, "清除畫板成功，可以重新開始繪圖", Toast.LENGTH_SHORT).show();
         }
     }
-}
+
+    public void uploadFile() {
+
+
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Image Files");
+            final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
+            final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
+
+            DatabaseReference userMessageKeyRef = RootRef.child("Messages")
+                    .child(messageSenderID).child(messageReceiverID).push();
+            final String messagePushID = userMessageKeyRef.getKey();
+
+            final StorageReference filePath = storageReference.child(messagePushID + "." + "jpg");
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            baseBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            byte[] data2 = outputStream.toByteArray();
+           uploadTask = filePath.putBytes(data2);
+
+        uploadTask.continueWithTask(new Continuation() {
+            @Override
+            public Object then(@NonNull Task task) throws Exception
+            {
+                if(!task.isSuccessful())
+                {
+                    throw task.getException();
+                }
+
+
+                return filePath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful())
+                {
+                    Uri downloadUrl = task.getResult();
+                    myUrl = downloadUrl.toString();
+
+                    Map messageTextBody = new HashMap();
+                    messageTextBody.put("message", myUrl);
+                    messageTextBody.put("name", messagePushID + "." + "jpg");
+                    messageTextBody.put("type", "image");
+                    messageTextBody.put("from", messageSenderID);
+                    messageTextBody.put("to", messageReceiverID);
+                    messageTextBody.put("messageID", messagePushID);
+                    messageTextBody.put("time", saveCurrentTime);
+                    messageTextBody.put("date", saveCurrentDate);
+
+                    Map messageBodyDetails = new HashMap();
+                    messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+                    messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
+
+                    RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (task.isSuccessful())
+                            {
+                                Toast.makeText(DrawActivity.this, "傳送成功...", Toast.LENGTH_SHORT).show();
+                               finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(DrawActivity.this, "錯誤...", Toast.LENGTH_SHORT).show();
+                                finish();
+
+                            } }
+                    });
+                }
+            }
+        });
+
+        }
+    }
+

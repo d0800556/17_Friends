@@ -308,7 +308,10 @@ public class ChatActivity extends AppCompatActivity {
 
                                     if(i == 2)
                                     {
+                                        MessageInputText.setText("正在進行畫圖中");
+                                        SendMessage();
                                         Intent loginIntent = new Intent (ChatActivity.this, DrawActivity.class);
+                                        loginIntent.putExtra("visit_user_id", messageReceiverID);
                                         startActivity(loginIntent);
                                     }
                                     if(i == 3)
