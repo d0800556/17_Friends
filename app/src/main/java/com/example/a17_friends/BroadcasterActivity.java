@@ -60,6 +60,7 @@ public class BroadcasterActivity extends Activity{
         @Override
         public void onUserOffline(int uid, int reason) {
             Log.d(LOG_TAG, "onUserOffline: " + uid + " reason: " + reason);
+            finish();
         }
 
         @Override

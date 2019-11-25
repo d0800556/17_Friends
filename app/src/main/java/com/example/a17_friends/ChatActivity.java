@@ -81,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
     private Uri fileUrl;
     private String Call,getwhere;
     private String currentUserID;
+    private ValueEventListener GameMessage,CallMessage;
 
 
     @Override
@@ -383,6 +384,111 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
+        GameMessage = RootRef.child("Game").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                if (getwhere !=null && getwhere.equals(messageSenderID)){
+                    messageSenderIDGame = dataSnapshot.child("Game").getValue(String.class);
+                    if(messageReceiverIDGame== null){}
+                    else{
+                        GameMission();
+
+                    }
+                } else if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
+                    messageReceiverIDGame = dataSnapshot.child("Game").getValue(String.class);
+                    if(messageSenderIDGame == null){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this);
+                        dialog.setTitle("對方出拳了 換你出拳");
+                        dialog.setMessage("對方可能是出變化拳");
+                        dialog.setNegativeButton("結束", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                // TODO Auto-generated method stub
+                                Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                                arg0.dismiss();
+                            }
+                        });
+                        if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
+                        {
+                            dialog.show();
+
+                        }
+
+                    }
+                    else{
+                        GameMission();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        CallMessage = RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String getwhere = dataSnapshot.child("from").getValue(String.class);
+                String getCall = dataSnapshot.child("Call").getValue(String.class);
+
+                if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
+                    CallID=messageReceiverID;
+
+
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(ChatActivity.this);
+                    if (dialog2 == null) {
+                    }
+
+                    if(getCall !=null && getCall.equals("Call")) {
+                        Call ="Call";
+                        dialog2.setTitle("視訊通知");
+                        dialog2.setMessage("對方邀請視訊聊天");
+                    }
+                    if(getCall !=null && getCall.equals("share")){
+                        Call ="share";
+                        dialog2.setTitle("螢幕共享通知");
+                        dialog2.setMessage("對方邀請螢幕共享");
+                    }
+                    if(getCall !=null && getCall.equals("Voice")){
+                        Call ="Voice";
+                        dialog2.setTitle("語音通話通知");
+                        dialog2.setMessage("對方邀請語音通話");
+                    }
+                    dialog2.setPositiveButton("接受", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            CheckCall();
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog2.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            // TODO Auto-generated method stub
+                            Toast.makeText(ChatActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                            arg0.dismiss();
+
+                        }
+                    });
+                    if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
+                    {
+                        dialog2.show();
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void GameMission(){
@@ -395,13 +501,17 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
 
         }
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("rock")){
@@ -413,13 +523,17 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("scissors") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -430,13 +544,17 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -447,13 +565,18 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
+
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -464,13 +587,18 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
+
         }
         if(messageSenderIDGame.equals("rock") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -481,13 +609,17 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("scissors")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -498,13 +630,17 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("rock")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -515,13 +651,18 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
+
         }
         if(messageSenderIDGame.equals("paper") && messageReceiverIDGame.equals("paper")){
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ChatActivity.this)
@@ -532,16 +673,18 @@ public class ChatActivity extends AppCompatActivity {
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
                     Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
+                    arg0.dismiss();
+
                 }
             });
             if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
             {
                 dialog1.show();
+                DeleteGameMessage();
+                MessageInputText.setText("猜拳結束");
+                SendMessage();
             }
-            DeleteGameMessage();
         }
-        MessageInputText.setText("猜拳結束");
-        SendMessage();
     }
 
     private  void SendGameMessage(String v)
@@ -588,6 +731,7 @@ public class ChatActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
                 intent1.putExtra("key", CallID);
                 startActivity(intent1);
+                AcceptCallMessage();
             }
         }
         if(Call=="share"){
@@ -602,6 +746,7 @@ public class ChatActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ChatActivity.this,AudienceActivity.class);
                 intent1.putExtra("key", CallID);
                 startActivity(intent1);
+                AcceptCallMessage();
             }
 
         }
@@ -617,6 +762,7 @@ public class ChatActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ChatActivity.this,VoiceChatViewActivity.class);
                 intent1.putExtra("key", CallID);
                 startActivity(intent1);
+                AcceptCallMessage();
             }
 
 
@@ -706,10 +852,29 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task)
                         {
-                            MessageInputText.setText("視訊已結束");
+                            MessageInputText.setText("已結束");
                             SendMessage();
                         }
                     });
+
+                }
+
+
+            }
+        });
+    }
+    private void AcceptCallMessage()
+    {
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("Call")
+                .child(messageSenderID).child(messageReceiverID)
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful())
+                {
+                    CallID=null;
 
                 }
 
@@ -977,107 +1142,6 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        RootRef.child("Game").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                String getwhere = dataSnapshot.child("from").getValue(String.class);
-                if (getwhere !=null && getwhere.equals(messageSenderID)){
-                    messageSenderIDGame = dataSnapshot.child("Game").getValue(String.class);
-                    if(messageReceiverIDGame== null){}
-                    else{
-                        GameMission();
-
-                    }
-                } else if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
-                    messageReceiverIDGame = dataSnapshot.child("Game").getValue(String.class);
-                    if(messageSenderIDGame == null){
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this);
-                        dialog.setTitle("對方出拳了 換你出拳");
-                        dialog.setMessage("對方可能是出變化拳");
-                        dialog.setNegativeButton("結束", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                // TODO Auto-generated method stub
-                                Toast.makeText(ChatActivity.this, "結束", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
-                        {
-                            dialog.show();
-                        }
-
-                    }
-                    else{
-                        GameMission();
-                    }
-
-                }
-                else{
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        RootRef.child("Call").child(messageSenderID).child(messageReceiverID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                getwhere = dataSnapshot.child("from").getValue(String.class);
-                String getCall = dataSnapshot.child("Call").getValue(String.class);
-
-                if(getwhere !=null && getwhere.equals(messageReceiverID) ) {
-                    CallID=messageReceiverID;
-                    AlertDialog.Builder dialog2 = new AlertDialog.Builder(ChatActivity.this);
-                    if(getCall !=null && getCall.equals("Call")) {
-                        Call ="Call";
-                        dialog2.setTitle("視訊通知");
-                        dialog2.setMessage("對方邀請視訊聊天");
-                    }
-                        if(getCall !=null && getCall.equals("share")){
-                            Call ="share";
-                            dialog2.setTitle("螢幕共享通知");
-                            dialog2.setMessage("對方邀請螢幕共享");
-                        }
-                    if(getCall !=null && getCall.equals("Voice")){
-                        Call ="Voice";
-                        dialog2.setTitle("語音通話通知");
-                        dialog2.setMessage("對方邀請語音通話");
-                    }
-                        dialog2.setPositiveButton("接受", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                CheckCall();
-                                getwhere=null;
-                            }
-                        });
-
-                    dialog2.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                // TODO Auto-generated method stub
-                                Toast.makeText(ChatActivity.this, "取消", Toast.LENGTH_SHORT).show();
-                    }
-                        });
-                    if (ChatActivity.this != null && !ChatActivity.this.isFinishing() )//xActivity即为本界面的Activity
-                    {
-                        dialog2.show();
-                    }
-                }
-                if(getwhere == null){
-                    CallID=null;
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -1111,7 +1175,8 @@ public class ChatActivity extends AppCompatActivity {
     {
         super.onDestroy();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        RootRef.removeEventListener(CallMessage);
+        RootRef.removeEventListener(GameMessage);
         if (currentUser != null)
         {
             updateUserStatus("offline");
@@ -1127,6 +1192,8 @@ public class ChatActivity extends AppCompatActivity {
         {
             updateUserStatus("offline");
         }
+        RootRef.removeEventListener(CallMessage);
+        RootRef.removeEventListener(GameMessage);
 
 
     }

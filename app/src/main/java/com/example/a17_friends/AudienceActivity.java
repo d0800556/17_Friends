@@ -42,6 +42,10 @@ public class AudienceActivity extends Activity {
         try {
             mRtcEngine = RtcEngine.create(getApplicationContext(), getString(R.string.agora_app_id), new IRtcEngineEventHandler() {
 
+                public void onUserOffline(int uid, int reason) {
+                finish();
+                }
+
                 @Override
                 public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
                     Log.d(TAG, "onJoinChannelSuccess: " + (uid&0xFFFFFFL));
