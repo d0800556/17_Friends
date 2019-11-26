@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         setContentView(R.layout.activity_main);
         if (!hasPermission()) {
             if (needCheckPermission()) {
@@ -186,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         {
             SendUserToSettingActivity();
         }
-        
+
 
         if(item.getItemId() == R.id.main_report_option)
         {
