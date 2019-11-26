@@ -3,31 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="回報檢舉"
         android:id="@+id/main_report_option"
-        app:showAsAction="never"
-        >
-    </item>
+        android:icon="@drawable/ic_onr"
+        android:title="回報檢舉"
+        app:showAsAction="never"></item>
 
     <item
-        android:title="帳戶設定"
         android:id="@+id/main_setting_option"
-        app:showAsAction="never"
-        >
-    </item>
+        android:icon="@drawable/ic_two"
+        android:title="帳戶設定"
+        app:showAsAction="never"></item>
 
     <item
-        android:title="修改密碼"
         android:id="@+id/main_changepassword_option"
-        app:showAsAction="never"
-        >
-    </item>
+        android:icon="@drawable/ic_three"
+        android:title="修改密碼"
+        app:showAsAction="never"></item>
 
     <item
-        android:title="登出"
         android:id="@+id/main_logout_option"
-        app:showAsAction="never"
-        >
-    </item>
+        android:icon="@drawable/ic_four"
+        android:title="登出"
+        app:showAsAction="never"></item>
 
 </menu>
