@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0FFFF"
+    android:background="@drawable/my_pic"
     tools:context=".SettingsActivity">
 
     <include
@@ -27,7 +27,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E0FFFF"
+        android:background="@drawable/my_pic"
         android:layout_below="@id/set_profile_image">
 
         <LinearLayout
