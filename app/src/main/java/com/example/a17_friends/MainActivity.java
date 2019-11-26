@@ -53,9 +53,16 @@ public class MainActivity extends AppCompatActivity {
     private String currentUserID;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         setContentView(R.layout.activity_main);
         if (!hasPermission()) {
             if (needCheckPermission()) {
@@ -159,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+
+
         if(item.getItemId() == R.id.main_logout_option)
         {
             updateUserStatus("offline");
@@ -177,13 +186,13 @@ public class MainActivity extends AppCompatActivity {
         {
             SendUserToSettingActivity();
         }
-
-
+        
 
         if(item.getItemId() == R.id.main_report_option)
         {
             SendUserToReportActivity();
         }
+
 
         return true;
     }
