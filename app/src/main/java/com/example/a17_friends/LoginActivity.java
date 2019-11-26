@@ -1,26 +1,25 @@
 package com.example.a17_friends;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.sax.TextElementListener;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.mbms.MbmsErrors;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseIndexArray;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,12 +39,20 @@ public class LoginActivity extends AppCompatActivity {
     private EditText UserEmail, UserPassword;
     private TextView NeedNewAccountLink, ForgetPasswordLink;
     private DatabaseReference RootRef;
+    ImageView imageView;
+    TextView textView;
+    int count = 0;
 
     private DatabaseReference UsersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+        imageView = findViewById(R.id.imageView);
+        textView = findViewById(R.id.textView);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -80,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         });
+
 
     }
 
@@ -232,12 +240,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void InitializeFields() {
-        LoginButton =  (Button) findViewById(R.id.login_button);
+        LoginButton =  (Button) findViewById(R.id.register_button);
 
-        UserEmail = (EditText) findViewById(R.id.login_email);
-        UserPassword = (EditText)findViewById(R.id.login_password);
+        UserEmail = (EditText) findViewById(R.id.register_email);
+        UserPassword = (EditText)findViewById(R.id.register_password);
         NeedNewAccountLink = (TextView)findViewById(R.id.need_new_account_link);
-        ForgetPasswordLink = (TextView)findViewById(R.id.forget_password_link);
+        ForgetPasswordLink = (TextView)findViewById(R.id.already_have_account_link);
         loadingBar = new ProgressDialog(this);
 
     }
