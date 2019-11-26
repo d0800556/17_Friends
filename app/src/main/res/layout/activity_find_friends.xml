@@ -29,11 +29,15 @@
                 android:id="@+id/SearchFloatingButton"
                 android:layout_width="106dp"
                 android:layout_height="76dp"
+                android:backgroundTint="#DEB887"
+                android:backgroundTintMode="src_in"
                 android:clickable="true"
                 android:src="@android:drawable/ic_search_category_default"
+                app:backgroundTint="#DEB887"
                 app:fabCustomSize="75dp"
                 app:fabSize="auto"
                 app:maxImageSize="50dp"
+                app:rippleColor="@color/colorAccent"
                 app:useCompatPadding="false" />
 
             <Space

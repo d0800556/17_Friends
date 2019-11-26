@@ -4,65 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/one12"
     tools:context=".LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:background="@drawable/one12"
         android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
+
             <ImageView
                 android:id="@+id/login_image"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:scaleType="fitCenter"
-                />
+                android:scaleType="fitCenter" />
 
-            <EditText
-                android:id="@+id/login_email"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_et_email"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/login_image"
-                android:hint="請輸入帳號..."
-                android:textSize="20dp"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/inputs"
-                android:padding="4dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"
-                />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_image">
 
-            <EditText
-                android:id="@+id/login_password"
+                <EditText
+                    android:id="@+id/login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="信箱"
+                    android:inputType="textEmailAddress"
+                    android:padding="4dp"
+                    android:textSize="20dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_et_password"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/login_email"
-                android:hint="請輸入密碼..."
-                android:textSize="20dp"
-                android:inputType="textPassword"
-                android:background="@drawable/inputs"
-                android:padding="4dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"
-                />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/til_et_email">
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/til_et_email"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="密碼"
+                    android:inputType="textPassword"
+                    android:padding="4dp"
+                    android:textSize="20dp" />
+            </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:id="@+id/forget_password_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/login_password"
+                android:layout_below="@+id/til_et_password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
@@ -77,35 +85,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/forget_password_link"
-                android:padding="4dp"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="19dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="19dp"
+                android:background="#B088FF"
+                android:padding="4dp"
                 android:text="登入"
                 android:textAllCaps="false"
-                android:textSize="24sp"
                 android:textColor="@android:color/background_light"
-                android:background="#B088FF"
-                />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/need_new_account_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/login_button"
-                android:text="註冊帳號"
-                android:layout_marginTop="2dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="23dp"
+                android:text="註冊帳號"
                 android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
 
                 />
-
-
-
 
 
         </RelativeLayout>

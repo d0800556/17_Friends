@@ -61,7 +61,8 @@
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
