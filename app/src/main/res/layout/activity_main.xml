@@ -17,8 +17,8 @@
         android:background="@drawable/my_pic"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header"
-        app:itemTextColor="#FFF"
-        app:itemIconTint="#FFF"
+        app:itemTextColor="#000000"
+        app:itemIconTint="#000000"
         app:menu="@menu/options_menu" >
     </android.support.design.widget.NavigationView>
 
