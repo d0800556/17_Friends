@@ -80,7 +80,7 @@ public class RequestsFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull final RequestsViewHolder holder, int position, @NonNull Contacts model)
                     {
                         holder.itemView.findViewById(R.id.request_accept_btn).setVisibility(View.VISIBLE);
-                        holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
+                       // holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
 
                         final String list_user_id = getRef(position).getKey();
                         DatabaseReference getTypeRef = getRef(position).getRef();
@@ -216,7 +216,7 @@ public class RequestsFragment extends Fragment {
                                         Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
                                         request_sent_btn.setText("發送請求");
 
-                                        holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
+                                       // holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
 
                                         UsersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
                                             @Override
@@ -332,7 +332,7 @@ public class RequestsFragment extends Fragment {
             userStatus = itemView.findViewById(R.id.user_status);
             profileImage = itemView.findViewById(R.id.users_profile_image);
             AcceptButton = itemView.findViewById(R.id.request_accept_btn);
-            CancelButton = itemView.findViewById(R.id.request_cancel_btn);
+            //CancelButton = itemView.findViewById(R.id.request_cancel_btn);
         }
     }
 }
