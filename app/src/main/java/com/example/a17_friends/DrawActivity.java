@@ -1,5 +1,6 @@
 package com.example.a17_friends;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -52,6 +53,7 @@ public class DrawActivity extends AppCompatActivity {
     private String checker = "",myUrl="";
     private String saveCurrentTime, saveCurrentDate;
     private Uri fileUrl;
+    private ProgressDialog loadingBar;
 
     private String messageReceiverID,messageSenderID;
 
@@ -161,6 +163,11 @@ public class DrawActivity extends AppCompatActivity {
      */
     protected void saveBitmap() {
         try {
+
+            loadingBar.setTitle("保存中");
+            loadingBar.setMessage("正在上傳保存圖畫請稍後...");
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
             // 保存图片到SD卡上
             File file = new File(Environment.getExternalStorageDirectory()+"/Download/"+
                     System.currentTimeMillis() + ".JPG");
@@ -260,11 +267,13 @@ public class DrawActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task task) {
                             if (task.isSuccessful())
                             {
+                                loadingBar.dismiss();
                                 Toast.makeText(DrawActivity.this, "傳送成功...", Toast.LENGTH_SHORT).show();
                                finish();
                             }
                             else
                             {
+                                loadingBar.dismiss();
                                 Toast.makeText(DrawActivity.this, "錯誤...", Toast.LENGTH_SHORT).show();
                                 finish();
 
