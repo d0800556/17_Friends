@@ -55,10 +55,11 @@
                 android:id="@+id/user_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="user status"
+                android:text=""
                 android:layout_margin="2dp"
                 android:textAlignment="textStart"
                 android:textSize="16sp"
+                android:maxLength="40"
                 />
 
 

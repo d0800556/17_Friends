@@ -4,6 +4,7 @@ package com.example.a17_friends;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +34,7 @@ public class ChatsFragment extends Fragment {
     private View PrivateChatsView;
     private RecyclerView chatsList;
 
-    private DatabaseReference ChatsRef, UsersRef;
+    private DatabaseReference ChatsRef, UsersRef,MessageRef;
     private FirebaseAuth mAuth;
     private String currentUserID="";
 
@@ -51,8 +53,10 @@ public class ChatsFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        ChatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
+        ChatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        MessageRef = FirebaseDatabase.getInstance().getReference();
+
 
 
         chatsList = (RecyclerView) PrivateChatsView.findViewById(R.id.chats_list);
@@ -78,52 +82,27 @@ public class ChatsFragment extends Fragment {
         FirebaseRecyclerAdapter<Contacts, ChatsViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, ChatsViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Contacts model)
-                    {
+                    protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Contacts model) {
                         final String usersIDs = getRef(position).getKey();
                         final String[] retImage = {"default_image"};
 
                         UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot)
-                            {
-                                if (dataSnapshot.exists())
-                                {
-                                    if (dataSnapshot.hasChild("image"))
-                                    {
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    if (dataSnapshot.hasChild("image")) {
                                         retImage[0] = dataSnapshot.child("image").getValue().toString();
                                         Picasso.get().load(retImage[0]).into(holder.profileImage);
                                     }
 
                                     final String retName = dataSnapshot.child("name").getValue().toString();
-                                    final String retStatus = dataSnapshot.child("status").getValue().toString();
 
                                     holder.userName.setText(retName);
 
-                                    if  (dataSnapshot.child("userState").hasChild("state"))
-                                    {
-                                        String state = dataSnapshot.child("userState").child("state").getValue().toString();
-                                        String date = dataSnapshot.child("userState").child("date").getValue().toString();
-                                        String time = dataSnapshot.child("userState").child("time").getValue().toString();
-                                        if(state.equals("online"))
-                                        {
-                                            holder.userStatus.setText("online");
-                                        }
-                                        if(state.equals("offline"))
-                                        {
-                                            holder.userStatus.setText("最後上線時間:"+"\n"+ date +" "+ time);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        holder.userStatus.setText("offline");
-
-                                    }
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(View view)
-                                        {
+                                        public void onClick(View view) {
                                             Intent chatIntent = new Intent(getContext(), ChatActivity.class);
                                             chatIntent.putExtra("visit_user_id", usersIDs);
                                             chatIntent.putExtra("visit_user_name", retName);
@@ -141,8 +120,55 @@ public class ChatsFragment extends Fragment {
 
                             }
                         });
-                    }
 
+
+                        MessageRef.child("Messages").child(currentUserID).child(usersIDs).addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                if (dataSnapshot.exists()) {
+                                    if (dataSnapshot.hasChild("message")) {
+                                        final String retMessage = dataSnapshot.child("message").getValue().toString();
+                                        holder.userStatus.setText(retMessage);
+                                        if(retMessage==null){
+                                            holder.userStatus.setText("");
+                                        }
+                                    }
+                                    else {
+                                        holder.userStatus.setText("");
+                                    }
+                                }
+                                else {
+                                    holder.userStatus.setText("");
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+
+                    }
                     @NonNull
                     @Override
                     public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
