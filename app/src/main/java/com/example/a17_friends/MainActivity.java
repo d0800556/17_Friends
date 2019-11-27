@@ -80,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
 
         myTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
+        int[] icons = {
+                R.drawable.home_page,
+                R.drawable.chat_icon,
+                R.drawable.man_user,
+                R.drawable.add_friend
+        };
+
+        for (int i = 0; i < myTabLayout.getTabCount(); i++) {
+            myTabLayout.getTabAt(i).setIcon(icons[i]);
+        }
     }
 
     @Override
