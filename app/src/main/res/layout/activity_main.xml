@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         android:layout_gravity="left"
-        android:background="@drawable/my_pic"
+        android:background="@drawable/white2"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header"
         app:itemTextColor="#000000"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/main_tabs1"
             android:layout_below="@+id/appBarLayout"
-            android:background="@drawable/my_pic">
+            android:background="@drawable/white2">
 
         </android.support.v4.view.ViewPager>
 
@@ -64,11 +64,10 @@
                 android:id="@+id/main_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F7C28E"
                 android:layout_alignParentBottom="true"
+                android:background="@drawable/white2"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:tabTextColor="@color/black">
-            </android.support.design.widget.TabLayout>
+                app:tabTextColor="@color/black"></android.support.design.widget.TabLayout>
 
         </LinearLayout>
 
