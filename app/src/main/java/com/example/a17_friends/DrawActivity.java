@@ -80,6 +80,7 @@ public class DrawActivity extends AppCompatActivity {
         btn_save.setOnClickListener(click);
         btn_resume.setOnClickListener(click);
         iv_canvas.setOnTouchListener(touch);
+        loadingBar = new ProgressDialog(this);
 
         Random x=new Random();
         int y=x.nextInt(50);
@@ -164,9 +165,9 @@ public class DrawActivity extends AppCompatActivity {
     protected void saveBitmap() {
         try {
 
+
             loadingBar.setTitle("保存中");
             loadingBar.setMessage("正在上傳保存圖畫請稍後...");
-            loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
             // 保存图片到SD卡上
             File file = new File(Environment.getExternalStorageDirectory()+"/Download/"+
