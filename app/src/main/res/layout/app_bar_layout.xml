@@ -3,7 +3,7 @@
     android:id="@+id/main_app_bar"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/red_bar"
+    android:background="@drawable/air"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 </android.support.v7.widget.Toolbar>
