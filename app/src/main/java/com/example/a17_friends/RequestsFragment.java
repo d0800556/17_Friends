@@ -214,7 +214,7 @@ public class RequestsFragment extends Fragment {
                                     else if (type.equals("sent"))
                                     {
                                         Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
-                                        request_sent_btn.setText("發送請求");
+                                        request_sent_btn.setText("取消好友邀請");
 
                                        // holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
 
