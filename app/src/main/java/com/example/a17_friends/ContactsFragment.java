@@ -1,6 +1,7 @@
 package com.example.a17_friends;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -72,7 +73,7 @@ public class ContactsFragment extends Fragment {
         final FirebaseRecyclerAdapter<Contacts, ContactsViewHolder> adapter
                 = new FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Contacts model)
+            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, final int position, @NonNull Contacts model)
             {
                 final String userIDs = getRef(position).getKey();
 
@@ -96,6 +97,17 @@ public class ContactsFragment extends Fragment {
                                 {
                                     holder.onlineIcon.setVisibility(View.INVISIBLE);
                                 }
+                                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        String visit_user_id = getRef(position).getKey();
+
+                                        Intent profileIntent =new Intent(getContext(),ProfileActivity.class);
+                                        profileIntent.putExtra("visit_user_id", visit_user_id);
+                                        startActivity(profileIntent);
+                                    }
+                                });
                             }
                             else
                             {
