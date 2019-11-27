@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/my_pic"
+    android:background="@drawable/bbb"
     tools:context=".ProfileActivity">
 
     <LinearLayout
         android:id="@+id/Layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/my_pic"
+        android:background="@drawable/bbb"
         android:orientation="horizontal">
 
         <LinearLayout
