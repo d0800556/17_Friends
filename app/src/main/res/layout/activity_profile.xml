@@ -184,7 +184,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:background="#FFA488"
-                android:text="個人簽名"
+                android:text="個人狀態"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_light"

@@ -165,8 +165,8 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="居住地:"
                         android:layout_marginRight="21dp"
+                        android:text="城市:"
                         android:textAlignment="textEnd"
                         android:textSize="24sp" />
 

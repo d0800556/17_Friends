@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="居住地:"
+                    android:text="城市:"
                     android:textAlignment="viewStart"
                     android:textSize="14sp" />
 
