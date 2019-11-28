@@ -1,5 +1,6 @@
 package com.example.a17_friends;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class ReportActivity extends AppCompatActivity {
     private  String currentUserID;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,16 @@ public class ReportActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
         InitializeFields();
+        loadingBar = new ProgressDialog(this);
 
         SendReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingBar.setTitle("檢舉回報");
+                loadingBar.setMessage("正在上傳檢舉回報資料請稍候...");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
+
                 String GetReportTitle = ReportTitle.getText().toString();
                 String GetReportMessage = ReportMessage.getText().toString();
                 String currentDate,currentTime;
@@ -76,12 +84,18 @@ public class ReportActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful())
                                     {
+                                        loadingBar.dismiss();
                                         Toast.makeText(ReportActivity.this, "回報成功!!", Toast.LENGTH_SHORT).show();
+                                        finish();
+
                                     }
                                     else
                                     {
+                                        loadingBar.dismiss();
                                         String message = task.getException().toString();
-                                        Toast.makeText(ReportActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ReportActivity.this, "回報失敗 : " + message, Toast.LENGTH_SHORT).show();
+                                        finish();
+
                                     }
                                 }
                             });

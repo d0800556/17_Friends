@@ -1001,7 +1001,7 @@ public class ChatActivity extends AppCompatActivity {
         if (requestCode == 438 && resultCode==RESULT_OK && data !=null && data.getData()!=null)
         {
             loadingBar.setTitle("設定檔案");
-            loadingBar.setMessage("正在上傳檔案請稍後...");
+            loadingBar.setMessage("正在上傳檔案請稍候...");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 

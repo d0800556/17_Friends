@@ -167,7 +167,7 @@ public class DrawActivity extends AppCompatActivity {
 
 
             loadingBar.setTitle("保存中");
-            loadingBar.setMessage("正在上傳保存圖畫請稍後...");
+            loadingBar.setMessage("正在上傳保存圖畫請稍候...");
             loadingBar.show();
             // 保存图片到SD卡上
             File file = new File(Environment.getExternalStorageDirectory()+"/Download/"+
@@ -275,7 +275,7 @@ public class DrawActivity extends AppCompatActivity {
                             else
                             {
                                 loadingBar.dismiss();
-                                Toast.makeText(DrawActivity.this, "錯誤...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DrawActivity.this, "上傳失敗...", Toast.LENGTH_SHORT).show();
                                 finish();
 
                             } }
