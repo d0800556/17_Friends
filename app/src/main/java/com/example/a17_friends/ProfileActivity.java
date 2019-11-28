@@ -160,28 +160,26 @@ public class ProfileActivity extends AppCompatActivity {
                     {
                         if (dataSnapshot.hasChild(receiverUserID))
                         {
-                            String request_type = dataSnapshot.child(receiverUserID).child("request_type").getValue().toString();
+                            if (dataSnapshot.child(receiverUserID).hasChild("request_type")) {
+                                String request_type = dataSnapshot.child(receiverUserID).child("request_type").getValue().toString();
 
-                            if (request_type.equals("sent"))
-                            {
-                                Current_State = "request_sent";
-                                SendMessageRequestButton.setText("取消好友邀請");
-                            }
-                            else if (request_type.equals("received"))
-                            {
-                                Current_State = "request_received";
-                                SendMessageRequestButton.setText("同意好友邀請");
+                                if (request_type.equals("sent")) {
+                                    Current_State = "request_sent";
+                                    SendMessageRequestButton.setText("取消好友邀請");
+                                } else if (request_type.equals("received")) {
+                                    Current_State = "request_received";
+                                    SendMessageRequestButton.setText("同意好友邀請");
 
-                                DeclineMessageRequestButton.setVisibility(View.VISIBLE);
-                                DeclineMessageRequestButton.setEnabled(true);
+                                    DeclineMessageRequestButton.setVisibility(View.VISIBLE);
+                                    DeclineMessageRequestButton.setEnabled(true);
 
-                                DeclineMessageRequestButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view)
-                                    {
-                                        CancelChatRequest();
-                                    }
-                                });
+                                    DeclineMessageRequestButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            CancelChatRequest();
+                                        }
+                                    });
+                                }
                             }
                         }
                         else
