@@ -405,6 +405,10 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            if(dataSnapshot.hasChild("image")) {
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                                 }
                             Toast.makeText(SettingsActivity.this, "請設定個人資料!!", Toast.LENGTH_SHORT).show();
                         }
                     }
