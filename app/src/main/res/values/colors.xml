@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#160991</color>
     <color name="colorAccent">#E0E6E6</color>
     <color name="textInputLayout">#96ffffff</color>
+    <color name="colorDark">#C5C3C3</color>
 
     <color name="localBackground">#827b92</color>
     <color name="remoteBackground">#484258</color>

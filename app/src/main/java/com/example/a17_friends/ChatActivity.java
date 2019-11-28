@@ -726,6 +726,7 @@ public class ChatActivity extends AppCompatActivity {
             if(CallID==null){
                 Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
                 intent1.putExtra("key", messageSenderID);
+                intent1.putExtra("visit_image", messageReceiverImage);
                 startActivity(intent1);
                 SendCallMessage();
                 MessageInputText.setText("邀請與對方視訊通話");
@@ -733,6 +734,7 @@ public class ChatActivity extends AppCompatActivity {
             }else if(CallID==messageReceiverID){
                 Intent intent1 = new Intent(ChatActivity.this,VideoChatViewActivity.class);
                 intent1.putExtra("key", CallID);
+                intent1.putExtra("visit_image", messageReceiverImage);
                 startActivity(intent1);
                 AcceptCallMessage();
             }
@@ -757,6 +759,7 @@ public class ChatActivity extends AppCompatActivity {
             if(CallID==null){
                 Intent intent1 = new Intent(ChatActivity.this,VoiceChatViewActivity.class);
                 intent1.putExtra("key", messageSenderID);
+                intent1.putExtra("visit_image", messageReceiverImage);
                 startActivity(intent1);
                 SendCallMessage();
                 MessageInputText.setText("邀請與對方語音通話");
@@ -764,6 +767,7 @@ public class ChatActivity extends AppCompatActivity {
             }else if(CallID==messageReceiverID){
                 Intent intent1 = new Intent(ChatActivity.this,VoiceChatViewActivity.class);
                 intent1.putExtra("key", CallID);
+                intent1.putExtra("visit_image", messageReceiverImage);
                 startActivity(intent1);
                 AcceptCallMessage();
             }

@@ -22,7 +22,12 @@ import io.agora.rtc.video.VideoCanvas;
 public class AudienceActivity extends Activity {
 
     private static final String TAG = AudienceActivity.class.getSimpleName();
-    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
+    private static final int PERMISSION_REQ_ID = 22;
+    private static final String[] REQUESTED_PERMISSIONS = {
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     private FrameLayout mFlSS;
     private RtcEngine mRtcEngine;
     private String ChannelKey;
@@ -30,7 +35,9 @@ public class AudienceActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audience);
-        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)) {
+        if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
+                checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
+                checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
             mFlSS = (FrameLayout) findViewById(R.id.fl_screenshare);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             initEngineAndJoin();
@@ -93,36 +100,33 @@ public class AudienceActivity extends Activity {
 
         mRtcEngine.setupRemoteVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_FIT, uid));
     }
-    public boolean checkSelfPermission(String permission, int requestCode) {
-        Log.i(null, "checkSelfPermission " + permission + " " + requestCode);
-        if (ContextCompat.checkSelfPermission(this,
-                permission)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{permission},
-                    requestCode);
+    private boolean checkSelfPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
             return false;
         }
+
         return true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
-        Log.i(null, "onRequestPermissionsResult " + grantResults[0] + " " + requestCode);
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        switch (requestCode) {
-            case PERMISSION_REQ_ID_RECORD_AUDIO: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initEngineAndJoin();
-                } else {
-                    showLongToast("No permission for " + Manifest.permission.RECORD_AUDIO);
-                    finish();
-                }
-                break;
+        if (requestCode == PERMISSION_REQ_ID) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
+                    grantResults[1] != PackageManager.PERMISSION_GRANTED ||
+                    grantResults[2] != PackageManager.PERMISSION_GRANTED) {
+                showLongToast("Need permissions " + Manifest.permission.RECORD_AUDIO +
+                        "/" + Manifest.permission.CAMERA + "/" + Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                finish();
+                return;
             }
+
+            // Here we continue only if all permissions are granted.
+            // The permissions can also be granted in the system settings manually.
+            initEngineAndJoin();
         }
     }
 

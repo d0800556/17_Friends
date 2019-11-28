@@ -16,6 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -47,8 +50,8 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
     private ImageView mSwitchCameraBtn;
-
-    private String ChannelKey;
+    private ImageView Lego;
+    private String ChannelKey,messageReceiverImage;
 
     /**
      * Event handler registered into RTC engine for RTC callbacks.
@@ -71,6 +74,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     setupRemoteVideo(uid);
+                    Lego.setVisibility(View.GONE);
                 }
             });
         }
@@ -81,6 +85,16 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     onRemoteUserLeft();
+                }
+            });
+        }
+
+        @Override
+        public void onUserJoined(final int uid, int elapsed) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
                 }
             });
         }
@@ -126,6 +140,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
         initUI();
+        Lego = (ImageView)findViewById(R.id.logo);
 
         // Ask for permissions at runtime.
         // This is just an example set of permissions. Other permissions
@@ -135,7 +150,10 @@ public class VideoChatViewActivity extends AppCompatActivity {
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
             initEngineAndJoinChannel();
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+            if (getIntent().hasExtra("visit_image")) {
+                messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
+                Picasso.get().load(messageReceiverImage).into(Lego);
+            }
         }
     }
 

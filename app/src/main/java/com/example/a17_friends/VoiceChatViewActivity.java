@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Locale;
 
 import io.agora.rtc.Constants;
@@ -21,9 +23,9 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
 public class VoiceChatViewActivity extends AppCompatActivity {
-    private String ChannelKey;
+    private String ChannelKey,messageReceiverImage;
     private static final String LOG_TAG = VoiceChatViewActivity.class.getSimpleName();
-
+    private ImageView Lego;
     private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
 
     private RtcEngine mRtcEngine; // Tutorial Step 1
@@ -53,9 +55,13 @@ public class VoiceChatViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_chat_view);
-
+        Lego = (ImageView)findViewById(R.id.logo);
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)) {
             initAgoraEngineAndJoinChannel();
+            if (getIntent().hasExtra("visit_image")) {
+                messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
+                Picasso.get().load(messageReceiverImage).into(Lego);
+            }
         }
     }
 
@@ -125,7 +131,7 @@ public class VoiceChatViewActivity extends AppCompatActivity {
             iv.clearColorFilter();
         } else {
             iv.setSelected(true);
-            iv.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            iv.setColorFilter(getResources().getColor(R.color.colorDark), PorterDuff.Mode.MULTIPLY);
         }
 
         mRtcEngine.muteLocalAudioStream(iv.isSelected());
@@ -139,7 +145,7 @@ public class VoiceChatViewActivity extends AppCompatActivity {
             iv.clearColorFilter();
         } else {
             iv.setSelected(true);
-            iv.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            iv.setColorFilter(getResources().getColor(R.color.colorDark), PorterDuff.Mode.MULTIPLY);
         }
 
         mRtcEngine.setEnableSpeakerphone(view.isSelected());
