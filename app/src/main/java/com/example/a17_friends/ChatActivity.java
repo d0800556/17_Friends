@@ -73,6 +73,7 @@ public class ChatActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
     private ProgressDialog loadingBar;
+    private List<String> keyList = new ArrayList<String>();
 
     private String saveCurrentTime, saveCurrentDate;
     private String checker = "",myUrl="";
@@ -355,7 +356,7 @@ public class ChatActivity extends AppCompatActivity {
                         Messages messages = dataSnapshot.getValue(Messages.class);
 
                         messagesList.add(messages);
-
+                        keyList.add(dataSnapshot.getKey());
                         messageAdapter.notifyDataSetChanged();
 
                         userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
@@ -365,14 +366,15 @@ public class ChatActivity extends AppCompatActivity {
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
                         messageAdapter.notifyDataSetChanged();
-
                         userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
                     }
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        int index = keyList.indexOf(dataSnapshot.getKey());
+                        messagesList.remove(index);
+                        keyList.remove(index);
                         messageAdapter.notifyDataSetChanged();
-                        userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
 
                     }
 
