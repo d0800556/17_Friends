@@ -371,11 +371,13 @@ public class ChatActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        int index = keyList.indexOf(dataSnapshot.getKey());
-                        messagesList.remove(index);
-                        keyList.remove(index);
-                        messageAdapter.notifyDataSetChanged();
-
+                        String getwhere = dataSnapshot.child("from").getValue(String.class);
+                        if (getwhere !=null && getwhere.equals(messageReceiverID)) {
+                            int index = keyList.indexOf(dataSnapshot.getKey());
+                            messagesList.remove(index);
+                            keyList.remove(index);
+                            messageAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
