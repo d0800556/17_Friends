@@ -264,7 +264,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                             {
                                 if(i == 0)
                                 {
-                                    deleteSentMessage(position,messageViewHolder);
+                                    deleteReceiveMessage(position,messageViewHolder);
 
 
                                 }
@@ -356,7 +356,6 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
                 if(task.isSuccessful())
                 {
                     Toast.makeText(holder.itemView.getContext(), "刪除成功", Toast.LENGTH_SHORT).show();
-                    userMessagesList.remove(position);
                     notifyDataSetChanged();
 
 
