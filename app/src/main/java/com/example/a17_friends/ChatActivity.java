@@ -43,9 +43,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -995,10 +999,10 @@ public class ChatActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
         saveCurrentDate = currentDate.format(calendar.getTime());
 
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
         saveCurrentTime = currentTime.format(calendar.getTime());
     }
 
@@ -1100,6 +1104,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private  void DisplayLastSeen()
     {
+
         RootRef.child("Users").child(messageReceiverID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -1117,7 +1122,19 @@ public class ChatActivity extends AppCompatActivity {
                             }
                             else if (state.equals("offline"))
                             {
-                                userLastSeen.setText("最後上線時間:" + date + " " );
+                                String dateString=(date+" "+time);
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                                Date convertedDate = new Date();
+
+                                try {
+                                    convertedDate = dateFormat.parse(dateString);
+                                } catch (ParseException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                PrettyTime p  = new PrettyTime();
+                                String datetime= p.format(convertedDate);
+                                userLastSeen.setText("最後上線時間:" + datetime );
                             }
                         }
                         else
@@ -1162,11 +1179,10 @@ public class ChatActivity extends AppCompatActivity {
         String saveCurrentTime, saveCurrentDate;
 
         android.icu.util.Calendar calendar = android.icu.util.Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
         saveCurrentDate = currentDate.format(calendar.getTime());
 
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
         saveCurrentTime = currentTime.format(calendar.getTime());
         HashMap<String, Object> onlineStateMap = new HashMap<>();
         onlineStateMap.put("time", saveCurrentTime);

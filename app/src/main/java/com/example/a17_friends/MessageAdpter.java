@@ -24,6 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -126,7 +131,22 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
                 messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.BLACK);
-                messageViewHolder.senderMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
+                String dateString=(messages.getDate()+" "+ messages.getTime()+" ");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                Date convertedDate = new Date();
+
+                try {
+                    convertedDate = dateFormat.parse(dateString);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                PrettyTime p  = new PrettyTime();
+
+
+                String datetime= p.format(convertedDate);
+                messageViewHolder.senderMessageText.setText(messages.getMessage() + "\n \n" + datetime);
             }
             else
             {
@@ -136,7 +156,20 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
                 messageViewHolder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
                 messageViewHolder.receiverMessageText.setTextColor(Color.BLACK);
-                messageViewHolder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
+                String dateString=(messages.getDate()+" "+ messages.getTime()+" ");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                Date convertedDate = new Date();
+
+                try {
+                    convertedDate = dateFormat.parse(dateString);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                PrettyTime p  = new PrettyTime();
+
+                String datetime= p.format(convertedDate);
+                messageViewHolder.receiverMessageText.setText(messages.getMessage() + "\n \n" + datetime);
             }
         }
         else if (fromMessageType.equals("image"))

@@ -22,6 +22,9 @@ android {
             jniLibs.srcDirs = ['src/main/jniLibs']
         }
     }
+    repositories {
+        jcenter()
+    }
 
 }
 dependencies {
@@ -45,5 +48,7 @@ dependencies {
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
     implementation 'io.agora.rtc:full-sdk:2.9.2'
     implementation project(path: ':screensharemodule')
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
 
 }

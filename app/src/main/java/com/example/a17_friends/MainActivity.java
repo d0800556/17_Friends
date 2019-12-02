@@ -347,11 +347,10 @@ public class MainActivity extends AppCompatActivity {
         String saveCurrentTime, saveCurrentDate;
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
         saveCurrentDate = currentDate.format(calendar.getTime());
 
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
         saveCurrentTime = currentTime.format(calendar.getTime());
         HashMap<String, Object> onlineStateMap = new HashMap<>();
         onlineStateMap.put("time", saveCurrentTime);
