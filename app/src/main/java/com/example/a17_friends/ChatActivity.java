@@ -901,12 +901,21 @@ public class ChatActivity extends AppCompatActivity {
     {
         final String messageText = MessageInputText.getText().toString();
 
+
         if (TextUtils.isEmpty(messageText))
         {
             Toast.makeText(this, "請先輸入訊息...", Toast.LENGTH_SHORT).show();
         }
         else
         {
+            android.icu.util.Calendar calendar = android.icu.util.Calendar.getInstance();
+
+            SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+            saveCurrentDate = currentDate.format(calendar.getTime());
+
+            SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
+            saveCurrentTime = currentTime.format(calendar.getTime());
+
             String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
@@ -997,13 +1006,6 @@ public class ChatActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
 
 
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
-        saveCurrentTime = currentTime.format(calendar.getTime());
     }
 
     @Override
@@ -1059,6 +1061,14 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             Uri downloadUrl = task.getResult();
                             myUrl = downloadUrl.toString();
+
+                            android.icu.util.Calendar calendar = android.icu.util.Calendar.getInstance();
+
+                            SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+                            saveCurrentDate = currentDate.format(calendar.getTime());
+
+                            SimpleDateFormat currentTime = new SimpleDateFormat("kk:mm:ss");
+                            saveCurrentTime = currentTime.format(calendar.getTime());
 
                             Map messageTextBody = new HashMap();
                             messageTextBody.put("message", myUrl);
