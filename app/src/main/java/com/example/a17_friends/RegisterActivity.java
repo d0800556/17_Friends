@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                             else
                             {
                                 String message = task.getException().toString();
-                                Toast.makeText(RegisterActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "錯誤 :帳號已存在或格式不正確 ", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }

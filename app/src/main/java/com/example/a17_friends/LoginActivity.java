@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                             {
                                 String message = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "錯誤 : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "錯誤 : 帳號密碼不正確 " , Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
