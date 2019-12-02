@@ -520,7 +520,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳平手");
                 SendMessage();
             }
 
@@ -542,7 +542,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳輸了");
                 SendMessage();
             }
         }
@@ -563,7 +563,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳贏了");
                 SendMessage();
             }
         }
@@ -584,7 +584,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳贏了");
                 SendMessage();
             }
 
@@ -606,7 +606,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳平手");
                 SendMessage();
             }
 
@@ -628,7 +628,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳輸了");
                 SendMessage();
             }
         }
@@ -649,7 +649,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳輸了");
                 SendMessage();
             }
         }
@@ -670,7 +670,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳贏了");
                 SendMessage();
             }
 
@@ -692,7 +692,7 @@ public class ChatActivity extends AppCompatActivity {
             {
                 dialog1.show();
                 DeleteGameMessage();
-                MessageInputText.setText("猜拳結束");
+                MessageInputText.setText("猜拳平手");
                 SendMessage();
             }
         }

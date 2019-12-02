@@ -89,7 +89,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
     public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, final int position)
     {
         String messageSenderId = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessagesList.get(position);
+        final Messages messages = userMessagesList.get(position);
 
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();
@@ -131,7 +131,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
                 messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.BLACK);
-                String dateString=(messages.getDate()+" "+ messages.getTime()+" ");
+                String dateString=(messages.getDate()+" "+ messages.getTime());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
                 Date convertedDate = new Date();
 
@@ -156,7 +156,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
                 messageViewHolder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
                 messageViewHolder.receiverMessageText.setTextColor(Color.BLACK);
-                String dateString=(messages.getDate()+" "+ messages.getTime()+" ");
+                String dateString=(messages.getDate()+" "+ messages.getTime());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
                 Date convertedDate = new Date();
 
@@ -205,7 +205,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("請選擇");
+                        builder.setTitle(messages.getDate()+" "+ messages.getTime());
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
@@ -240,7 +240,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("請選擇");
+                        builder.setTitle(messages.getDate()+" "+ messages.getTime());
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
@@ -290,7 +290,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("請選擇");
+                        builder.setTitle(messages.getDate()+" "+ messages.getTime());
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
@@ -320,7 +320,7 @@ class  MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHol
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(messageViewHolder.itemView.getContext());
-                        builder.setTitle("請選擇");
+                        builder.setTitle(messages.getDate()+" "+ messages.getTime());
                         builder.setItems(Options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i)
