@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "失敗!請重新嘗試", Toast.LENGTH_SHORT).show();
                         }
                     });
 
