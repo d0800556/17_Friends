@@ -103,11 +103,14 @@ public class RequestsFragment extends Fragment {
 
                                                     Picasso.get().load(requestProfileImage).into(holder.profileImage);
                                                 }
+                                                if (dataSnapshot.hasChild("name")) {
+                                                    final String requestUserName = dataSnapshot.child("name").getValue().toString();
+                                                    holder.userName.setText(requestUserName);
 
-                                                final String requestUserName = dataSnapshot.child("name").getValue().toString();
-                                                final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
-
-                                                holder.userName.setText(requestUserName);
+                                                }
+                                                if (dataSnapshot.hasChild("status")) {
+                                                    final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
+                                                }
                                                 holder.userStatus.setText(text);
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -210,12 +213,16 @@ public class RequestsFragment extends Fragment {
 
                                                     Picasso.get().load(requestProfileImage).into(holder.profileImage);
                                                 }
+                                                if (dataSnapshot.hasChild("name")) {
+                                                    final String requestUserName = dataSnapshot.child("name").getValue().toString();
+                                                    holder.userName.setText(requestUserName);
+                                                    holder.userStatus.setText("你已傳送邀請給 " + requestUserName);
 
-                                                final String requestUserName = dataSnapshot.child("name").getValue().toString();
-                                                final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
+                                                }
+                                                if (dataSnapshot.hasChild("status")) {
+                                                    final String requestUserStatus = dataSnapshot.child("status").getValue().toString();
+                                                }
 
-                                                holder.userName.setText(requestUserName);
-                                                holder.userStatus.setText("你已傳送邀請給 " + requestUserName);
 
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {

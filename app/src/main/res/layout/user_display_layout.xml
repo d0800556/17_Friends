@@ -59,7 +59,6 @@
                 android:layout_margin="2dp"
                 android:textAlignment="textStart"
                 android:textSize="16sp"
-                android:maxLength="40"
                 />
 
 

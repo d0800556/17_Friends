@@ -72,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         UserRef.child(receiverUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.exists())  &&  (dataSnapshot.hasChild("image")))
+                if ((dataSnapshot.exists())  &&  (dataSnapshot.hasChild("image") && (dataSnapshot.hasChild("age"))))
                 {
                     String userGender = dataSnapshot.child("gender").getValue().toString();
                     String userImage = dataSnapshot.child("image").getValue().toString();
@@ -108,8 +108,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                     ManageChatRequests();
                 }
-                else
+                else if( (dataSnapshot.hasChild("age")))
                 {
+
                     String userGender = dataSnapshot.child("gender").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userStatus = dataSnapshot.child("status").getValue().toString();
@@ -141,6 +142,9 @@ public class ProfileActivity extends AppCompatActivity {
                     age.setText(useRage);
 
                     ManageChatRequests();
+                }
+                else{
+
                 }
             }
 

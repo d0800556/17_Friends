@@ -24,6 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -127,8 +133,24 @@ public class ChatsFragment extends Fragment {
                             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                 if (dataSnapshot.exists()) {
                                     if (dataSnapshot.hasChild("message")) {
-                                        final String retMessage = dataSnapshot.child("message").getValue().toString();
-                                        holder.userStatus.setText(retMessage);
+                                        final String retMessage =dataSnapshot.child("message").getValue().toString();
+                                        final String getDate = dataSnapshot.child("date").getValue().toString();
+                                        final String getTime = dataSnapshot.child("time").getValue().toString();
+
+                                        String retMessage2 = truncate(retMessage,9);
+                                        String dateString=(getDate+" "+ getTime);
+                                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                                        Date convertedDate = new Date();
+
+                                        try {
+                                            convertedDate = dateFormat.parse(dateString);
+                                        } catch (ParseException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                        PrettyTime p  = new PrettyTime();;
+                                        String datetime= p.format(convertedDate);
+                                        holder.userStatus.setText(retMessage2 + "  " + datetime);
                                         if(retMessage==null){
                                             holder.userStatus.setText("");
                                         }
@@ -200,4 +222,11 @@ public class ChatsFragment extends Fragment {
             userName = itemView.findViewById(R.id.user_profile_name);
         }
     }
+
+    public static String truncate(String str, int len) {
+        if (str.length() > len) {
+            return str.substring(0, len) + "...";
+        } else {
+            return str;
+        }}
 }
