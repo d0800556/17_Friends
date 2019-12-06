@@ -49,6 +49,15 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:2.9.2'
     implementation project(path: ':screensharemodule')
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation "android.arch.paging:runtime:1.0.1"
+    implementation 'com.shreyaspatil:FirebaseRecyclerPagination:1.0.1'
+
+
+
+
+
 
 
 }
